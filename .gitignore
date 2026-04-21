@@ -1,0 +1,19 @@
+# Environment-specific config (contains credentials)
+SelfServiceAPI/Web.config
+
+# Keep the template for reference
+!SelfServiceAPI/Web.config.template
+
+# Client config placed at solution root for reference — do not commit
+Web.config
+
+# Build outputs
+SelfServiceAPI/bin/
+SelfServiceAPI/obj/
+DataAccess/bin/
+DataAccess/obj/
+
+# User-specific files
+*.user
+*.suo
+.vs/

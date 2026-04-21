@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  TEMPLATE: Copy this file to Web.config and fill in your environment-specific values.
+  Do NOT commit Web.config with real credentials.
+-->
+<configuration>
+  <configSections>
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+  </configSections>
+  <connectionStrings>
+    <add name="PowerCampusIdentityEntities" connectionString="metadata=res://*/Identity.csdl|res://*/Identity.ssdl|res://*/Identity.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=__DB_SERVER__;initial catalog=__IDENTITY_DB__;user id=__DB_USER__;password=__DB_PASSWORD__;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="ApplicationFormEntities" connectionString="metadata=res://*/Entities.csdl|res://*/Entities.ssdl|res://*/Entities.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=__DB_SERVER__;initial catalog=__APP_DB__;user id=__DB_USER__;password=__DB_PASSWORD__;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+  </connectionStrings>
+  <appSettings>
+    <add key="webpages:Version" value="3.0.0.0" />
+    <add key="webpages:Enabled" value="false" />
+    <add key="ClientValidationEnabled" value="true" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+    <add key="Smtp" value="__SMTP_SERVER__" />
+    <add key="Port" value="587" />
+    <add key="EnableSSL" value="true" />
+    <add key="UserName" value="__SMTP_USERNAME__" />
+    <add key="Password" value="__SMTP_PASSWORD__" />
+    <add key="FromEmail" value="__SMTP_FROM_EMAIL__" />
+    <add key="VerificationURLAccount" value="__API_BASE_URL__/EmailVerification.aspx" />
+    <add key="EmailValidityTimeInHrs" value="72" />
+    <add key="SiblingCodeId" value="11" />
+    <add key="ApplicationId" value="3" />
+    <add key="ApplicationFormSettings" value="1" />
+    <add key="ApplicationProgramSettings" value="1" />
+    <add key="MaxAttachmentNb" value="8" />
+    <add key="NationalityCheck" value="EGYPT" />
+    <add key="Link" value="http://bing.com" />
+    <add key="UnderGraduateProgram" value="1" />
+    <add key="GraduateProgram" value="3" />
+    <add key="MotherRelationId" value="7" />
+    <add key="FatherRelationId" value="4" />
+    <add key="ThanaweyaAmaa" value="1" />
+    <add key="IGCSE" value="28" />
+    <add key="IBDiploma" value="30" />
+    <add key="GCSE" value="49" />
+    <add key="AMERDiploma" value="29" />
+    <add key="defaultPhoneType" value="MOBILE" />
+    <add key="defaultCountry" value="50" />
+    <add key="MaximumSizeErrorLogMB" value="50" />
+    <add key="ErrorLogs" value="__ERROR_LOG_PATH__" />
+    <add key="NumberOfTestType" value="5" />
+    <add key="PaymentGatewayURL" value="__PAYMENT_GATEWAY_URL__" />
+    <add key="East" value="1" />
+    <add key="West" value="731" />
+    <add key="TransferCurrId" value="59" />
+    <add key="merchantID" value="__MERCHANT_ID__"/>
+    <add key="APIBaseURLcallback" value="__API_BASE_URL__"/>
+    <add key="ApplicationLink" value="__FRONTEND_URL__" />
+  </appSettings>
+  <!--
+    Remaining sections (system.web, runtime, system.codedom, entityFramework, system.webServer)
+    are identical across environments — copy from an existing Web.config.
+  -->
+</configuration>
