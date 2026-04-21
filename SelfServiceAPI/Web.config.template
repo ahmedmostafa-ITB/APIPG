@@ -2,6 +2,27 @@
 <!--
   TEMPLATE: Copy this file to Web.config and fill in your environment-specific values.
   Do NOT commit Web.config with real credentials.
+
+  IIS HOSTING — multiple clients on one machine
+  ==============================================================
+  Recommended: one IIS Site per client with a dedicated App Pool.
+  Each site uses a different port. The API is deployed as an IIS
+  Application under the site (e.g. /APITest), and the frontend
+  build output as another (e.g. /PGApplicationForm).
+
+    IIS
+    ├── TKH (Site, port 8010, AppPool: TKH)
+    │   ├── /APITest              ← this API
+    │   └── /PGApplicationForm    ← frontend build
+    │
+    ├── ClientB (Site, port 8020, AppPool: ClientB)
+    │   ├── /APITest
+    │   └── /PGApplicationForm
+
+  URL placeholders below should use the client's site port:
+    __API_BASE_URL__  = http://localhost:8010/APITest
+    __FRONTEND_URL__  = http://localhost:8010/PGApplicationForm
+  ==============================================================
 -->
 <configuration>
   <configSections>
