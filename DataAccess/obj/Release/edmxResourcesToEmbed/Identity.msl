@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PowerCampusIdentityModelStoreContainer" CdmEntityContainer="PowerCampusIdentityEntities">
+    <EntitySetMapping Name="IdentityApplications">
+      <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityApplication">
+        <MappingFragment StoreEntitySet="IdentityApplication">
+          <ScalarProperty Name="IdentityApplicationId" ColumnName="IdentityApplicationId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IdentityApplicationCatalogs">
+      <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityApplicationCatalog">
+        <MappingFragment StoreEntitySet="IdentityApplicationCatalog">
+          <ScalarProperty Name="IdentityApplicationCatalogId" ColumnName="IdentityApplicationCatalogId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IdentityApplicationId" ColumnName="IdentityApplicationId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IdentityApplicationConfigs">
+      <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityApplicationConfig">
+        <MappingFragment StoreEntitySet="IdentityApplicationConfig">
+          <ScalarProperty Name="IdentityApplicationConfigId" ColumnName="IdentityApplicationConfigId" />
+          <ScalarProperty Name="IdentityApplicationId" ColumnName="IdentityApplicationId" />
+          <ScalarProperty Name="AuthenticationMode" ColumnName="AuthenticationMode" />
+          <ScalarProperty Name="Timeout" ColumnName="Timeout" />
+          <ScalarProperty Name="PasswordMinLength" ColumnName="PasswordMinLength" />
+          <ScalarProperty Name="PasswordUpperCaseRequired" ColumnName="PasswordUpperCaseRequired" />
+          <ScalarProperty Name="PasswordLowerCaseRequired" ColumnName="PasswordLowerCaseRequired" />
+          <ScalarProperty Name="PasswordDigitsRequired" ColumnName="PasswordDigitsRequired" />
+          <ScalarProperty Name="PasswordSymbolsRequired" ColumnName="PasswordSymbolsRequired" />
+          <ScalarProperty Name="ADServer" ColumnName="ADServer" />
+          <ScalarProperty Name="ADContainer" ColumnName="ADContainer" />
+          <ScalarProperty Name="ADUser" ColumnName="ADUser" />
+          <ScalarProperty Name="ADPassword" ColumnName="ADPassword" />
+          <ScalarProperty Name="ADFSMetadataAddress" ColumnName="ADFSMetadataAddress" />
+          <ScalarProperty Name="ADFSWtRealm" ColumnName="ADFSWtRealm" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IdentityClaims">
+      <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityClaim">
+        <MappingFragment StoreEntitySet="IdentityClaim">
+          <ScalarProperty Name="IdentityClaimId" ColumnName="IdentityClaimId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="ClaimName" ColumnName="ClaimName" />
+          <ScalarProperty Name="IsCustom" ColumnName="IsCustom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IdentityRoles">
+      <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityRole">
+        <MappingFragment StoreEntitySet="IdentityRole">
+          <ScalarProperty Name="IdentityRoleId" ColumnName="IdentityRoleId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IdentityRoleClaims">
+      <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityRoleClaim">
+        <MappingFragment StoreEntitySet="IdentityRoleClaim">
+          <ScalarProperty Name="IdentityRoleClaimId" ColumnName="IdentityRoleClaimId" />
+          <ScalarProperty Name="IdentityRoleId" ColumnName="IdentityRoleId" />
+          <ScalarProperty Name="IdentityClaimId" ColumnName="IdentityClaimId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IdentityUsers">
+      <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityUser">
+        <MappingFragment StoreEntitySet="IdentityUser">
+          <ScalarProperty Name="IdentityUserId" ColumnName="IdentityUserId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+          <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+          <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+          <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+          <ScalarProperty Name="CreateDatetime" ColumnName="CreateDatetime" />
+          <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IdentityUserRoles">
+      <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityUserRole">
+        <MappingFragment StoreEntitySet="IdentityUserRole">
+          <ScalarProperty Name="IdentityUserRoleId" ColumnName="IdentityUserRoleId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IdentityUserStores">
+      <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityUserStore">
+        <MappingFragment StoreEntitySet="IdentityUserStore">
+          <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+          <ScalarProperty Name="UserStoreName" ColumnName="UserStoreName" />
+          <ScalarProperty Name="Mode" ColumnName="Mode" />
+          <ScalarProperty Name="CreateDatetime" ColumnName="CreateDatetime" />
+          <ScalarProperty Name="RevisionDatetime" ColumnName="RevisionDatetime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DBUpgradeProcesses">
+      <EntityTypeMapping TypeName="PowerCampusIdentityModel.DBUpgradeProcess">
+        <MappingFragment StoreEntitySet="DBUpgradeProcess">
+          <ScalarProperty Name="DBUpgradeProcessId" ColumnName="DBUpgradeProcessId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreateDatetime" ColumnName="CreateDatetime" />
+          <ScalarProperty Name="StartCount" ColumnName="StartCount" />
+          <ScalarProperty Name="DateLastStarted" ColumnName="DateLastStarted" />
+          <ScalarProperty Name="DateLastSucceeded" ColumnName="DateLastSucceeded" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DBVersionHistories">
+      <EntityTypeMapping TypeName="PowerCampusIdentityModel.DBVersionHistory">
+        <MappingFragment StoreEntitySet="DBVersionHistory">
+          <ScalarProperty Name="DBVersionHistoryId" ColumnName="DBVersionHistoryId" />
+          <ScalarProperty Name="CreateDatetime" ColumnName="CreateDatetime" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="Build" ColumnName="Build" />
+          <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+          <ScalarProperty Name="AppName" ColumnName="AppName" />
+          <ScalarProperty Name="HostName" ColumnName="HostName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReleaseInfoes">
+      <EntityTypeMapping TypeName="PowerCampusIdentityModel.ReleaseInfo">
+        <MappingFragment StoreEntitySet="ReleaseInfo">
+          <ScalarProperty Name="ReleaseInfoId" ColumnName="ReleaseInfoId" />
+          <ScalarProperty Name="Version" ColumnName="Version" />
+          <ScalarProperty Name="Build" ColumnName="Build" />
+          <ScalarProperty Name="BuildDate" ColumnName="BuildDate" />
+          <ScalarProperty Name="UpgradeDate" ColumnName="UpgradeDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Dependants">
+      <EntityTypeMapping TypeName="PowerCampusIdentityModel.Dependant">
+        <MappingFragment StoreEntitySet="Dependants">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="object_id" ColumnName="object_id" />
+          <ScalarProperty Name="schema_name" ColumnName="schema_name" />
+          <ScalarProperty Name="table_name" ColumnName="table_name" />
+          <ScalarProperty Name="dependant_name" ColumnName="dependant_name" />
+          <ScalarProperty Name="execution_order" ColumnName="execution_order" />
+          <ScalarProperty Name="type" ColumnName="type" />
+          <ScalarProperty Name="DropSql" ColumnName="DropSql" />
+          <ScalarProperty Name="CreateSql" ColumnName="CreateSql" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TargetColumns">
+      <EntityTypeMapping TypeName="PowerCampusIdentityModel.TargetColumn">
+        <MappingFragment StoreEntitySet="TargetColumns">
+          <ScalarProperty Name="column_sort" ColumnName="column_sort" />
+          <ScalarProperty Name="object_id" ColumnName="object_id" />
+          <ScalarProperty Name="column_id" ColumnName="column_id" />
+          <ScalarProperty Name="schema_name" ColumnName="schema_name" />
+          <ScalarProperty Name="table_name" ColumnName="table_name" />
+          <ScalarProperty Name="column_name" ColumnName="column_name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TargetTables">
+      <EntityTypeMapping TypeName="PowerCampusIdentityModel.TargetTable">
+        <MappingFragment StoreEntitySet="TargetTables">
+          <ScalarProperty Name="table_sort" ColumnName="table_sort" />
+          <ScalarProperty Name="object_id" ColumnName="object_id" />
+          <ScalarProperty Name="schema_name" ColumnName="schema_name" />
+          <ScalarProperty Name="table_name" ColumnName="table_name" />
+          <ScalarProperty Name="space_used" ColumnName="space_used" />
+          <ScalarProperty Name="cum_space_used" ColumnName="cum_space_used" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spAddSystemErrorMessages" FunctionName="PowerCampusIdentityModel.Store.spAddSystemErrorMessages" />
+    <FunctionImportMapping FunctionImportName="spDelApplicationById" FunctionName="PowerCampusIdentityModel.Store.spDelApplicationById" />
+    <FunctionImportMapping FunctionImportName="spDelClaimById" FunctionName="PowerCampusIdentityModel.Store.spDelClaimById" />
+    <FunctionImportMapping FunctionImportName="spDelIdentityUserStore" FunctionName="PowerCampusIdentityModel.Store.spDelIdentityUserStore" />
+    <FunctionImportMapping FunctionImportName="spDelRoleById" FunctionName="PowerCampusIdentityModel.Store.spDelRoleById" />
+    <FunctionImportMapping FunctionImportName="spDelRoleClaimByRoleId" FunctionName="PowerCampusIdentityModel.Store.spDelRoleClaimByRoleId" />
+    <FunctionImportMapping FunctionImportName="spDelUserById" FunctionName="PowerCampusIdentityModel.Store.spDelUserById" />
+    <FunctionImportMapping FunctionImportName="spDelUserRole" FunctionName="PowerCampusIdentityModel.Store.spDelUserRole" />
+    <FunctionImportMapping FunctionImportName="spGetApplicationById" FunctionName="PowerCampusIdentityModel.Store.spGetApplicationById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetApplicationById_Result">
+          <ScalarProperty Name="IdentityApplicationId" ColumnName="IdentityApplicationId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetApplications" FunctionName="PowerCampusIdentityModel.Store.spGetApplications">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetApplications_Result">
+          <ScalarProperty Name="IdentityApplicationId" ColumnName="IdentityApplicationId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+          <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetApplicationsCatalog" FunctionName="PowerCampusIdentityModel.Store.spGetApplicationsCatalog">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetApplicationsCatalog_Result">
+          <ScalarProperty Name="IdentityApplicationCatalogId" ColumnName="IdentityApplicationCatalogId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IdentityApplicationId" ColumnName="IdentityApplicationId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetClaimById" FunctionName="PowerCampusIdentityModel.Store.spGetClaimById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetClaimById_Result">
+          <ScalarProperty Name="IdentityClaimId" ColumnName="IdentityClaimId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="ClaimName" ColumnName="ClaimName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetClaims" FunctionName="PowerCampusIdentityModel.Store.spGetClaims">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetClaims_Result">
+          <ScalarProperty Name="IdentityClaimId" ColumnName="IdentityClaimId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="ClaimName" ColumnName="ClaimName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetClaimsByRoleAndGroup" FunctionName="PowerCampusIdentityModel.Store.spGetClaimsByRoleAndGroup">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetClaimsByRoleAndGroup_Result">
+          <ScalarProperty Name="IdentityRoleClaimId" ColumnName="IdentityRoleClaimId" />
+          <ScalarProperty Name="IdentityRoleId" ColumnName="IdentityRoleId" />
+          <ScalarProperty Name="IdentityClaimId" ColumnName="IdentityClaimId" />
+          <ScalarProperty Name="ClaimName" ColumnName="ClaimName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetClaimsByRoleId" FunctionName="PowerCampusIdentityModel.Store.spGetClaimsByRoleId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetClaimsByRoleId_Result">
+          <ScalarProperty Name="IdentityClaimId" ColumnName="IdentityClaimId" />
+          <ScalarProperty Name="ClaimName" ColumnName="ClaimName" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetClaimsByUserId" FunctionName="PowerCampusIdentityModel.Store.spGetClaimsByUserId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetClaimsByUserId_Result">
+          <ScalarProperty Name="IdentityClaimId" ColumnName="IdentityClaimId" />
+          <ScalarProperty Name="ClaimName" ColumnName="ClaimName" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetIdentityApplicationConfigByApplication" FunctionName="PowerCampusIdentityModel.Store.spGetIdentityApplicationConfigByApplication">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetIdentityApplicationConfigByApplication_Result">
+          <ScalarProperty Name="IdentityApplicationConfigId" ColumnName="IdentityApplicationConfigId" />
+          <ScalarProperty Name="IdentityApplicationId" ColumnName="IdentityApplicationId" />
+          <ScalarProperty Name="AuthenticationMode" ColumnName="AuthenticationMode" />
+          <ScalarProperty Name="Timeout" ColumnName="Timeout" />
+          <ScalarProperty Name="PasswordMinLength" ColumnName="PasswordMinLength" />
+          <ScalarProperty Name="PasswordUpperCaseRequired" ColumnName="PasswordUpperCaseRequired" />
+          <ScalarProperty Name="PasswordLowerCaseRequired" ColumnName="PasswordLowerCaseRequired" />
+          <ScalarProperty Name="PasswordDigitsRequired" ColumnName="PasswordDigitsRequired" />
+          <ScalarProperty Name="PasswordSymbolsRequired" ColumnName="PasswordSymbolsRequired" />
+          <ScalarProperty Name="ADServer" ColumnName="ADServer" />
+          <ScalarProperty Name="ADContainer" ColumnName="ADContainer" />
+          <ScalarProperty Name="ADUser" ColumnName="ADUser" />
+          <ScalarProperty Name="ADPassword" ColumnName="ADPassword" />
+          <ScalarProperty Name="ADFSMetadataAddress" ColumnName="ADFSMetadataAddress" />
+          <ScalarProperty Name="ADFSWtRealm" ColumnName="ADFSWtRealm" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetIdentityUserStore" FunctionName="PowerCampusIdentityModel.Store.spGetIdentityUserStore">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetIdentityUserStore_Result">
+          <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+          <ScalarProperty Name="UserStoreName" ColumnName="UserStoreName" />
+          <ScalarProperty Name="Mode" ColumnName="Mode" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="InUse" ColumnName="InUse" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetIdentityUserStoreById" FunctionName="PowerCampusIdentityModel.Store.spGetIdentityUserStoreById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetIdentityUserStoreById_Result">
+          <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+          <ScalarProperty Name="UserStoreName" ColumnName="UserStoreName" />
+          <ScalarProperty Name="Mode" ColumnName="Mode" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetIdentityUserStoreByUserStoreName" FunctionName="PowerCampusIdentityModel.Store.spGetIdentityUserStoreByUserStoreName">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetIdentityUserStoreByUserStoreName_Result">
+          <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+          <ScalarProperty Name="UserStoreName" ColumnName="UserStoreName" />
+          <ScalarProperty Name="Mode" ColumnName="Mode" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetRoleById" FunctionName="PowerCampusIdentityModel.Store.spGetRoleById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetRoleById_Result">
+          <ScalarProperty Name="IdentityRoleId" ColumnName="IdentityRoleId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetRoleByName" FunctionName="PowerCampusIdentityModel.Store.spGetRoleByName">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetRoleByName_Result">
+          <ScalarProperty Name="IdentityRoleId" ColumnName="IdentityRoleId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetRoles" FunctionName="PowerCampusIdentityModel.Store.spGetRoles">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetRoles_Result">
+          <ScalarProperty Name="IdentityRoleId" ColumnName="IdentityRoleId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetRolesByUserId" FunctionName="PowerCampusIdentityModel.Store.spGetRolesByUserId">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetRolesByUserId_Result">
+          <ScalarProperty Name="IdentityRoleId" ColumnName="IdentityRoleId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+          <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetUserByEmail" FunctionName="PowerCampusIdentityModel.Store.spGetUserByEmail">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetUserByEmail_Result">
+          <ScalarProperty Name="IdentityUserId" ColumnName="IdentityUserId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetUserById" FunctionName="PowerCampusIdentityModel.Store.spGetUserById">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetUserById_Result">
+          <ScalarProperty Name="IdentityUserId" ColumnName="IdentityUserId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+          <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetUserByName" FunctionName="PowerCampusIdentityModel.Store.spGetUserByName">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetUserByName_Result">
+          <ScalarProperty Name="IdentityUserId" ColumnName="IdentityUserId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+          <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spGetUsers" FunctionName="PowerCampusIdentityModel.Store.spGetUsers">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetUsers_Result">
+          <ScalarProperty Name="IdentityUserId" ColumnName="IdentityUserId" />
+          <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+          <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="spInsApplication" FunctionName="PowerCampusIdentityModel.Store.spInsApplication" />
+    <FunctionImportMapping FunctionImportName="spInsClaimByApplicationId" FunctionName="PowerCampusIdentityModel.Store.spInsClaimByApplicationId" />
+    <FunctionImportMapping FunctionImportName="spInsDefaultClaims" FunctionName="PowerCampusIdentityModel.Store.spInsDefaultClaims" />
+    <FunctionImportMapping FunctionImportName="spInsIdentityUserStore" FunctionName="PowerCampusIdentityModel.Store.spInsIdentityUserStore" />
+    <FunctionImportMapping FunctionImportName="spInsRoleByApplicationId" FunctionName="PowerCampusIdentityModel.Store.spInsRoleByApplicationId" />
+    <FunctionImportMapping FunctionImportName="spInsRoleClaim" FunctionName="PowerCampusIdentityModel.Store.spInsRoleClaim" />
+    <FunctionImportMapping FunctionImportName="spInsUserByApplicationId" FunctionName="PowerCampusIdentityModel.Store.spInsUserByApplicationId" />
+    <FunctionImportMapping FunctionImportName="spInsUserRole" FunctionName="PowerCampusIdentityModel.Store.spInsUserRole" />
+    <FunctionImportMapping FunctionImportName="spRethrowError" FunctionName="PowerCampusIdentityModel.Store.spRethrowError" />
+    <FunctionImportMapping FunctionImportName="spUpdApplicationById" FunctionName="PowerCampusIdentityModel.Store.spUpdApplicationById" />
+    <FunctionImportMapping FunctionImportName="spUpdApplicationCatalogById" FunctionName="PowerCampusIdentityModel.Store.spUpdApplicationCatalogById" />
+    <FunctionImportMapping FunctionImportName="spUpdClaimById" FunctionName="PowerCampusIdentityModel.Store.spUpdClaimById" />
+    <FunctionImportMapping FunctionImportName="spUpdIdentityUserStore" FunctionName="PowerCampusIdentityModel.Store.spUpdIdentityUserStore" />
+    <FunctionImportMapping FunctionImportName="spUpdRoleById" FunctionName="PowerCampusIdentityModel.Store.spUpdRoleById" />
+    <FunctionImportMapping FunctionImportName="spUpdUserById" FunctionName="PowerCampusIdentityModel.Store.spUpdUserById" />
+    <FunctionImportMapping FunctionImportName="spUtilSetColumnProperty" FunctionName="PowerCampusIdentityModel.Store.spUtilSetColumnProperty" />
+    <FunctionImportMapping FunctionImportName="spUtilSetObjectProperty" FunctionName="PowerCampusIdentityModel.Store.spUtilSetObjectProperty" />
+    <FunctionImportMapping FunctionImportName="spCompleteUpgradeProcess" FunctionName="PowerCampusIdentityModel.Store.spCompleteUpgradeProcess" />
+    <FunctionImportMapping FunctionImportName="spInsDBVersionHistory" FunctionName="PowerCampusIdentityModel.Store.spInsDBVersionHistory" />
+    <FunctionImportMapping FunctionImportName="spStartUpgradeProcess" FunctionName="PowerCampusIdentityModel.Store.spStartUpgradeProcess" />
+    <FunctionImportMapping FunctionImportName="spUpdDatabaseVersionAndBuildNumber" FunctionName="PowerCampusIdentityModel.Store.spUpdDatabaseVersionAndBuildNumber" />
+    <FunctionImportMapping FunctionImportName="spDropAllUtilityObjects" FunctionName="PowerCampusIdentityModel.Store.spDropAllUtilityObjects" />
+    <FunctionImportMapping FunctionImportName="spGenerateCreateDependantStatements" FunctionName="PowerCampusIdentityModel.Store.spGenerateCreateDependantStatements" />
+    <FunctionImportMapping FunctionImportName="spOutputCopyTableStatements" FunctionName="PowerCampusIdentityModel.Store.spOutputCopyTableStatements" />
+    <FunctionImportMapping FunctionImportName="spOutputCreateDependantStatements" FunctionName="PowerCampusIdentityModel.Store.spOutputCreateDependantStatements" />
+    <FunctionImportMapping FunctionImportName="spOutputCreateTableStatements" FunctionName="PowerCampusIdentityModel.Store.spOutputCreateTableStatements" />
+    <FunctionImportMapping FunctionImportName="spOutputDropDependantStatements" FunctionName="PowerCampusIdentityModel.Store.spOutputDropDependantStatements" />
+    <FunctionImportMapping FunctionImportName="spSetExtendedProperty" FunctionName="PowerCampusIdentityModel.Store.spSetExtendedProperty" />
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6a9966df96f64984aea63b0e399d3d94" Name="Diagram1">
+        <EntityTypeShape EntityType="PowerCampusIdentityModel.IdentityApplication" Width="1.5" PointX="2.75" PointY="6.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerCampusIdentityModel.IdentityApplicationCatalog" Width="1.5" PointX="5" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerCampusIdentityModel.IdentityApplicationConfig" Width="1.5" PointX="5" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerCampusIdentityModel.IdentityClaim" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerCampusIdentityModel.IdentityRole" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerCampusIdentityModel.IdentityRoleClaim" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerCampusIdentityModel.IdentityUser" Width="1.5" PointX="10" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerCampusIdentityModel.IdentityUserRole" Width="1.5" PointX="7.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerCampusIdentityModel.IdentityUserStore" Width="1.5" PointX="7.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerCampusIdentityModel.DBUpgradeProcess" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerCampusIdentityModel.DBVersionHistory" Width="1.5" PointX="0.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerCampusIdentityModel.ReleaseInfo" Width="1.5" PointX="9.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerCampusIdentityModel.Dependant" Width="1.5" PointX="9.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerCampusIdentityModel.TargetColumn" Width="1.5" PointX="2.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="PowerCampusIdentityModel.TargetTable" Width="1.5" PointX="4.75" PointY="11.75" IsExpanded="true" />
+        <AssociationConnector Association="PowerCampusIdentityModel.fkIdentityApplicationCatalog_ApplicationId" ManuallyRouted="false" />
+        <AssociationConnector Association="PowerCampusIdentityModel.fkIdentityApplicationConfig_IdentityApplicaton" ManuallyRouted="false" />
+        <AssociationConnector Association="PowerCampusIdentityModel.fkIdentityRoleClaim_IdentityClaimId" ManuallyRouted="false" />
+        <AssociationConnector Association="PowerCampusIdentityModel.fkIdentityRoleClaim_IdentityRoleId" ManuallyRouted="false" />
+        <AssociationConnector Association="PowerCampusIdentityModel.fkIdentityUser_IdentityUserStoreId" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

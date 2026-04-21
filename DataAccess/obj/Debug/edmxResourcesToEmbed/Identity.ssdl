@@ -1,0 +1,585 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PowerCampusIdentityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="IdentityApplication">
+    <Key>
+      <PropertyRef Name="IdentityApplicationId" />
+    </Key>
+    <Property Name="IdentityApplicationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ApplicationName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="LoweredApplicationName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="256" />
+  </EntityType>
+  <EntityType Name="IdentityApplicationCatalog">
+    <Key>
+      <PropertyRef Name="IdentityApplicationCatalogId" />
+    </Key>
+    <Property Name="IdentityApplicationCatalogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="IdentityApplicationId" Type="int" />
+  </EntityType>
+  <EntityType Name="IdentityApplicationConfig">
+    <Key>
+      <PropertyRef Name="IdentityApplicationConfigId" />
+    </Key>
+    <Property Name="IdentityApplicationConfigId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdentityApplicationId" Type="int" Nullable="false" />
+    <Property Name="AuthenticationMode" Type="tinyint" Nullable="false" />
+    <Property Name="Timeout" Type="int" Nullable="false" />
+    <Property Name="PasswordMinLength" Type="int" Nullable="false" />
+    <Property Name="PasswordUpperCaseRequired" Type="bit" Nullable="false" />
+    <Property Name="PasswordLowerCaseRequired" Type="bit" Nullable="false" />
+    <Property Name="PasswordDigitsRequired" Type="bit" Nullable="false" />
+    <Property Name="PasswordSymbolsRequired" Type="bit" Nullable="false" />
+    <Property Name="ADServer" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="ADContainer" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="ADUser" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="ADPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="ADFSMetadataAddress" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="ADFSWtRealm" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IdentityClaim">
+    <Key>
+      <PropertyRef Name="IdentityClaimId" />
+    </Key>
+    <Property Name="IdentityClaimId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ClaimName" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="IsCustom" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IdentityRole">
+    <Key>
+      <PropertyRef Name="IdentityRoleId" />
+    </Key>
+    <Property Name="IdentityRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RoleName" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IdentityRoleClaim">
+    <Key>
+      <PropertyRef Name="IdentityRoleClaimId" />
+    </Key>
+    <Property Name="IdentityRoleClaimId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdentityRoleId" Type="int" Nullable="false" />
+    <Property Name="IdentityClaimId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IdentityUser">
+    <Key>
+      <PropertyRef Name="IdentityUserId" />
+    </Key>
+    <Property Name="IdentityUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="LoweredUserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="LoweredEmail" Type="nvarchar" MaxLength="255" />
+    <Property Name="Password" Type="nvarchar" MaxLength="255" />
+    <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+    <Property Name="LastLoginDate" Type="datetime" />
+    <Property Name="LastPasswordChangedDate" Type="datetime" />
+    <Property Name="LastLockoutDate" Type="datetime" />
+    <Property Name="CreateDatetime" Type="datetime" Nullable="false" />
+    <Property Name="IdentityUserStoreId" Type="int" />
+  </EntityType>
+  <EntityType Name="IdentityUserRole">
+    <Key>
+      <PropertyRef Name="IdentityUserRoleId" />
+    </Key>
+    <Property Name="IdentityUserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <EntityType Name="IdentityUserStore">
+    <Key>
+      <PropertyRef Name="IdentityUserStoreId" />
+    </Key>
+    <Property Name="IdentityUserStoreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserStoreName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Mode" Type="tinyint" />
+    <Property Name="CreateDatetime" Type="datetime" Nullable="false" />
+    <Property Name="RevisionDatetime" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="DBUpgradeProcess">
+    <Key>
+      <PropertyRef Name="DBUpgradeProcessId" />
+    </Key>
+    <Property Name="DBUpgradeProcessId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="CreateDatetime" Type="datetime" Nullable="false" />
+    <Property Name="StartCount" Type="int" Nullable="false" />
+    <Property Name="DateLastStarted" Type="datetime" Nullable="false" />
+    <Property Name="DateLastSucceeded" Type="datetime" />
+  </EntityType>
+  <EntityType Name="DBVersionHistory">
+    <Key>
+      <PropertyRef Name="DBVersionHistoryId" />
+    </Key>
+    <Property Name="DBVersionHistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CreateDatetime" Type="datetime" Nullable="false" />
+    <Property Name="Version" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Build" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="OperatorId" Type="nvarchar" MaxLength="8" Nullable="false" />
+    <Property Name="AppName" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="HostName" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReleaseInfo">
+    <Key>
+      <PropertyRef Name="ReleaseInfoId" />
+    </Key>
+    <Property Name="ReleaseInfoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Version" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Build" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="BuildDate" Type="datetime" Nullable="false" />
+    <Property Name="UpgradeDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Dependants">
+    <Key>
+      <PropertyRef Name="schema_name" />
+      <PropertyRef Name="table_name" />
+      <PropertyRef Name="dependant_name" />
+      <PropertyRef Name="execution_order" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="object_id" Type="int" Nullable="false" />
+    <Property Name="schema_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="table_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="dependant_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="execution_order" Type="tinyint" Nullable="false" />
+    <Property Name="type" Type="nvarchar" MaxLength="2" Nullable="false" />
+    <Property Name="DropSql" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="CreateSql" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TargetColumns">
+    <Key>
+      <PropertyRef Name="column_sort" />
+    </Key>
+    <Property Name="column_sort" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="object_id" Type="int" Nullable="false" />
+    <Property Name="column_id" Type="int" Nullable="false" />
+    <Property Name="schema_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="table_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="column_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TargetTables">
+    <Key>
+      <PropertyRef Name="table_sort" />
+    </Key>
+    <Property Name="table_sort" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="object_id" Type="int" Nullable="false" />
+    <Property Name="schema_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="table_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="space_used" Type="bigint" Nullable="false" />
+    <Property Name="cum_space_used" Type="bigint" Nullable="false" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'fkIdentityApplication_ApplicationId' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="fkIdentityApplication_ApplicationId" />-->
+  <Association Name="fkIdentityApplicationCatalog_ApplicationId">
+    <End Role="IdentityApplication" Type="Self.IdentityApplication" Multiplicity="0..1" />
+    <End Role="IdentityApplicationCatalog" Type="Self.IdentityApplicationCatalog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IdentityApplication">
+        <PropertyRef Name="IdentityApplicationId" />
+      </Principal>
+      <Dependent Role="IdentityApplicationCatalog">
+        <PropertyRef Name="IdentityApplicationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkIdentityApplicationConfig_IdentityApplicaton">
+    <End Role="IdentityApplication" Type="Self.IdentityApplication" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IdentityApplicationConfig" Type="Self.IdentityApplicationConfig" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IdentityApplication">
+        <PropertyRef Name="IdentityApplicationId" />
+      </Principal>
+      <Dependent Role="IdentityApplicationConfig">
+        <PropertyRef Name="IdentityApplicationId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'fkIdentityRole_ApplicationId' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="fkIdentityRole_ApplicationId" />-->
+  <Association Name="fkIdentityRoleClaim_IdentityClaimId">
+    <End Role="IdentityClaim" Type="Self.IdentityClaim" Multiplicity="1" />
+    <End Role="IdentityRoleClaim" Type="Self.IdentityRoleClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IdentityClaim">
+        <PropertyRef Name="IdentityClaimId" />
+      </Principal>
+      <Dependent Role="IdentityRoleClaim">
+        <PropertyRef Name="IdentityClaimId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fkIdentityRoleClaim_IdentityRoleId">
+    <End Role="IdentityRole" Type="Self.IdentityRole" Multiplicity="1" />
+    <End Role="IdentityRoleClaim" Type="Self.IdentityRoleClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IdentityRole">
+        <PropertyRef Name="IdentityRoleId" />
+      </Principal>
+      <Dependent Role="IdentityRoleClaim">
+        <PropertyRef Name="IdentityRoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'fkIdentityUser_ApplicationId' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="fkIdentityUser_ApplicationId" />-->
+  <Association Name="fkIdentityUser_IdentityUserStoreId">
+    <End Role="IdentityUserStore" Type="Self.IdentityUserStore" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="IdentityUser" Type="Self.IdentityUser" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IdentityUserStore">
+        <PropertyRef Name="IdentityUserStoreId" />
+      </Principal>
+      <Dependent Role="IdentityUser">
+        <PropertyRef Name="IdentityUserStoreId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'fkIdentityUserRole_IdentityRole' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="fkIdentityUserRole_IdentityRole" />-->
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'fkIdentityUserRole_IdentityUser' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="fkIdentityUserRole_IdentityUser" />-->
+  <Function Name="fnIsRoleAssigned" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth" ReturnType="bit">
+    <Parameter Name="RoleName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spAddSystemErrorMessages" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth" />
+  <Function Name="spDelApplicationById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityApplicationId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spDelClaimById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityClaimId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spDelIdentityUserStore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityUserStoreId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spDelRoleById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityRoleId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spDelRoleClaimByRoleId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityRoleId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spDelUserById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityUserId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spDelUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityUserId" Type="int" Mode="In" />
+    <Parameter Name="RoleName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spGetApplicationById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityApplicationId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetApplications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spGetApplicationsCatalog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth" />
+  <Function Name="spGetClaimById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityClaimId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetClaims" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="ClaimName" Type="nvarchar" Mode="In" />
+    <Parameter Name="ApplicationId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spGetClaimsByRoleAndGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="RoleName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Group" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spGetClaimsByRoleId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityRoleId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetClaimsByUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityUserId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetIdentityApplicationConfigByApplication" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityApplicationId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetIdentityUserStore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth" />
+  <Function Name="spGetIdentityUserStoreById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityUserStoreId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetIdentityUserStoreByUserStoreName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="UserStoreName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spGetRoleById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityRoleId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetRoleByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="RoleName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spGetRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth" />
+  <Function Name="spGetRolesByUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityUserId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetUserByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="Email" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spGetUserById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityUserId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spGetUserByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spGetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+    <Parameter Name="ApplicationId" Type="nvarchar" Mode="In" />
+    <Parameter Name="PageSize" Type="int" Mode="In" />
+    <Parameter Name="Page" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spInsApplication" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="ApplicationId" Type="uniqueidentifier" Mode="In" />
+    <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Description" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spInsClaimByApplicationId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="ApplicationId" Type="uniqueidentifier" Mode="In" />
+    <Parameter Name="ClaimName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spInsDefaultClaims" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="ApplicationId" Type="uniqueidentifier" Mode="In" />
+  </Function>
+  <Function Name="spInsIdentityUserStore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityUserStoreId" Type="int" Mode="InOut" />
+    <Parameter Name="UserStoreName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Mode" Type="tinyint" Mode="In" />
+  </Function>
+  <Function Name="spInsRoleByApplicationId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="ApplicationId" Type="uniqueidentifier" Mode="In" />
+    <Parameter Name="RoleName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="spInsRoleClaim" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityRoleId" Type="int" Mode="In" />
+    <Parameter Name="IdentityClaimId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spInsUserByApplicationId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="ApplicationId" Type="uniqueidentifier" Mode="In" />
+    <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Email" Type="nvarchar" Mode="In" />
+    <Parameter Name="Password" Type="nvarchar" Mode="In" />
+    <Parameter Name="IdentityUserStoreId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spInsUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityUserId" Type="int" Mode="In" />
+    <Parameter Name="RoleName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spRethrowError" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="ErrorMessage" Type="nvarchar" Mode="InOut" />
+    <Parameter Name="ErrorNumber" Type="int" Mode="InOut" />
+    <Parameter Name="ErrorSeverity" Type="int" Mode="InOut" />
+    <Parameter Name="ErrorState" Type="int" Mode="InOut" />
+    <Parameter Name="ErrorLine" Type="int" Mode="InOut" />
+    <Parameter Name="ErrorProcedure" Type="nvarchar" Mode="InOut" />
+  </Function>
+  <Function Name="spUpdApplicationById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityApplicationId" Type="int" Mode="In" />
+    <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Description" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spUpdApplicationCatalogById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityApplicationCatalogId" Type="int" Mode="In" />
+    <Parameter Name="IdentityApplicationId" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spUpdClaimById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityClaimId" Type="int" Mode="In" />
+    <Parameter Name="ClaimName" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spUpdIdentityUserStore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityUserStoreId" Type="int" Mode="In" />
+    <Parameter Name="UserStoreName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Mode" Type="tinyint" Mode="In" />
+  </Function>
+  <Function Name="spUpdRoleById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityRoleId" Type="int" Mode="In" />
+    <Parameter Name="RoleName" Type="varchar" Mode="In" />
+  </Function>
+  <Function Name="spUpdUserById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="IdentityUserId" Type="int" Mode="In" />
+    <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Email" Type="nvarchar" Mode="In" />
+    <Parameter Name="Password" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spUtilSetColumnProperty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="ObjectName" Type="nvarchar" Mode="In" />
+    <Parameter Name="ColumnName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Description" Type="nvarchar" Mode="In" />
+    <Parameter Name="Schema" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spUtilSetObjectProperty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+    <Parameter Name="ObjectName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Description" Type="nvarchar" Mode="In" />
+    <Parameter Name="Schema" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="fnIsUpgradeProcessComplete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="install" ReturnType="bit">
+    <Parameter Name="Name" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spCompleteUpgradeProcess" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="install">
+    <Parameter Name="Name" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spInsDBVersionHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="install">
+    <Parameter Name="OperatorId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="spStartUpgradeProcess" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="install">
+    <Parameter Name="DBUpgradeProcessId" Type="int" Mode="InOut" />
+    <Parameter Name="Name" Type="nvarchar" Mode="In" />
+    <Parameter Name="SetContextInfo" Type="varbinary" Mode="In" />
+  </Function>
+  <Function Name="spUpdDatabaseVersionAndBuildNumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="install">
+    <Parameter Name="DBVersion" Type="nvarchar" Mode="InOut" />
+    <Parameter Name="DBBuildNumber" Type="nvarchar" Mode="InOut" />
+    <Parameter Name="BuildDate" Type="datetime" Mode="In" />
+    <Parameter Name="OperatorId" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="fnAddExtendedProperty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnCreateCheckConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnCreateDefaultConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnCreateForeignKeyConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnCreateIndex" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+    <Parameter Name="index_name" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="fnCreateNewTableSql" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnCreatePrimaryKeyConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnCreateStatistics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+    <Parameter Name="statistics_name" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="fnCreateTableSql" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnCreateUniqueConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnDropCheckConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnDropDefaultConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnDropForeignKeyConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnDropIndex" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+    <Parameter Name="index_name" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="fnDropOldTableSql" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnDropPrimaryKeyConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnDropStatistics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+    <Parameter Name="statistics_name" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="fnDropUniqueConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnGetSqlVariantConversion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)" />
+  <Function Name="fnInsertIntoNewTableSql" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnListForeignKeyColumns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnListForeignKeyReferencedColumns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnListIndexIncludeColumns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+    <Parameter Name="index_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnListIndexKeyColumns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+    <Parameter Name="index_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnListInsertTableColumns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnListStatisticsColumns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+    <Parameter Name="stats_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnNewTableXactFooterSql" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)" />
+  <Function Name="fnNewTableXactHeaderSql" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="fnRenameNewTableSql" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+    <Parameter Name="object_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="spDropAllUtilityObjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" />
+  <Function Name="spGenerateCreateDependantStatements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" />
+  <Function Name="spOutputCopyTableStatements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" />
+  <Function Name="spOutputCreateDependantStatements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" />
+  <Function Name="spOutputCreateTableStatements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" />
+  <Function Name="spOutputDropDependantStatements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" />
+  <Function Name="spSetExtendedProperty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="util">
+    <Parameter Name="PropertyName" Type="nvarchar" Mode="In" />
+    <Parameter Name="Level0Type" Type="varchar" Mode="In" />
+    <Parameter Name="Level0Name" Type="varchar" Mode="In" />
+    <Parameter Name="Level1Type" Type="varchar" Mode="In" />
+    <Parameter Name="Level1Name" Type="varchar" Mode="In" />
+    <Parameter Name="Level2Type" Type="varchar" Mode="In" />
+    <Parameter Name="Level2Name" Type="varchar" Mode="In" />
+  </Function>
+  <EntityContainer Name="PowerCampusIdentityModelStoreContainer">
+    <EntitySet Name="IdentityApplication" EntityType="Self.IdentityApplication" Schema="auth" store:Type="Tables" />
+    <EntitySet Name="IdentityApplicationCatalog" EntityType="Self.IdentityApplicationCatalog" Schema="auth" store:Type="Tables" />
+    <EntitySet Name="IdentityApplicationConfig" EntityType="Self.IdentityApplicationConfig" Schema="auth" store:Type="Tables" />
+    <EntitySet Name="IdentityClaim" EntityType="Self.IdentityClaim" Schema="auth" store:Type="Tables" />
+    <EntitySet Name="IdentityRole" EntityType="Self.IdentityRole" Schema="auth" store:Type="Tables" />
+    <EntitySet Name="IdentityRoleClaim" EntityType="Self.IdentityRoleClaim" Schema="auth" store:Type="Tables" />
+    <EntitySet Name="IdentityUser" EntityType="Self.IdentityUser" Schema="auth" store:Type="Tables" />
+    <EntitySet Name="IdentityUserRole" EntityType="Self.IdentityUserRole" Schema="auth" store:Type="Tables" />
+    <EntitySet Name="IdentityUserStore" EntityType="Self.IdentityUserStore" Schema="auth" store:Type="Tables" />
+    <EntitySet Name="DBUpgradeProcess" EntityType="Self.DBUpgradeProcess" Schema="install" store:Type="Tables" />
+    <EntitySet Name="DBVersionHistory" EntityType="Self.DBVersionHistory" Schema="install" store:Type="Tables" />
+    <EntitySet Name="ReleaseInfo" EntityType="Self.ReleaseInfo" Schema="install" store:Type="Tables" />
+    <EntitySet Name="Dependants" EntityType="Self.Dependants" Schema="util" store:Type="Tables" />
+    <EntitySet Name="TargetColumns" EntityType="Self.TargetColumns" Schema="util" store:Type="Tables" />
+    <EntitySet Name="TargetTables" EntityType="Self.TargetTables" Schema="util" store:Type="Tables" />
+    <AssociationSet Name="fkIdentityApplicationCatalog_ApplicationId" Association="Self.fkIdentityApplicationCatalog_ApplicationId">
+      <End Role="IdentityApplication" EntitySet="IdentityApplication" />
+      <End Role="IdentityApplicationCatalog" EntitySet="IdentityApplicationCatalog" />
+    </AssociationSet>
+    <AssociationSet Name="fkIdentityApplicationConfig_IdentityApplicaton" Association="Self.fkIdentityApplicationConfig_IdentityApplicaton">
+      <End Role="IdentityApplication" EntitySet="IdentityApplication" />
+      <End Role="IdentityApplicationConfig" EntitySet="IdentityApplicationConfig" />
+    </AssociationSet>
+    <AssociationSet Name="fkIdentityRoleClaim_IdentityClaimId" Association="Self.fkIdentityRoleClaim_IdentityClaimId">
+      <End Role="IdentityClaim" EntitySet="IdentityClaim" />
+      <End Role="IdentityRoleClaim" EntitySet="IdentityRoleClaim" />
+    </AssociationSet>
+    <AssociationSet Name="fkIdentityRoleClaim_IdentityRoleId" Association="Self.fkIdentityRoleClaim_IdentityRoleId">
+      <End Role="IdentityRole" EntitySet="IdentityRole" />
+      <End Role="IdentityRoleClaim" EntitySet="IdentityRoleClaim" />
+    </AssociationSet>
+    <AssociationSet Name="fkIdentityUser_IdentityUserStoreId" Association="Self.fkIdentityUser_IdentityUserStoreId">
+      <End Role="IdentityUserStore" EntitySet="IdentityUserStore" />
+      <End Role="IdentityUser" EntitySet="IdentityUser" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

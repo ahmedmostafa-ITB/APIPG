@@ -1,0 +1,1689 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="PowerCampusIdentityModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="IdentityApplication">
+          <Key>
+            <PropertyRef Name="IdentityApplicationId" />
+          </Key>
+          <Property Name="IdentityApplicationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ApplicationName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="LoweredApplicationName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="IdentityApplicationCatalog">
+          <Key>
+            <PropertyRef Name="IdentityApplicationCatalogId" />
+          </Key>
+          <Property Name="IdentityApplicationCatalogId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="IdentityApplicationId" Type="int" />
+        </EntityType>
+        <EntityType Name="IdentityApplicationConfig">
+          <Key>
+            <PropertyRef Name="IdentityApplicationConfigId" />
+          </Key>
+          <Property Name="IdentityApplicationConfigId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdentityApplicationId" Type="int" Nullable="false" />
+          <Property Name="AuthenticationMode" Type="tinyint" Nullable="false" />
+          <Property Name="Timeout" Type="int" Nullable="false" />
+          <Property Name="PasswordMinLength" Type="int" Nullable="false" />
+          <Property Name="PasswordUpperCaseRequired" Type="bit" Nullable="false" />
+          <Property Name="PasswordLowerCaseRequired" Type="bit" Nullable="false" />
+          <Property Name="PasswordDigitsRequired" Type="bit" Nullable="false" />
+          <Property Name="PasswordSymbolsRequired" Type="bit" Nullable="false" />
+          <Property Name="ADServer" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ADContainer" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ADUser" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ADPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ADFSMetadataAddress" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="ADFSWtRealm" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IdentityClaim">
+          <Key>
+            <PropertyRef Name="IdentityClaimId" />
+          </Key>
+          <Property Name="IdentityClaimId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ClaimName" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="IsCustom" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IdentityRole">
+          <Key>
+            <PropertyRef Name="IdentityRoleId" />
+          </Key>
+          <Property Name="IdentityRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IdentityRoleClaim">
+          <Key>
+            <PropertyRef Name="IdentityRoleClaimId" />
+          </Key>
+          <Property Name="IdentityRoleClaimId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdentityRoleId" Type="int" Nullable="false" />
+          <Property Name="IdentityClaimId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IdentityUser">
+          <Key>
+            <PropertyRef Name="IdentityUserId" />
+          </Key>
+          <Property Name="IdentityUserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ApplicationId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LoweredUserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="255" />
+          <Property Name="LoweredEmail" Type="nvarchar" MaxLength="255" />
+          <Property Name="Password" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="LastPasswordChangedDate" Type="datetime" />
+          <Property Name="LastLockoutDate" Type="datetime" />
+          <Property Name="CreateDatetime" Type="datetime" Nullable="false" />
+          <Property Name="IdentityUserStoreId" Type="int" />
+        </EntityType>
+        <EntityType Name="IdentityUserRole">
+          <Key>
+            <PropertyRef Name="IdentityUserRoleId" />
+          </Key>
+          <Property Name="IdentityUserRoleId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RoleId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IdentityUserStore">
+          <Key>
+            <PropertyRef Name="IdentityUserStoreId" />
+          </Key>
+          <Property Name="IdentityUserStoreId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserStoreName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mode" Type="tinyint" />
+          <Property Name="CreateDatetime" Type="datetime" Nullable="false" />
+          <Property Name="RevisionDatetime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DBUpgradeProcess">
+          <Key>
+            <PropertyRef Name="DBUpgradeProcessId" />
+          </Key>
+          <Property Name="DBUpgradeProcessId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreateDatetime" Type="datetime" Nullable="false" />
+          <Property Name="StartCount" Type="int" Nullable="false" />
+          <Property Name="DateLastStarted" Type="datetime" Nullable="false" />
+          <Property Name="DateLastSucceeded" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DBVersionHistory">
+          <Key>
+            <PropertyRef Name="DBVersionHistoryId" />
+          </Key>
+          <Property Name="DBVersionHistoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreateDatetime" Type="datetime" Nullable="false" />
+          <Property Name="Version" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Build" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="OperatorId" Type="nvarchar" MaxLength="8" Nullable="false" />
+          <Property Name="AppName" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="HostName" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReleaseInfo">
+          <Key>
+            <PropertyRef Name="ReleaseInfoId" />
+          </Key>
+          <Property Name="ReleaseInfoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Version" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Build" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="BuildDate" Type="datetime" Nullable="false" />
+          <Property Name="UpgradeDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Dependants">
+          <Key>
+            <PropertyRef Name="schema_name" />
+            <PropertyRef Name="table_name" />
+            <PropertyRef Name="dependant_name" />
+            <PropertyRef Name="execution_order" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="object_id" Type="int" Nullable="false" />
+          <Property Name="schema_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="table_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="dependant_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="execution_order" Type="tinyint" Nullable="false" />
+          <Property Name="type" Type="nvarchar" MaxLength="2" Nullable="false" />
+          <Property Name="DropSql" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="CreateSql" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TargetColumns">
+          <Key>
+            <PropertyRef Name="column_sort" />
+          </Key>
+          <Property Name="column_sort" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="object_id" Type="int" Nullable="false" />
+          <Property Name="column_id" Type="int" Nullable="false" />
+          <Property Name="schema_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="table_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="column_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TargetTables">
+          <Key>
+            <PropertyRef Name="table_sort" />
+          </Key>
+          <Property Name="table_sort" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="object_id" Type="int" Nullable="false" />
+          <Property Name="schema_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="table_name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="space_used" Type="bigint" Nullable="false" />
+          <Property Name="cum_space_used" Type="bigint" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'fkIdentityApplication_ApplicationId' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="fkIdentityApplication_ApplicationId" />-->
+        <Association Name="fkIdentityApplicationCatalog_ApplicationId">
+          <End Role="IdentityApplication" Type="Self.IdentityApplication" Multiplicity="0..1" />
+          <End Role="IdentityApplicationCatalog" Type="Self.IdentityApplicationCatalog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityApplication">
+              <PropertyRef Name="IdentityApplicationId" />
+            </Principal>
+            <Dependent Role="IdentityApplicationCatalog">
+              <PropertyRef Name="IdentityApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkIdentityApplicationConfig_IdentityApplicaton">
+          <End Role="IdentityApplication" Type="Self.IdentityApplication" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="IdentityApplicationConfig" Type="Self.IdentityApplicationConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityApplication">
+              <PropertyRef Name="IdentityApplicationId" />
+            </Principal>
+            <Dependent Role="IdentityApplicationConfig">
+              <PropertyRef Name="IdentityApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'fkIdentityRole_ApplicationId' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="fkIdentityRole_ApplicationId" />-->
+        <Association Name="fkIdentityRoleClaim_IdentityClaimId">
+          <End Role="IdentityClaim" Type="Self.IdentityClaim" Multiplicity="1" />
+          <End Role="IdentityRoleClaim" Type="Self.IdentityRoleClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityClaim">
+              <PropertyRef Name="IdentityClaimId" />
+            </Principal>
+            <Dependent Role="IdentityRoleClaim">
+              <PropertyRef Name="IdentityClaimId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkIdentityRoleClaim_IdentityRoleId">
+          <End Role="IdentityRole" Type="Self.IdentityRole" Multiplicity="1" />
+          <End Role="IdentityRoleClaim" Type="Self.IdentityRoleClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityRole">
+              <PropertyRef Name="IdentityRoleId" />
+            </Principal>
+            <Dependent Role="IdentityRoleClaim">
+              <PropertyRef Name="IdentityRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'fkIdentityUser_ApplicationId' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="fkIdentityUser_ApplicationId" />-->
+        <Association Name="fkIdentityUser_IdentityUserStoreId">
+          <End Role="IdentityUserStore" Type="Self.IdentityUserStore" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="IdentityUser" Type="Self.IdentityUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityUserStore">
+              <PropertyRef Name="IdentityUserStoreId" />
+            </Principal>
+            <Dependent Role="IdentityUser">
+              <PropertyRef Name="IdentityUserStoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'fkIdentityUserRole_IdentityRole' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="fkIdentityUserRole_IdentityRole" />-->
+        <!--Errors Found During Generation:
+warning 6035: The relationship 'fkIdentityUserRole_IdentityUser' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="fkIdentityUserRole_IdentityUser" />-->
+        <Function Name="fnIsRoleAssigned" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth" ReturnType="bit">
+          <Parameter Name="RoleName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spAddSystemErrorMessages" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth" />
+        <Function Name="spDelApplicationById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityApplicationId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDelClaimById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityClaimId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDelIdentityUserStore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityUserStoreId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDelRoleById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityRoleId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDelRoleClaimByRoleId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityRoleId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDelUserById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityUserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDelUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityUserId" Type="int" Mode="In" />
+          <Parameter Name="RoleName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetApplicationById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityApplicationId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetApplications" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetApplicationsCatalog" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth" />
+        <Function Name="spGetClaimById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityClaimId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetClaims" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="ClaimName" Type="nvarchar" Mode="In" />
+          <Parameter Name="ApplicationId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetClaimsByRoleAndGroup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="RoleName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Group" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetClaimsByRoleId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityRoleId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetClaimsByUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityUserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetIdentityApplicationConfigByApplication" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityApplicationId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetIdentityUserStore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth" />
+        <Function Name="spGetIdentityUserStoreById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityUserStoreId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetIdentityUserStoreByUserStoreName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="UserStoreName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetRoleById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityRoleId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetRoleByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="RoleName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetRoles" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth" />
+        <Function Name="spGetRolesByUserId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityUserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetUserByEmail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetUserById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityUserId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spGetUserByName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spGetUsers" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="ApplicationId" Type="nvarchar" Mode="In" />
+          <Parameter Name="PageSize" Type="int" Mode="In" />
+          <Parameter Name="Page" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spInsApplication" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="ApplicationId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spInsClaimByApplicationId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="ApplicationId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="ClaimName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spInsDefaultClaims" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="ApplicationId" Type="uniqueidentifier" Mode="In" />
+        </Function>
+        <Function Name="spInsIdentityUserStore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityUserStoreId" Type="int" Mode="InOut" />
+          <Parameter Name="UserStoreName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Mode" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="spInsRoleByApplicationId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="ApplicationId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="RoleName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spInsRoleClaim" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityRoleId" Type="int" Mode="In" />
+          <Parameter Name="IdentityClaimId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spInsUserByApplicationId" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="ApplicationId" Type="uniqueidentifier" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+          <Parameter Name="IdentityUserStoreId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spInsUserRole" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityUserId" Type="int" Mode="In" />
+          <Parameter Name="RoleName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spRethrowError" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="ErrorMessage" Type="nvarchar" Mode="InOut" />
+          <Parameter Name="ErrorNumber" Type="int" Mode="InOut" />
+          <Parameter Name="ErrorSeverity" Type="int" Mode="InOut" />
+          <Parameter Name="ErrorState" Type="int" Mode="InOut" />
+          <Parameter Name="ErrorLine" Type="int" Mode="InOut" />
+          <Parameter Name="ErrorProcedure" Type="nvarchar" Mode="InOut" />
+        </Function>
+        <Function Name="spUpdApplicationById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityApplicationId" Type="int" Mode="In" />
+          <Parameter Name="ApplicationName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdApplicationCatalogById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityApplicationCatalogId" Type="int" Mode="In" />
+          <Parameter Name="IdentityApplicationId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spUpdClaimById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityClaimId" Type="int" Mode="In" />
+          <Parameter Name="ClaimName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdIdentityUserStore" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityUserStoreId" Type="int" Mode="In" />
+          <Parameter Name="UserStoreName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Mode" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="spUpdRoleById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityRoleId" Type="int" Mode="In" />
+          <Parameter Name="RoleName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="spUpdUserById" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="IdentityUserId" Type="int" Mode="In" />
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Email" Type="nvarchar" Mode="In" />
+          <Parameter Name="Password" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUtilSetColumnProperty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="ObjectName" Type="nvarchar" Mode="In" />
+          <Parameter Name="ColumnName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar" Mode="In" />
+          <Parameter Name="Schema" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spUtilSetObjectProperty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="auth">
+          <Parameter Name="ObjectName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Description" Type="nvarchar" Mode="In" />
+          <Parameter Name="Schema" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnIsUpgradeProcessComplete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="install" ReturnType="bit">
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spCompleteUpgradeProcess" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="install">
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spInsDBVersionHistory" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="install">
+          <Parameter Name="OperatorId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="spStartUpgradeProcess" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="install">
+          <Parameter Name="DBUpgradeProcessId" Type="int" Mode="InOut" />
+          <Parameter Name="Name" Type="nvarchar" Mode="In" />
+          <Parameter Name="SetContextInfo" Type="varbinary" Mode="In" />
+        </Function>
+        <Function Name="spUpdDatabaseVersionAndBuildNumber" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="install">
+          <Parameter Name="DBVersion" Type="nvarchar" Mode="InOut" />
+          <Parameter Name="DBBuildNumber" Type="nvarchar" Mode="InOut" />
+          <Parameter Name="BuildDate" Type="datetime" Mode="In" />
+          <Parameter Name="OperatorId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnAddExtendedProperty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnCreateCheckConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnCreateDefaultConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnCreateForeignKeyConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnCreateIndex" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+          <Parameter Name="index_name" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnCreateNewTableSql" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnCreatePrimaryKeyConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnCreateStatistics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+          <Parameter Name="statistics_name" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnCreateTableSql" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnCreateUniqueConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnDropCheckConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnDropDefaultConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnDropForeignKeyConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnDropIndex" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+          <Parameter Name="index_name" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDropOldTableSql" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnDropPrimaryKeyConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnDropStatistics" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+          <Parameter Name="statistics_name" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="fnDropUniqueConstraint" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnGetSqlVariantConversion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)" />
+        <Function Name="fnInsertIntoNewTableSql" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnListForeignKeyColumns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnListForeignKeyReferencedColumns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnListIndexIncludeColumns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+          <Parameter Name="index_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnListIndexKeyColumns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+          <Parameter Name="index_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnListInsertTableColumns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnListStatisticsColumns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+          <Parameter Name="stats_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnNewTableXactFooterSql" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)" />
+        <Function Name="fnNewTableXactHeaderSql" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="fnRenameNewTableSql" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" ReturnType="nvarchar(max)">
+          <Parameter Name="object_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spDropAllUtilityObjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" />
+        <Function Name="spGenerateCreateDependantStatements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" />
+        <Function Name="spOutputCopyTableStatements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" />
+        <Function Name="spOutputCreateDependantStatements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" />
+        <Function Name="spOutputCreateTableStatements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" />
+        <Function Name="spOutputDropDependantStatements" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="util" />
+        <Function Name="spSetExtendedProperty" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="util">
+          <Parameter Name="PropertyName" Type="nvarchar" Mode="In" />
+          <Parameter Name="Level0Type" Type="varchar" Mode="In" />
+          <Parameter Name="Level0Name" Type="varchar" Mode="In" />
+          <Parameter Name="Level1Type" Type="varchar" Mode="In" />
+          <Parameter Name="Level1Name" Type="varchar" Mode="In" />
+          <Parameter Name="Level2Type" Type="varchar" Mode="In" />
+          <Parameter Name="Level2Name" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="PowerCampusIdentityModelStoreContainer">
+          <EntitySet Name="IdentityApplication" EntityType="Self.IdentityApplication" Schema="auth" store:Type="Tables" />
+          <EntitySet Name="IdentityApplicationCatalog" EntityType="Self.IdentityApplicationCatalog" Schema="auth" store:Type="Tables" />
+          <EntitySet Name="IdentityApplicationConfig" EntityType="Self.IdentityApplicationConfig" Schema="auth" store:Type="Tables" />
+          <EntitySet Name="IdentityClaim" EntityType="Self.IdentityClaim" Schema="auth" store:Type="Tables" />
+          <EntitySet Name="IdentityRole" EntityType="Self.IdentityRole" Schema="auth" store:Type="Tables" />
+          <EntitySet Name="IdentityRoleClaim" EntityType="Self.IdentityRoleClaim" Schema="auth" store:Type="Tables" />
+          <EntitySet Name="IdentityUser" EntityType="Self.IdentityUser" Schema="auth" store:Type="Tables" />
+          <EntitySet Name="IdentityUserRole" EntityType="Self.IdentityUserRole" Schema="auth" store:Type="Tables" />
+          <EntitySet Name="IdentityUserStore" EntityType="Self.IdentityUserStore" Schema="auth" store:Type="Tables" />
+          <EntitySet Name="DBUpgradeProcess" EntityType="Self.DBUpgradeProcess" Schema="install" store:Type="Tables" />
+          <EntitySet Name="DBVersionHistory" EntityType="Self.DBVersionHistory" Schema="install" store:Type="Tables" />
+          <EntitySet Name="ReleaseInfo" EntityType="Self.ReleaseInfo" Schema="install" store:Type="Tables" />
+          <EntitySet Name="Dependants" EntityType="Self.Dependants" Schema="util" store:Type="Tables" />
+          <EntitySet Name="TargetColumns" EntityType="Self.TargetColumns" Schema="util" store:Type="Tables" />
+          <EntitySet Name="TargetTables" EntityType="Self.TargetTables" Schema="util" store:Type="Tables" />
+          <AssociationSet Name="fkIdentityApplicationCatalog_ApplicationId" Association="Self.fkIdentityApplicationCatalog_ApplicationId">
+            <End Role="IdentityApplication" EntitySet="IdentityApplication" />
+            <End Role="IdentityApplicationCatalog" EntitySet="IdentityApplicationCatalog" />
+          </AssociationSet>
+          <AssociationSet Name="fkIdentityApplicationConfig_IdentityApplicaton" Association="Self.fkIdentityApplicationConfig_IdentityApplicaton">
+            <End Role="IdentityApplication" EntitySet="IdentityApplication" />
+            <End Role="IdentityApplicationConfig" EntitySet="IdentityApplicationConfig" />
+          </AssociationSet>
+          <AssociationSet Name="fkIdentityRoleClaim_IdentityClaimId" Association="Self.fkIdentityRoleClaim_IdentityClaimId">
+            <End Role="IdentityClaim" EntitySet="IdentityClaim" />
+            <End Role="IdentityRoleClaim" EntitySet="IdentityRoleClaim" />
+          </AssociationSet>
+          <AssociationSet Name="fkIdentityRoleClaim_IdentityRoleId" Association="Self.fkIdentityRoleClaim_IdentityRoleId">
+            <End Role="IdentityRole" EntitySet="IdentityRole" />
+            <End Role="IdentityRoleClaim" EntitySet="IdentityRoleClaim" />
+          </AssociationSet>
+          <AssociationSet Name="fkIdentityUser_IdentityUserStoreId" Association="Self.fkIdentityUser_IdentityUserStoreId">
+            <End Role="IdentityUserStore" EntitySet="IdentityUserStore" />
+            <End Role="IdentityUser" EntitySet="IdentityUser" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PowerCampusIdentityModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="IdentityApplication">
+          <Key>
+            <PropertyRef Name="IdentityApplicationId" />
+          </Key>
+          <Property Name="IdentityApplicationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="ApplicationName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoweredApplicationName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="IdentityApplicationCatalogs" Relationship="Self.fkIdentityApplicationCatalog_ApplicationId" FromRole="IdentityApplication" ToRole="IdentityApplicationCatalog" />
+          <NavigationProperty Name="IdentityApplicationConfigs" Relationship="Self.fkIdentityApplicationConfig_IdentityApplicaton" FromRole="IdentityApplication" ToRole="IdentityApplicationConfig" />
+        </EntityType>
+        <EntityType Name="IdentityApplicationCatalog">
+          <Key>
+            <PropertyRef Name="IdentityApplicationCatalogId" />
+          </Key>
+          <Property Name="IdentityApplicationCatalogId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IdentityApplicationId" Type="Int32" />
+          <NavigationProperty Name="IdentityApplication" Relationship="Self.fkIdentityApplicationCatalog_ApplicationId" FromRole="IdentityApplicationCatalog" ToRole="IdentityApplication" />
+        </EntityType>
+        <EntityType Name="IdentityApplicationConfig">
+          <Key>
+            <PropertyRef Name="IdentityApplicationConfigId" />
+          </Key>
+          <Property Name="IdentityApplicationConfigId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdentityApplicationId" Type="Int32" Nullable="false" />
+          <Property Name="AuthenticationMode" Type="Byte" Nullable="false" />
+          <Property Name="Timeout" Type="Int32" Nullable="false" />
+          <Property Name="PasswordMinLength" Type="Int32" Nullable="false" />
+          <Property Name="PasswordUpperCaseRequired" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordLowerCaseRequired" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordDigitsRequired" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordSymbolsRequired" Type="Boolean" Nullable="false" />
+          <Property Name="ADServer" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ADContainer" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ADUser" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ADPassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ADFSMetadataAddress" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ADFSWtRealm" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="IdentityApplication" Relationship="Self.fkIdentityApplicationConfig_IdentityApplicaton" FromRole="IdentityApplicationConfig" ToRole="IdentityApplication" />
+        </EntityType>
+        <EntityType Name="IdentityClaim">
+          <Key>
+            <PropertyRef Name="IdentityClaimId" />
+          </Key>
+          <Property Name="IdentityClaimId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="ClaimName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsCustom" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="IdentityRoleClaims" Relationship="Self.fkIdentityRoleClaim_IdentityClaimId" FromRole="IdentityClaim" ToRole="IdentityRoleClaim" />
+        </EntityType>
+        <EntityType Name="IdentityRole">
+          <Key>
+            <PropertyRef Name="IdentityRoleId" />
+          </Key>
+          <Property Name="IdentityRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="RoleId" Type="Guid" Nullable="false" />
+          <Property Name="RoleName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="IdentityRoleClaims" Relationship="Self.fkIdentityRoleClaim_IdentityRoleId" FromRole="IdentityRole" ToRole="IdentityRoleClaim" />
+        </EntityType>
+        <EntityType Name="IdentityRoleClaim">
+          <Key>
+            <PropertyRef Name="IdentityRoleClaimId" />
+          </Key>
+          <Property Name="IdentityRoleClaimId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdentityRoleId" Type="Int32" Nullable="false" />
+          <Property Name="IdentityClaimId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="IdentityClaim" Relationship="Self.fkIdentityRoleClaim_IdentityClaimId" FromRole="IdentityRoleClaim" ToRole="IdentityClaim" />
+          <NavigationProperty Name="IdentityRole" Relationship="Self.fkIdentityRoleClaim_IdentityRoleId" FromRole="IdentityRoleClaim" ToRole="IdentityRole" />
+        </EntityType>
+        <EntityType Name="IdentityUser">
+          <Key>
+            <PropertyRef Name="IdentityUserId" />
+          </Key>
+          <Property Name="IdentityUserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ApplicationId" Type="Guid" Nullable="false" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LoweredUserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="LoweredEmail" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IsLockedOut" Type="Boolean" Nullable="false" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+          <Property Name="LastPasswordChangedDate" Type="DateTime" Precision="3" />
+          <Property Name="LastLockoutDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdentityUserStoreId" Type="Int32" />
+          <NavigationProperty Name="IdentityUserStore" Relationship="Self.fkIdentityUser_IdentityUserStoreId" FromRole="IdentityUser" ToRole="IdentityUserStore" />
+        </EntityType>
+        <EntityType Name="IdentityUserRole">
+          <Key>
+            <PropertyRef Name="IdentityUserRoleId" />
+          </Key>
+          <Property Name="IdentityUserRoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Guid" Nullable="false" />
+          <Property Name="RoleId" Type="Guid" Nullable="false" />
+        </EntityType>
+        <EntityType Name="IdentityUserStore">
+          <Key>
+            <PropertyRef Name="IdentityUserStoreId" />
+          </Key>
+          <Property Name="IdentityUserStoreId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserStoreName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Mode" Type="Byte" />
+          <Property Name="CreateDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RevisionDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="IdentityUsers" Relationship="Self.fkIdentityUser_IdentityUserStoreId" FromRole="IdentityUserStore" ToRole="IdentityUser" />
+        </EntityType>
+        <EntityType Name="DBUpgradeProcess">
+          <Key>
+            <PropertyRef Name="DBUpgradeProcessId" />
+          </Key>
+          <Property Name="DBUpgradeProcessId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StartCount" Type="Int32" Nullable="false" />
+          <Property Name="DateLastStarted" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DateLastSucceeded" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="DBVersionHistory">
+          <Key>
+            <PropertyRef Name="DBVersionHistoryId" />
+          </Key>
+          <Property Name="DBVersionHistoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreateDatetime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Version" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Build" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OperatorId" Type="String" MaxLength="8" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="AppName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HostName" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReleaseInfo">
+          <Key>
+            <PropertyRef Name="ReleaseInfoId" />
+          </Key>
+          <Property Name="ReleaseInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Version" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Build" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="BuildDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpgradeDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="Dependant">
+          <Key>
+            <PropertyRef Name="schema_name" />
+            <PropertyRef Name="table_name" />
+            <PropertyRef Name="dependant_name" />
+            <PropertyRef Name="execution_order" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="object_id" Type="Int32" Nullable="false" />
+          <Property Name="schema_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="table_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dependant_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="execution_order" Type="Byte" Nullable="false" />
+          <Property Name="type" Type="String" MaxLength="2" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DropSql" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreateSql" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TargetColumn">
+          <Key>
+            <PropertyRef Name="column_sort" />
+          </Key>
+          <Property Name="column_sort" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="object_id" Type="Int32" Nullable="false" />
+          <Property Name="column_id" Type="Int32" Nullable="false" />
+          <Property Name="schema_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="table_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="column_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TargetTable">
+          <Key>
+            <PropertyRef Name="table_sort" />
+          </Key>
+          <Property Name="table_sort" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="object_id" Type="Int32" Nullable="false" />
+          <Property Name="schema_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="table_name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="space_used" Type="Int64" Nullable="false" />
+          <Property Name="cum_space_used" Type="Int64" Nullable="false" />
+        </EntityType>
+        <Association Name="fkIdentityApplicationCatalog_ApplicationId">
+          <End Role="IdentityApplication" Type="Self.IdentityApplication" Multiplicity="0..1" />
+          <End Role="IdentityApplicationCatalog" Type="Self.IdentityApplicationCatalog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityApplication">
+              <PropertyRef Name="IdentityApplicationId" />
+            </Principal>
+            <Dependent Role="IdentityApplicationCatalog">
+              <PropertyRef Name="IdentityApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkIdentityApplicationConfig_IdentityApplicaton">
+          <End Role="IdentityApplication" Type="Self.IdentityApplication" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="IdentityApplicationConfig" Type="Self.IdentityApplicationConfig" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityApplication">
+              <PropertyRef Name="IdentityApplicationId" />
+            </Principal>
+            <Dependent Role="IdentityApplicationConfig">
+              <PropertyRef Name="IdentityApplicationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkIdentityRoleClaim_IdentityClaimId">
+          <End Role="IdentityClaim" Type="Self.IdentityClaim" Multiplicity="1" />
+          <End Role="IdentityRoleClaim" Type="Self.IdentityRoleClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityClaim">
+              <PropertyRef Name="IdentityClaimId" />
+            </Principal>
+            <Dependent Role="IdentityRoleClaim">
+              <PropertyRef Name="IdentityClaimId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkIdentityRoleClaim_IdentityRoleId">
+          <End Role="IdentityRole" Type="Self.IdentityRole" Multiplicity="1" />
+          <End Role="IdentityRoleClaim" Type="Self.IdentityRoleClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityRole">
+              <PropertyRef Name="IdentityRoleId" />
+            </Principal>
+            <Dependent Role="IdentityRoleClaim">
+              <PropertyRef Name="IdentityRoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fkIdentityUser_IdentityUserStoreId">
+          <End Role="IdentityUserStore" Type="Self.IdentityUserStore" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="IdentityUser" Type="Self.IdentityUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IdentityUserStore">
+              <PropertyRef Name="IdentityUserStoreId" />
+            </Principal>
+            <Dependent Role="IdentityUser">
+              <PropertyRef Name="IdentityUserStoreId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PowerCampusIdentityEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="IdentityApplications" EntityType="Self.IdentityApplication" />
+          <EntitySet Name="IdentityApplicationCatalogs" EntityType="Self.IdentityApplicationCatalog" />
+          <EntitySet Name="IdentityApplicationConfigs" EntityType="Self.IdentityApplicationConfig" />
+          <EntitySet Name="IdentityClaims" EntityType="Self.IdentityClaim" />
+          <EntitySet Name="IdentityRoles" EntityType="Self.IdentityRole" />
+          <EntitySet Name="IdentityRoleClaims" EntityType="Self.IdentityRoleClaim" />
+          <EntitySet Name="IdentityUsers" EntityType="Self.IdentityUser" />
+          <EntitySet Name="IdentityUserRoles" EntityType="Self.IdentityUserRole" />
+          <EntitySet Name="IdentityUserStores" EntityType="Self.IdentityUserStore" />
+          <EntitySet Name="DBUpgradeProcesses" EntityType="Self.DBUpgradeProcess" />
+          <EntitySet Name="DBVersionHistories" EntityType="Self.DBVersionHistory" />
+          <EntitySet Name="ReleaseInfoes" EntityType="Self.ReleaseInfo" />
+          <EntitySet Name="Dependants" EntityType="Self.Dependant" />
+          <EntitySet Name="TargetColumns" EntityType="Self.TargetColumn" />
+          <EntitySet Name="TargetTables" EntityType="Self.TargetTable" />
+          <AssociationSet Name="fkIdentityApplicationCatalog_ApplicationId" Association="Self.fkIdentityApplicationCatalog_ApplicationId">
+            <End Role="IdentityApplication" EntitySet="IdentityApplications" />
+            <End Role="IdentityApplicationCatalog" EntitySet="IdentityApplicationCatalogs" />
+          </AssociationSet>
+          <AssociationSet Name="fkIdentityApplicationConfig_IdentityApplicaton" Association="Self.fkIdentityApplicationConfig_IdentityApplicaton">
+            <End Role="IdentityApplication" EntitySet="IdentityApplications" />
+            <End Role="IdentityApplicationConfig" EntitySet="IdentityApplicationConfigs" />
+          </AssociationSet>
+          <AssociationSet Name="fkIdentityRoleClaim_IdentityClaimId" Association="Self.fkIdentityRoleClaim_IdentityClaimId">
+            <End Role="IdentityClaim" EntitySet="IdentityClaims" />
+            <End Role="IdentityRoleClaim" EntitySet="IdentityRoleClaims" />
+          </AssociationSet>
+          <AssociationSet Name="fkIdentityRoleClaim_IdentityRoleId" Association="Self.fkIdentityRoleClaim_IdentityRoleId">
+            <End Role="IdentityRole" EntitySet="IdentityRoles" />
+            <End Role="IdentityRoleClaim" EntitySet="IdentityRoleClaims" />
+          </AssociationSet>
+          <AssociationSet Name="fkIdentityUser_IdentityUserStoreId" Association="Self.fkIdentityUser_IdentityUserStoreId">
+            <End Role="IdentityUserStore" EntitySet="IdentityUserStores" />
+            <End Role="IdentityUser" EntitySet="IdentityUsers" />
+          </AssociationSet>
+          <FunctionImport Name="spAddSystemErrorMessages" />
+          <FunctionImport Name="spDelApplicationById">
+          <Parameter Name="IdentityApplicationId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spDelClaimById">
+          <Parameter Name="IdentityClaimId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spDelIdentityUserStore">
+          <Parameter Name="IdentityUserStoreId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spDelRoleById">
+          <Parameter Name="IdentityRoleId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spDelRoleClaimByRoleId">
+          <Parameter Name="IdentityRoleId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spDelUserById">
+          <Parameter Name="IdentityUserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spDelUserRole">
+            <Parameter Name="IdentityUserId" Mode="In" Type="Int32" />
+            <Parameter Name="RoleName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetApplicationById" ReturnType="Collection(PowerCampusIdentityModel.spGetApplicationById_Result)">
+          <Parameter Name="IdentityApplicationId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetApplications" ReturnType="Collection(PowerCampusIdentityModel.spGetApplications_Result)">
+          <Parameter Name="ApplicationName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetApplicationsCatalog" ReturnType="Collection(PowerCampusIdentityModel.spGetApplicationsCatalog_Result)" />
+          <FunctionImport Name="spGetClaimById" ReturnType="Collection(PowerCampusIdentityModel.spGetClaimById_Result)">
+          <Parameter Name="IdentityClaimId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetClaims" ReturnType="Collection(PowerCampusIdentityModel.spGetClaims_Result)">
+            <Parameter Name="ClaimName" Mode="In" Type="String" />
+            <Parameter Name="ApplicationId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetClaimsByRoleAndGroup" ReturnType="Collection(PowerCampusIdentityModel.spGetClaimsByRoleAndGroup_Result)">
+            <Parameter Name="RoleName" Mode="In" Type="String" />
+            <Parameter Name="Group" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetClaimsByRoleId" ReturnType="Collection(PowerCampusIdentityModel.spGetClaimsByRoleId_Result)">
+          <Parameter Name="IdentityRoleId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetClaimsByUserId" ReturnType="Collection(PowerCampusIdentityModel.spGetClaimsByUserId_Result)">
+          <Parameter Name="IdentityUserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetIdentityApplicationConfigByApplication" ReturnType="Collection(PowerCampusIdentityModel.spGetIdentityApplicationConfigByApplication_Result)">
+          <Parameter Name="IdentityApplicationId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetIdentityUserStore" ReturnType="Collection(PowerCampusIdentityModel.spGetIdentityUserStore_Result)" />
+          <FunctionImport Name="spGetIdentityUserStoreById" ReturnType="Collection(PowerCampusIdentityModel.spGetIdentityUserStoreById_Result)">
+          <Parameter Name="IdentityUserStoreId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetIdentityUserStoreByUserStoreName" ReturnType="Collection(PowerCampusIdentityModel.spGetIdentityUserStoreByUserStoreName_Result)">
+          <Parameter Name="UserStoreName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetRoleById" ReturnType="Collection(PowerCampusIdentityModel.spGetRoleById_Result)">
+          <Parameter Name="IdentityRoleId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetRoleByName" ReturnType="Collection(PowerCampusIdentityModel.spGetRoleByName_Result)">
+          <Parameter Name="RoleName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetRoles" ReturnType="Collection(PowerCampusIdentityModel.spGetRoles_Result)" />
+          <FunctionImport Name="spGetRolesByUserId" ReturnType="Collection(PowerCampusIdentityModel.spGetRolesByUserId_Result)">
+          <Parameter Name="IdentityUserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetUserByEmail" ReturnType="Collection(PowerCampusIdentityModel.spGetUserByEmail_Result)">
+          <Parameter Name="Email" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetUserById" ReturnType="Collection(PowerCampusIdentityModel.spGetUserById_Result)">
+          <Parameter Name="IdentityUserId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spGetUserByName" ReturnType="Collection(PowerCampusIdentityModel.spGetUserByName_Result)">
+          <Parameter Name="UserName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spGetUsers" ReturnType="Collection(PowerCampusIdentityModel.spGetUsers_Result)">
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="ApplicationId" Mode="In" Type="String" />
+            <Parameter Name="PageSize" Mode="In" Type="Int32" />
+            <Parameter Name="Page" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spInsApplication">
+            <Parameter Name="ApplicationId" Mode="In" Type="Guid" />
+            <Parameter Name="ApplicationName" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInsClaimByApplicationId">
+            <Parameter Name="ApplicationId" Mode="In" Type="Guid" />
+            <Parameter Name="ClaimName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInsDefaultClaims">
+          <Parameter Name="ApplicationId" Mode="In" Type="Guid" />
+          </FunctionImport>
+          <FunctionImport Name="spInsIdentityUserStore">
+            <Parameter Name="IdentityUserStoreId" Mode="InOut" Type="Int32" />
+            <Parameter Name="UserStoreName" Mode="In" Type="String" />
+            <Parameter Name="Mode" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="spInsRoleByApplicationId">
+            <Parameter Name="ApplicationId" Mode="In" Type="Guid" />
+            <Parameter Name="RoleName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInsRoleClaim">
+            <Parameter Name="IdentityRoleId" Mode="In" Type="Int32" />
+            <Parameter Name="IdentityClaimId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spInsUserByApplicationId">
+            <Parameter Name="ApplicationId" Mode="In" Type="Guid" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+            <Parameter Name="IdentityUserStoreId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spInsUserRole">
+            <Parameter Name="IdentityUserId" Mode="In" Type="Int32" />
+            <Parameter Name="RoleName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spRethrowError">
+            <Parameter Name="ErrorMessage" Mode="InOut" Type="String" />
+            <Parameter Name="ErrorNumber" Mode="InOut" Type="Int32" />
+            <Parameter Name="ErrorSeverity" Mode="InOut" Type="Int32" />
+            <Parameter Name="ErrorState" Mode="InOut" Type="Int32" />
+            <Parameter Name="ErrorLine" Mode="InOut" Type="Int32" />
+            <Parameter Name="ErrorProcedure" Mode="InOut" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdApplicationById">
+            <Parameter Name="IdentityApplicationId" Mode="In" Type="Int32" />
+            <Parameter Name="ApplicationName" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdApplicationCatalogById">
+            <Parameter Name="IdentityApplicationCatalogId" Mode="In" Type="Int32" />
+            <Parameter Name="IdentityApplicationId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdClaimById">
+            <Parameter Name="IdentityClaimId" Mode="In" Type="Int32" />
+            <Parameter Name="ClaimName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdIdentityUserStore">
+            <Parameter Name="IdentityUserStoreId" Mode="In" Type="Int32" />
+            <Parameter Name="UserStoreName" Mode="In" Type="String" />
+            <Parameter Name="Mode" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdRoleById">
+            <Parameter Name="IdentityRoleId" Mode="In" Type="Int32" />
+            <Parameter Name="RoleName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdUserById">
+            <Parameter Name="IdentityUserId" Mode="In" Type="Int32" />
+            <Parameter Name="UserName" Mode="In" Type="String" />
+            <Parameter Name="Email" Mode="In" Type="String" />
+            <Parameter Name="Password" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUtilSetColumnProperty">
+            <Parameter Name="ObjectName" Mode="In" Type="String" />
+            <Parameter Name="ColumnName" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Schema" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spUtilSetObjectProperty">
+            <Parameter Name="ObjectName" Mode="In" Type="String" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Schema" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spCompleteUpgradeProcess">
+          <Parameter Name="Name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spInsDBVersionHistory">
+          <Parameter Name="OperatorId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spStartUpgradeProcess">
+            <Parameter Name="DBUpgradeProcessId" Mode="InOut" Type="Int32" />
+            <Parameter Name="Name" Mode="In" Type="String" />
+            <Parameter Name="SetContextInfo" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="spUpdDatabaseVersionAndBuildNumber">
+            <Parameter Name="DBVersion" Mode="InOut" Type="String" />
+            <Parameter Name="DBBuildNumber" Mode="InOut" Type="String" />
+            <Parameter Name="BuildDate" Mode="In" Type="DateTime" />
+            <Parameter Name="OperatorId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spDropAllUtilityObjects" />
+          <FunctionImport Name="spGenerateCreateDependantStatements" ReturnType="Collection(String)" />
+          <FunctionImport Name="spOutputCopyTableStatements" />
+          <FunctionImport Name="spOutputCreateDependantStatements" ReturnType="Collection(String)" />
+          <FunctionImport Name="spOutputCreateTableStatements" />
+          <FunctionImport Name="spOutputDropDependantStatements" ReturnType="Collection(String)" />
+          <FunctionImport Name="spSetExtendedProperty">
+            <Parameter Name="PropertyName" Mode="In" Type="String" />
+            <Parameter Name="Level0Type" Mode="In" Type="String" />
+            <Parameter Name="Level0Name" Mode="In" Type="String" />
+            <Parameter Name="Level1Type" Mode="In" Type="String" />
+            <Parameter Name="Level1Name" Mode="In" Type="String" />
+            <Parameter Name="Level2Type" Mode="In" Type="String" />
+            <Parameter Name="Level2Name" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="spGetApplicationById_Result">
+          <Property Type="Int32" Name="IdentityApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="String" Name="ApplicationName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="LoweredApplicationName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="spGetApplications_Result">
+          <Property Type="Int32" Name="IdentityApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="String" Name="ApplicationName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="LoweredApplicationName" Nullable="false" MaxLength="256" />
+          <Property Type="String" Name="Description" Nullable="true" MaxLength="256" />
+        </ComplexType>
+        <ComplexType Name="spGetApplicationsCatalog_Result">
+          <Property Type="Int32" Name="IdentityApplicationCatalogId" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" />
+          <Property Type="Int32" Name="IdentityApplicationId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetClaimById_Result">
+          <Property Type="Int32" Name="IdentityClaimId" Nullable="false" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="String" Name="ClaimName" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="spGetClaims_Result">
+          <Property Type="Int32" Name="IdentityClaimId" Nullable="false" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="String" Name="ClaimName" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="spGetClaimsByRoleAndGroup_Result">
+          <Property Type="Int32" Name="IdentityRoleClaimId" Nullable="true" />
+          <Property Type="Int32" Name="IdentityRoleId" Nullable="true" />
+          <Property Type="Int32" Name="IdentityClaimId" Nullable="false" />
+          <Property Type="String" Name="ClaimName" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="spGetClaimsByRoleId_Result">
+          <Property Type="Int32" Name="IdentityClaimId" Nullable="false" />
+          <Property Type="String" Name="ClaimName" Nullable="false" MaxLength="255" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGetClaimsByUserId_Result">
+          <Property Type="Int32" Name="IdentityClaimId" Nullable="false" />
+          <Property Type="String" Name="ClaimName" Nullable="false" MaxLength="255" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGetIdentityApplicationConfigByApplication_Result">
+          <Property Type="Int32" Name="IdentityApplicationConfigId" Nullable="false" />
+          <Property Type="Int32" Name="IdentityApplicationId" Nullable="false" />
+          <Property Type="Byte" Name="AuthenticationMode" Nullable="false" />
+          <Property Type="Int32" Name="Timeout" Nullable="false" />
+          <Property Type="Int32" Name="PasswordMinLength" Nullable="false" />
+          <Property Type="Boolean" Name="PasswordUpperCaseRequired" Nullable="false" />
+          <Property Type="Boolean" Name="PasswordLowerCaseRequired" Nullable="false" />
+          <Property Type="Boolean" Name="PasswordDigitsRequired" Nullable="false" />
+          <Property Type="Boolean" Name="PasswordSymbolsRequired" Nullable="false" />
+          <Property Type="String" Name="ADServer" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="ADContainer" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="ADUser" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="ADPassword" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ADFSMetadataAddress" Nullable="false" MaxLength="255" />
+          <Property Type="String" Name="ADFSWtRealm" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="spGetIdentityUserStore_Result">
+          <Property Type="Int32" Name="IdentityUserStoreId" Nullable="false" />
+          <Property Type="String" Name="UserStoreName" Nullable="false" MaxLength="50" />
+          <Property Type="Byte" Name="Mode" Nullable="true" />
+          <Property Type="Int32" Name="Total" Nullable="false" />
+          <Property Type="Int32" Name="InUse" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="spGetIdentityUserStoreById_Result">
+          <Property Type="Int32" Name="IdentityUserStoreId" Nullable="false" />
+          <Property Type="String" Name="UserStoreName" Nullable="false" MaxLength="50" />
+          <Property Type="Byte" Name="Mode" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetIdentityUserStoreByUserStoreName_Result">
+          <Property Type="Int32" Name="IdentityUserStoreId" Nullable="false" />
+          <Property Type="String" Name="UserStoreName" Nullable="false" MaxLength="50" />
+          <Property Type="Byte" Name="Mode" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetRoleById_Result">
+          <Property Type="Int32" Name="IdentityRoleId" Nullable="false" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="RoleId" Nullable="false" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="spGetRoleByName_Result">
+          <Property Type="Int32" Name="IdentityRoleId" Nullable="false" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="RoleId" Nullable="false" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="spGetRoles_Result">
+          <Property Type="Int32" Name="IdentityRoleId" Nullable="false" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="RoleId" Nullable="false" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="spGetRolesByUserId_Result">
+          <Property Type="Int32" Name="IdentityRoleId" Nullable="false" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="RoleId" Nullable="false" />
+          <Property Type="String" Name="RoleName" Nullable="false" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="spGetUserByEmail_Result">
+          <Property Type="Int32" Name="IdentityUserId" Nullable="false" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="spGetUserById_Result">
+          <Property Type="Int32" Name="IdentityUserId" Nullable="false" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="CreateDateTime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="IdentityUserStoreId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetUserByName_Result">
+          <Property Type="Int32" Name="IdentityUserId" Nullable="false" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="CreateDateTime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="IdentityUserStoreId" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spGetUsers_Result">
+          <Property Type="Int32" Name="IdentityUserId" Nullable="false" />
+          <Property Type="Guid" Name="ApplicationId" Nullable="false" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="UserName" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="CreateDateTime" Nullable="false" Precision="23" />
+          <Property Type="Int32" Name="IdentityUserStoreId" Nullable="true" />
+          <Property Type="Int32" Name="Total" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="PowerCampusIdentityModelStoreContainer" CdmEntityContainer="PowerCampusIdentityEntities">
+          <EntitySetMapping Name="IdentityApplications">
+            <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityApplication">
+              <MappingFragment StoreEntitySet="IdentityApplication">
+                <ScalarProperty Name="IdentityApplicationId" ColumnName="IdentityApplicationId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IdentityApplicationCatalogs">
+            <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityApplicationCatalog">
+              <MappingFragment StoreEntitySet="IdentityApplicationCatalog">
+                <ScalarProperty Name="IdentityApplicationCatalogId" ColumnName="IdentityApplicationCatalogId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IdentityApplicationId" ColumnName="IdentityApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IdentityApplicationConfigs">
+            <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityApplicationConfig">
+              <MappingFragment StoreEntitySet="IdentityApplicationConfig">
+                <ScalarProperty Name="IdentityApplicationConfigId" ColumnName="IdentityApplicationConfigId" />
+                <ScalarProperty Name="IdentityApplicationId" ColumnName="IdentityApplicationId" />
+                <ScalarProperty Name="AuthenticationMode" ColumnName="AuthenticationMode" />
+                <ScalarProperty Name="Timeout" ColumnName="Timeout" />
+                <ScalarProperty Name="PasswordMinLength" ColumnName="PasswordMinLength" />
+                <ScalarProperty Name="PasswordUpperCaseRequired" ColumnName="PasswordUpperCaseRequired" />
+                <ScalarProperty Name="PasswordLowerCaseRequired" ColumnName="PasswordLowerCaseRequired" />
+                <ScalarProperty Name="PasswordDigitsRequired" ColumnName="PasswordDigitsRequired" />
+                <ScalarProperty Name="PasswordSymbolsRequired" ColumnName="PasswordSymbolsRequired" />
+                <ScalarProperty Name="ADServer" ColumnName="ADServer" />
+                <ScalarProperty Name="ADContainer" ColumnName="ADContainer" />
+                <ScalarProperty Name="ADUser" ColumnName="ADUser" />
+                <ScalarProperty Name="ADPassword" ColumnName="ADPassword" />
+                <ScalarProperty Name="ADFSMetadataAddress" ColumnName="ADFSMetadataAddress" />
+                <ScalarProperty Name="ADFSWtRealm" ColumnName="ADFSWtRealm" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IdentityClaims">
+            <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityClaim">
+              <MappingFragment StoreEntitySet="IdentityClaim">
+                <ScalarProperty Name="IdentityClaimId" ColumnName="IdentityClaimId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="ClaimName" ColumnName="ClaimName" />
+                <ScalarProperty Name="IsCustom" ColumnName="IsCustom" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IdentityRoles">
+            <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityRole">
+              <MappingFragment StoreEntitySet="IdentityRole">
+                <ScalarProperty Name="IdentityRoleId" ColumnName="IdentityRoleId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IdentityRoleClaims">
+            <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityRoleClaim">
+              <MappingFragment StoreEntitySet="IdentityRoleClaim">
+                <ScalarProperty Name="IdentityRoleClaimId" ColumnName="IdentityRoleClaimId" />
+                <ScalarProperty Name="IdentityRoleId" ColumnName="IdentityRoleId" />
+                <ScalarProperty Name="IdentityClaimId" ColumnName="IdentityClaimId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IdentityUsers">
+            <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityUser">
+              <MappingFragment StoreEntitySet="IdentityUser">
+                <ScalarProperty Name="IdentityUserId" ColumnName="IdentityUserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="LoweredUserName" ColumnName="LoweredUserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="LoweredEmail" ColumnName="LoweredEmail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+                <ScalarProperty Name="LastLockoutDate" ColumnName="LastLockoutDate" />
+                <ScalarProperty Name="CreateDatetime" ColumnName="CreateDatetime" />
+                <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IdentityUserRoles">
+            <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityUserRole">
+              <MappingFragment StoreEntitySet="IdentityUserRole">
+                <ScalarProperty Name="IdentityUserRoleId" ColumnName="IdentityUserRoleId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IdentityUserStores">
+            <EntityTypeMapping TypeName="PowerCampusIdentityModel.IdentityUserStore">
+              <MappingFragment StoreEntitySet="IdentityUserStore">
+                <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+                <ScalarProperty Name="UserStoreName" ColumnName="UserStoreName" />
+                <ScalarProperty Name="Mode" ColumnName="Mode" />
+                <ScalarProperty Name="CreateDatetime" ColumnName="CreateDatetime" />
+                <ScalarProperty Name="RevisionDatetime" ColumnName="RevisionDatetime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DBUpgradeProcesses">
+            <EntityTypeMapping TypeName="PowerCampusIdentityModel.DBUpgradeProcess">
+              <MappingFragment StoreEntitySet="DBUpgradeProcess">
+                <ScalarProperty Name="DBUpgradeProcessId" ColumnName="DBUpgradeProcessId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CreateDatetime" ColumnName="CreateDatetime" />
+                <ScalarProperty Name="StartCount" ColumnName="StartCount" />
+                <ScalarProperty Name="DateLastStarted" ColumnName="DateLastStarted" />
+                <ScalarProperty Name="DateLastSucceeded" ColumnName="DateLastSucceeded" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DBVersionHistories">
+            <EntityTypeMapping TypeName="PowerCampusIdentityModel.DBVersionHistory">
+              <MappingFragment StoreEntitySet="DBVersionHistory">
+                <ScalarProperty Name="DBVersionHistoryId" ColumnName="DBVersionHistoryId" />
+                <ScalarProperty Name="CreateDatetime" ColumnName="CreateDatetime" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Build" ColumnName="Build" />
+                <ScalarProperty Name="OperatorId" ColumnName="OperatorId" />
+                <ScalarProperty Name="AppName" ColumnName="AppName" />
+                <ScalarProperty Name="HostName" ColumnName="HostName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReleaseInfoes">
+            <EntityTypeMapping TypeName="PowerCampusIdentityModel.ReleaseInfo">
+              <MappingFragment StoreEntitySet="ReleaseInfo">
+                <ScalarProperty Name="ReleaseInfoId" ColumnName="ReleaseInfoId" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Build" ColumnName="Build" />
+                <ScalarProperty Name="BuildDate" ColumnName="BuildDate" />
+                <ScalarProperty Name="UpgradeDate" ColumnName="UpgradeDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dependants">
+            <EntityTypeMapping TypeName="PowerCampusIdentityModel.Dependant">
+              <MappingFragment StoreEntitySet="Dependants">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="object_id" ColumnName="object_id" />
+                <ScalarProperty Name="schema_name" ColumnName="schema_name" />
+                <ScalarProperty Name="table_name" ColumnName="table_name" />
+                <ScalarProperty Name="dependant_name" ColumnName="dependant_name" />
+                <ScalarProperty Name="execution_order" ColumnName="execution_order" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="DropSql" ColumnName="DropSql" />
+                <ScalarProperty Name="CreateSql" ColumnName="CreateSql" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TargetColumns">
+            <EntityTypeMapping TypeName="PowerCampusIdentityModel.TargetColumn">
+              <MappingFragment StoreEntitySet="TargetColumns">
+                <ScalarProperty Name="column_sort" ColumnName="column_sort" />
+                <ScalarProperty Name="object_id" ColumnName="object_id" />
+                <ScalarProperty Name="column_id" ColumnName="column_id" />
+                <ScalarProperty Name="schema_name" ColumnName="schema_name" />
+                <ScalarProperty Name="table_name" ColumnName="table_name" />
+                <ScalarProperty Name="column_name" ColumnName="column_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TargetTables">
+            <EntityTypeMapping TypeName="PowerCampusIdentityModel.TargetTable">
+              <MappingFragment StoreEntitySet="TargetTables">
+                <ScalarProperty Name="table_sort" ColumnName="table_sort" />
+                <ScalarProperty Name="object_id" ColumnName="object_id" />
+                <ScalarProperty Name="schema_name" ColumnName="schema_name" />
+                <ScalarProperty Name="table_name" ColumnName="table_name" />
+                <ScalarProperty Name="space_used" ColumnName="space_used" />
+                <ScalarProperty Name="cum_space_used" ColumnName="cum_space_used" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spAddSystemErrorMessages" FunctionName="PowerCampusIdentityModel.Store.spAddSystemErrorMessages" />
+          <FunctionImportMapping FunctionImportName="spDelApplicationById" FunctionName="PowerCampusIdentityModel.Store.spDelApplicationById" />
+          <FunctionImportMapping FunctionImportName="spDelClaimById" FunctionName="PowerCampusIdentityModel.Store.spDelClaimById" />
+          <FunctionImportMapping FunctionImportName="spDelIdentityUserStore" FunctionName="PowerCampusIdentityModel.Store.spDelIdentityUserStore" />
+          <FunctionImportMapping FunctionImportName="spDelRoleById" FunctionName="PowerCampusIdentityModel.Store.spDelRoleById" />
+          <FunctionImportMapping FunctionImportName="spDelRoleClaimByRoleId" FunctionName="PowerCampusIdentityModel.Store.spDelRoleClaimByRoleId" />
+          <FunctionImportMapping FunctionImportName="spDelUserById" FunctionName="PowerCampusIdentityModel.Store.spDelUserById" />
+          <FunctionImportMapping FunctionImportName="spDelUserRole" FunctionName="PowerCampusIdentityModel.Store.spDelUserRole" />
+          <FunctionImportMapping FunctionImportName="spGetApplicationById" FunctionName="PowerCampusIdentityModel.Store.spGetApplicationById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetApplicationById_Result">
+                <ScalarProperty Name="IdentityApplicationId" ColumnName="IdentityApplicationId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetApplications" FunctionName="PowerCampusIdentityModel.Store.spGetApplications">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetApplications_Result">
+                <ScalarProperty Name="IdentityApplicationId" ColumnName="IdentityApplicationId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="ApplicationName" ColumnName="ApplicationName" />
+                <ScalarProperty Name="LoweredApplicationName" ColumnName="LoweredApplicationName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetApplicationsCatalog" FunctionName="PowerCampusIdentityModel.Store.spGetApplicationsCatalog">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetApplicationsCatalog_Result">
+                <ScalarProperty Name="IdentityApplicationCatalogId" ColumnName="IdentityApplicationCatalogId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IdentityApplicationId" ColumnName="IdentityApplicationId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetClaimById" FunctionName="PowerCampusIdentityModel.Store.spGetClaimById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetClaimById_Result">
+                <ScalarProperty Name="IdentityClaimId" ColumnName="IdentityClaimId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="ClaimName" ColumnName="ClaimName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetClaims" FunctionName="PowerCampusIdentityModel.Store.spGetClaims">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetClaims_Result">
+                <ScalarProperty Name="IdentityClaimId" ColumnName="IdentityClaimId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="ClaimName" ColumnName="ClaimName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetClaimsByRoleAndGroup" FunctionName="PowerCampusIdentityModel.Store.spGetClaimsByRoleAndGroup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetClaimsByRoleAndGroup_Result">
+                <ScalarProperty Name="IdentityRoleClaimId" ColumnName="IdentityRoleClaimId" />
+                <ScalarProperty Name="IdentityRoleId" ColumnName="IdentityRoleId" />
+                <ScalarProperty Name="IdentityClaimId" ColumnName="IdentityClaimId" />
+                <ScalarProperty Name="ClaimName" ColumnName="ClaimName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetClaimsByRoleId" FunctionName="PowerCampusIdentityModel.Store.spGetClaimsByRoleId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetClaimsByRoleId_Result">
+                <ScalarProperty Name="IdentityClaimId" ColumnName="IdentityClaimId" />
+                <ScalarProperty Name="ClaimName" ColumnName="ClaimName" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetClaimsByUserId" FunctionName="PowerCampusIdentityModel.Store.spGetClaimsByUserId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetClaimsByUserId_Result">
+                <ScalarProperty Name="IdentityClaimId" ColumnName="IdentityClaimId" />
+                <ScalarProperty Name="ClaimName" ColumnName="ClaimName" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetIdentityApplicationConfigByApplication" FunctionName="PowerCampusIdentityModel.Store.spGetIdentityApplicationConfigByApplication">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetIdentityApplicationConfigByApplication_Result">
+                <ScalarProperty Name="IdentityApplicationConfigId" ColumnName="IdentityApplicationConfigId" />
+                <ScalarProperty Name="IdentityApplicationId" ColumnName="IdentityApplicationId" />
+                <ScalarProperty Name="AuthenticationMode" ColumnName="AuthenticationMode" />
+                <ScalarProperty Name="Timeout" ColumnName="Timeout" />
+                <ScalarProperty Name="PasswordMinLength" ColumnName="PasswordMinLength" />
+                <ScalarProperty Name="PasswordUpperCaseRequired" ColumnName="PasswordUpperCaseRequired" />
+                <ScalarProperty Name="PasswordLowerCaseRequired" ColumnName="PasswordLowerCaseRequired" />
+                <ScalarProperty Name="PasswordDigitsRequired" ColumnName="PasswordDigitsRequired" />
+                <ScalarProperty Name="PasswordSymbolsRequired" ColumnName="PasswordSymbolsRequired" />
+                <ScalarProperty Name="ADServer" ColumnName="ADServer" />
+                <ScalarProperty Name="ADContainer" ColumnName="ADContainer" />
+                <ScalarProperty Name="ADUser" ColumnName="ADUser" />
+                <ScalarProperty Name="ADPassword" ColumnName="ADPassword" />
+                <ScalarProperty Name="ADFSMetadataAddress" ColumnName="ADFSMetadataAddress" />
+                <ScalarProperty Name="ADFSWtRealm" ColumnName="ADFSWtRealm" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetIdentityUserStore" FunctionName="PowerCampusIdentityModel.Store.spGetIdentityUserStore">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetIdentityUserStore_Result">
+                <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+                <ScalarProperty Name="UserStoreName" ColumnName="UserStoreName" />
+                <ScalarProperty Name="Mode" ColumnName="Mode" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="InUse" ColumnName="InUse" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetIdentityUserStoreById" FunctionName="PowerCampusIdentityModel.Store.spGetIdentityUserStoreById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetIdentityUserStoreById_Result">
+                <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+                <ScalarProperty Name="UserStoreName" ColumnName="UserStoreName" />
+                <ScalarProperty Name="Mode" ColumnName="Mode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetIdentityUserStoreByUserStoreName" FunctionName="PowerCampusIdentityModel.Store.spGetIdentityUserStoreByUserStoreName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetIdentityUserStoreByUserStoreName_Result">
+                <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+                <ScalarProperty Name="UserStoreName" ColumnName="UserStoreName" />
+                <ScalarProperty Name="Mode" ColumnName="Mode" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetRoleById" FunctionName="PowerCampusIdentityModel.Store.spGetRoleById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetRoleById_Result">
+                <ScalarProperty Name="IdentityRoleId" ColumnName="IdentityRoleId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetRoleByName" FunctionName="PowerCampusIdentityModel.Store.spGetRoleByName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetRoleByName_Result">
+                <ScalarProperty Name="IdentityRoleId" ColumnName="IdentityRoleId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetRoles" FunctionName="PowerCampusIdentityModel.Store.spGetRoles">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetRoles_Result">
+                <ScalarProperty Name="IdentityRoleId" ColumnName="IdentityRoleId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetRolesByUserId" FunctionName="PowerCampusIdentityModel.Store.spGetRolesByUserId">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetRolesByUserId_Result">
+                <ScalarProperty Name="IdentityRoleId" ColumnName="IdentityRoleId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetUserByEmail" FunctionName="PowerCampusIdentityModel.Store.spGetUserByEmail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetUserByEmail_Result">
+                <ScalarProperty Name="IdentityUserId" ColumnName="IdentityUserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetUserById" FunctionName="PowerCampusIdentityModel.Store.spGetUserById">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetUserById_Result">
+                <ScalarProperty Name="IdentityUserId" ColumnName="IdentityUserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+                <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetUserByName" FunctionName="PowerCampusIdentityModel.Store.spGetUserByName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetUserByName_Result">
+                <ScalarProperty Name="IdentityUserId" ColumnName="IdentityUserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+                <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spGetUsers" FunctionName="PowerCampusIdentityModel.Store.spGetUsers">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="PowerCampusIdentityModel.spGetUsers_Result">
+                <ScalarProperty Name="IdentityUserId" ColumnName="IdentityUserId" />
+                <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+                <ScalarProperty Name="IdentityUserStoreId" ColumnName="IdentityUserStoreId" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spInsApplication" FunctionName="PowerCampusIdentityModel.Store.spInsApplication" />
+          <FunctionImportMapping FunctionImportName="spInsClaimByApplicationId" FunctionName="PowerCampusIdentityModel.Store.spInsClaimByApplicationId" />
+          <FunctionImportMapping FunctionImportName="spInsDefaultClaims" FunctionName="PowerCampusIdentityModel.Store.spInsDefaultClaims" />
+          <FunctionImportMapping FunctionImportName="spInsIdentityUserStore" FunctionName="PowerCampusIdentityModel.Store.spInsIdentityUserStore" />
+          <FunctionImportMapping FunctionImportName="spInsRoleByApplicationId" FunctionName="PowerCampusIdentityModel.Store.spInsRoleByApplicationId" />
+          <FunctionImportMapping FunctionImportName="spInsRoleClaim" FunctionName="PowerCampusIdentityModel.Store.spInsRoleClaim" />
+          <FunctionImportMapping FunctionImportName="spInsUserByApplicationId" FunctionName="PowerCampusIdentityModel.Store.spInsUserByApplicationId" />
+          <FunctionImportMapping FunctionImportName="spInsUserRole" FunctionName="PowerCampusIdentityModel.Store.spInsUserRole" />
+          <FunctionImportMapping FunctionImportName="spRethrowError" FunctionName="PowerCampusIdentityModel.Store.spRethrowError" />
+          <FunctionImportMapping FunctionImportName="spUpdApplicationById" FunctionName="PowerCampusIdentityModel.Store.spUpdApplicationById" />
+          <FunctionImportMapping FunctionImportName="spUpdApplicationCatalogById" FunctionName="PowerCampusIdentityModel.Store.spUpdApplicationCatalogById" />
+          <FunctionImportMapping FunctionImportName="spUpdClaimById" FunctionName="PowerCampusIdentityModel.Store.spUpdClaimById" />
+          <FunctionImportMapping FunctionImportName="spUpdIdentityUserStore" FunctionName="PowerCampusIdentityModel.Store.spUpdIdentityUserStore" />
+          <FunctionImportMapping FunctionImportName="spUpdRoleById" FunctionName="PowerCampusIdentityModel.Store.spUpdRoleById" />
+          <FunctionImportMapping FunctionImportName="spUpdUserById" FunctionName="PowerCampusIdentityModel.Store.spUpdUserById" />
+          <FunctionImportMapping FunctionImportName="spUtilSetColumnProperty" FunctionName="PowerCampusIdentityModel.Store.spUtilSetColumnProperty" />
+          <FunctionImportMapping FunctionImportName="spUtilSetObjectProperty" FunctionName="PowerCampusIdentityModel.Store.spUtilSetObjectProperty" />
+          <FunctionImportMapping FunctionImportName="spCompleteUpgradeProcess" FunctionName="PowerCampusIdentityModel.Store.spCompleteUpgradeProcess" />
+          <FunctionImportMapping FunctionImportName="spInsDBVersionHistory" FunctionName="PowerCampusIdentityModel.Store.spInsDBVersionHistory" />
+          <FunctionImportMapping FunctionImportName="spStartUpgradeProcess" FunctionName="PowerCampusIdentityModel.Store.spStartUpgradeProcess" />
+          <FunctionImportMapping FunctionImportName="spUpdDatabaseVersionAndBuildNumber" FunctionName="PowerCampusIdentityModel.Store.spUpdDatabaseVersionAndBuildNumber" />
+          <FunctionImportMapping FunctionImportName="spDropAllUtilityObjects" FunctionName="PowerCampusIdentityModel.Store.spDropAllUtilityObjects" />
+          <FunctionImportMapping FunctionImportName="spGenerateCreateDependantStatements" FunctionName="PowerCampusIdentityModel.Store.spGenerateCreateDependantStatements" />
+          <FunctionImportMapping FunctionImportName="spOutputCopyTableStatements" FunctionName="PowerCampusIdentityModel.Store.spOutputCopyTableStatements" />
+          <FunctionImportMapping FunctionImportName="spOutputCreateDependantStatements" FunctionName="PowerCampusIdentityModel.Store.spOutputCreateDependantStatements" />
+          <FunctionImportMapping FunctionImportName="spOutputCreateTableStatements" FunctionName="PowerCampusIdentityModel.Store.spOutputCreateTableStatements" />
+          <FunctionImportMapping FunctionImportName="spOutputDropDependantStatements" FunctionName="PowerCampusIdentityModel.Store.spOutputDropDependantStatements" />
+          <FunctionImportMapping FunctionImportName="spSetExtendedProperty" FunctionName="PowerCampusIdentityModel.Store.spSetExtendedProperty" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

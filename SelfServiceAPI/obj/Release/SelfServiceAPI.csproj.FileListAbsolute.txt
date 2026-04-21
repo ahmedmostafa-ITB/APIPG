@@ -1,0 +1,260 @@
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\obj\Release\SelfServiceAPI.csproj.AssemblyReference.cache
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\obj\Release\SelfServiceAPI.csproj.CoreCompileInputs.cache
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\SelfServiceAPI.dll.config
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\SelfServiceAPI.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\SelfServiceAPI.pdb
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\csc.exe
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\csc.exe.config
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\csc.rsp
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\csi.exe
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\csi.exe.config
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\csi.rsp
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.AppContext.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Console.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.IO.Compression.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.IO.Pipes.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Security.Claims.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.ValueTuple.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Xml.XPath.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\vbc.exe
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\vbc.exe.config
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\vbc.rsp
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\VBCSCompiler.exe
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Antlr3.Runtime.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\DataAccess.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\EntityFramework.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\EntityFramework.SqlServer.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Diagnostics.Abstractions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Http.Abstractions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Http.Extensions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Options.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Primitives.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Net.Http.Headers.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\MultipartDataMediaFormatter.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Newtonsoft.Json.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Buffers.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.ComponentModel.Annotations.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.IO.Pipelines.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Memory.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Net.Http.Formatting.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Numerics.Vectors.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Text.Encodings.Web.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Threading.Tasks.Extensions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Cors.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Helpers.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Http.Cors.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Http.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Http.WebHost.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Mvc.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Optimization.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Razor.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.WebPages.Deployment.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.WebPages.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.WebPages.Razor.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\WebGrease.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\DataAccess.pdb
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\DataAccess.dll.config
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\EntityFramework.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\EntityFramework.SqlServer.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Diagnostics.Abstractions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Http.Abstractions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Http.Extensions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Http.Features.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Configuration.Abstractions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.FileProviders.Abstractions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Options.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Primitives.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Net.Http.Headers.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Newtonsoft.Json.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Buffers.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.IO.Pipelines.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Memory.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Net.Http.Formatting.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Numerics.Vectors.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Text.Encodings.Web.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Threading.Tasks.Extensions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Http.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Http.Cors.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Http.WebHost.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Helpers.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Mvc.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Optimization.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Razor.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.WebPages.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.WebPages.Deployment.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.WebPages.Razor.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Antlr3.Runtime.pdb
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\obj\Release\SelfServ.60AEB812.Up2Date
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\obj\Release\SelfServiceAPI.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\AppFormApi-Tkh-master\SelfServiceAPI\obj\Release\SelfServiceAPI.pdb
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\obj\Release\SelfServiceAPI.csproj.AssemblyReference.cache
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\obj\Release\SelfServiceAPI.csproj.CoreCompileInputs.cache
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\obj\Release\SelfServiceAPI.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\obj\Release\SelfServiceAPI.pdb
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\SelfServiceAPI.dll.config
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\SelfServiceAPI.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\SelfServiceAPI.pdb
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\csc.exe
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\csc.exe.config
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\csc.rsp
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\csi.exe
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\csi.exe.config
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\csi.rsp
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.AppContext.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Console.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.IO.Compression.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.IO.FileSystem.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.IO.Pipes.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Security.AccessControl.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Security.Claims.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.ValueTuple.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Xml.XPath.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\vbc.exe
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\vbc.exe.config
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\vbc.rsp
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\VBCSCompiler.exe
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Antlr3.Runtime.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\DataAccess.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\EntityFramework.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\EntityFramework.SqlServer.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Diagnostics.Abstractions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Http.Abstractions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Http.Extensions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Http.Features.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Configuration.Abstractions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.FileProviders.Abstractions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Logging.Abstractions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Options.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Primitives.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Net.Http.Headers.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\MultipartDataMediaFormatter.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Newtonsoft.Json.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Buffers.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.ComponentModel.Annotations.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.IO.Pipelines.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Memory.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Net.Http.Formatting.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Numerics.Vectors.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Text.Encodings.Web.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Threading.Tasks.Extensions.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Cors.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Helpers.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Http.Cors.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Http.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Http.WebHost.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Mvc.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Optimization.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Razor.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.WebPages.Deployment.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.WebPages.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.WebPages.Razor.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\WebGrease.dll
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\DataAccess.pdb
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\DataAccess.dll.config
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\EntityFramework.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\EntityFramework.SqlServer.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Diagnostics.Abstractions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Http.Abstractions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Http.Extensions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.AspNetCore.Http.Features.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Configuration.Abstractions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.FileProviders.Abstractions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Logging.Abstractions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Options.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Extensions.Primitives.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.Net.Http.Headers.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Newtonsoft.Json.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Buffers.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.IO.Pipelines.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Memory.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Net.Http.Formatting.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Numerics.Vectors.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Text.Encodings.Web.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Threading.Tasks.Extensions.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Http.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Http.Cors.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Http.WebHost.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Helpers.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Mvc.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Optimization.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.Razor.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.WebPages.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.WebPages.Deployment.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\System.Web.WebPages.Razor.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Antlr3.Runtime.pdb
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\ahmedmostafa\Desktop\ITB\TKH\App Form - Post Graduate\BackEnd\AppFormApi-Tkh-master\SelfServiceAPI\obj\Release\SelfServ.60AEB812.Up2Date
