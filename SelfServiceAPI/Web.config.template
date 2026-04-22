@@ -23,6 +23,65 @@
     __API_BASE_URL__  = http://localhost:8010/APITest
     __FRONTEND_URL__  = http://localhost:8010/PGApplicationForm
   ==============================================================
+
+  ENVIRONMENT-SPECIFIC SETTINGS — what to change per deployment
+  ==============================================================
+
+  1. DATABASE CONNECTION STRINGS
+     - __DB_SERVER__   : IP or hostname of SQL Server (e.g. 172.17.22.11)
+     - __IDENTITY_DB__ : Identity database name (e.g. PowerCampusIdentityTest)
+     - __APP_DB__      : Application database name (e.g. PCDB_TESTING)
+     - __DB_USER__ / __DB_PASSWORD__ : SQL credentials
+
+  2. SMTP / EMAIL
+     The app sends verification emails during signup. The Password field
+     is passed directly to NetworkCredential — must be PLAIN TEXT.
+
+     For local testing with Gmail:
+       Smtp      = smtp.gmail.com
+       Port      = 587
+       UserName  = your-gmail@gmail.com
+       Password  = xxxx xxxx xxxx xxxx   (Gmail App Password, 16 chars)
+       FromEmail = your-gmail@gmail.com
+
+     For client production (Office 365):
+       Smtp      = smtp.office365.com
+       Port      = 587
+       UserName  = Apply@client-domain.edu.eg
+       Password  = (plain text password)
+       FromEmail = Apply@client-domain.edu.eg
+
+     NOTE: Office 365 may block basic SMTP auth from outside the
+     client's network. Use Gmail for local/VPN testing.
+
+  3. URLs — these must all be consistent with each other:
+     - VerificationURLAccount : where the email verification link points
+       Must be __API_BASE_URL__/EmailVerification.aspx
+       e.g. http://localhost:8010/APITest/EmailVerification.aspx
+     - ApplicationLink : where the user is redirected AFTER email verification
+       Must be __FRONTEND_URL__ (the React app login page)
+       e.g. http://localhost:8010/PGApplicationForm
+     - APIBaseURLcallback : the API base URL for payment gateway callbacks
+       Must be __API_BASE_URL__
+       e.g. http://localhost:8010/APITest
+
+     COMMON MISTAKE: if these URLs don't match the IIS site port,
+     email verification links will be broken or redirect to the
+     wrong place.
+
+  4. ERROR LOGS
+     - ErrorLogs : writable folder path for error log files
+       e.g. C:\ITB\AdvancedOnlineApplication\TestLogs\
+       Create this folder manually — the app won't create it.
+
+  5. PAYMENT GATEWAY (PayTabs)
+     - PaymentGatewayURL : PayTabs payment page URL
+     - merchantID : PayTabs merchant profile ID
+     NOTE: PayTabs returns 401 Unauthorized if the merchant ID is not
+     registered for the callback domain. Local testing with localhost
+     will fail unless you have sandbox credentials.
+
+  ==============================================================
 -->
 <configuration>
   <configSections>
@@ -37,12 +96,14 @@
     <add key="webpages:Enabled" value="false" />
     <add key="ClientValidationEnabled" value="true" />
     <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+    <!-- SMTP — see notes above for Gmail vs Office 365 setup -->
     <add key="Smtp" value="__SMTP_SERVER__" />
     <add key="Port" value="587" />
     <add key="EnableSSL" value="true" />
     <add key="UserName" value="__SMTP_USERNAME__" />
     <add key="Password" value="__SMTP_PASSWORD__" />
     <add key="FromEmail" value="__SMTP_FROM_EMAIL__" />
+    <!-- Email verification link — must match API base URL + /EmailVerification.aspx -->
     <add key="VerificationURLAccount" value="__API_BASE_URL__/EmailVerification.aspx" />
     <add key="EmailValidityTimeInHrs" value="72" />
     <add key="SiblingCodeId" value="11" />
@@ -71,7 +132,9 @@
     <add key="West" value="731" />
     <add key="TransferCurrId" value="59" />
     <add key="merchantID" value="__MERCHANT_ID__"/>
+    <!-- Payment gateway callback — must match API base URL -->
     <add key="APIBaseURLcallback" value="__API_BASE_URL__"/>
+    <!-- Post-verification redirect — must match frontend URL -->
     <add key="ApplicationLink" value="__FRONTEND_URL__" />
   </appSettings>
   <!--
