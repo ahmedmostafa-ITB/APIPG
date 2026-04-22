@@ -1,0 +1,16 @@
+# Environment-specific config (contains credentials)
+SelfServiceAPI/Web.config
+
+# Keep the template for reference
+!SelfServiceAPI/Web.config.template
+
+# Build outputs
+SelfServiceAPI/bin/
+SelfServiceAPI/obj/
+DataAccess/bin/
+DataAccess/obj/
+
+# User-specific files
+*.user
+*.suo
+.vs/

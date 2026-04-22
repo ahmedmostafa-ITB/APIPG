@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  TEMPLATE: Copy this file to Web.config and fill in your environment-specific values.
+  Do NOT commit Web.config with real credentials.
+
+  IIS HOSTING — multiple clients on one machine
+  ==============================================================
+  Recommended: one IIS Site per client with a dedicated App Pool.
+  Each site uses a different port. The API is deployed as an IIS
+  Application under the site (e.g. /APITest), and the frontend
+  build output as another (e.g. /PGApplicationForm).
+
+    IIS
+    ├── TKH (Site, port 8010, AppPool: TKH)
+    │   ├── /APITest              ← this API
+    │   └── /PGApplicationForm    ← frontend build
+    │
+    ├── ClientB (Site, port 8020, AppPool: ClientB)
+    │   ├── /APITest
+    │   └── /PGApplicationForm
+
+  URL placeholders below should use the client's site port:
+    __API_BASE_URL__  = http://localhost:8010/APITest
+    __FRONTEND_URL__  = http://localhost:8010/PGApplicationForm
+  ==============================================================
+
+  ENVIRONMENT-SPECIFIC SETTINGS — what to change per deployment
+  ==============================================================
+
+  1. DATABASE CONNECTION STRINGS
+     - __DB_SERVER__   : IP or hostname of SQL Server (e.g. 172.17.22.11)
+     - __IDENTITY_DB__ : Identity database name (e.g. PowerCampusIdentityTest)
+     - __APP_DB__      : Application database name (e.g. PCDB_TESTING)
+     - __DB_USER__ / __DB_PASSWORD__ : SQL credentials
+
+  2. SMTP / EMAIL
+     The app sends verification emails during signup. The Password field
+     is passed directly to NetworkCredential — must be PLAIN TEXT.
+
+     For local testing with Gmail:
+       Smtp      = smtp.gmail.com
+       Port      = 587
+       UserName  = your-gmail@gmail.com
+       Password  = xxxx xxxx xxxx xxxx   (Gmail App Password, 16 chars)
+       FromEmail = your-gmail@gmail.com
+
+     For client production (Office 365):
+       Smtp      = smtp.office365.com
+       Port      = 587
+       UserName  = Apply@client-domain.edu.eg
+       Password  = (plain text password)
+       FromEmail = Apply@client-domain.edu.eg
+
+     NOTE: Office 365 may block basic SMTP auth from outside the
+     client's network. Use Gmail for local/VPN testing.
+
+  3. URLs — these must all be consistent with each other:
+     - VerificationURLAccount : where the email verification link points
+       Must be __API_BASE_URL__/EmailVerification.aspx
+       e.g. http://localhost:8010/APITest/EmailVerification.aspx
+     - ApplicationLink : where the user is redirected AFTER email verification
+       Must be __FRONTEND_URL__ (the React app login page)
+       e.g. http://localhost:8010/PGApplicationForm
+     - APIBaseURLcallback : the API base URL for payment gateway callbacks
+       Must be __API_BASE_URL__
+       e.g. http://localhost:8010/APITest
+
+     COMMON MISTAKE: if these URLs don't match the IIS site port,
+     email verification links will be broken or redirect to the
+     wrong place.
+
+  4. ERROR LOGS
+     - ErrorLogs : writable folder path for error log files
+       e.g. C:\ITB\AdvancedOnlineApplication\TestLogs\
+       Create this folder manually — the app won't create it.
+
+  5. PAYMENT GATEWAY (PayTabs)
+     - PaymentGatewayURL : PayTabs payment page URL
+     - merchantID : PayTabs merchant profile ID
+     NOTE: PayTabs returns 401 Unauthorized if the merchant ID is not
+     registered for the callback domain. Local testing with localhost
+     will fail unless you have sandbox credentials.
+
+  ==============================================================
+-->
+<configuration>
+  <configSections>
+    <section name="entityFramework" type="System.Data.Entity.Internal.ConfigFile.EntityFrameworkSection, EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" requirePermission="false" />
+  </configSections>
+  <connectionStrings>
+    <add name="PowerCampusIdentityEntities" connectionString="metadata=res://*/Identity.csdl|res://*/Identity.ssdl|res://*/Identity.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=__DB_SERVER__;initial catalog=__IDENTITY_DB__;user id=__DB_USER__;password=__DB_PASSWORD__;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+    <add name="ApplicationFormEntities" connectionString="metadata=res://*/Entities.csdl|res://*/Entities.ssdl|res://*/Entities.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=__DB_SERVER__;initial catalog=__APP_DB__;user id=__DB_USER__;password=__DB_PASSWORD__;multipleactiveresultsets=True;application name=EntityFramework&quot;" providerName="System.Data.EntityClient" />
+  </connectionStrings>
+  <appSettings>
+    <add key="webpages:Version" value="3.0.0.0" />
+    <add key="webpages:Enabled" value="false" />
+    <add key="ClientValidationEnabled" value="true" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+    <!-- SMTP — see notes above for Gmail vs Office 365 setup -->
+    <add key="Smtp" value="__SMTP_SERVER__" />
+    <add key="Port" value="587" />
+    <add key="EnableSSL" value="true" />
+    <add key="UserName" value="__SMTP_USERNAME__" />
+    <add key="Password" value="__SMTP_PASSWORD__" />
+    <add key="FromEmail" value="__SMTP_FROM_EMAIL__" />
+    <!-- Email verification link — must match API base URL + /EmailVerification.aspx -->
+    <add key="VerificationURLAccount" value="__API_BASE_URL__/EmailVerification.aspx" />
+    <add key="EmailValidityTimeInHrs" value="72" />
+    <add key="SiblingCodeId" value="11" />
+    <add key="ApplicationId" value="3" />
+    <add key="ApplicationFormSettings" value="1" />
+    <add key="ApplicationProgramSettings" value="1" />
+    <add key="MaxAttachmentNb" value="8" />
+    <add key="NationalityCheck" value="EGYPT" />
+    <add key="Link" value="http://bing.com" />
+    <add key="UnderGraduateProgram" value="1" />
+    <add key="GraduateProgram" value="3" />
+    <add key="MotherRelationId" value="7" />
+    <add key="FatherRelationId" value="4" />
+    <add key="ThanaweyaAmaa" value="1" />
+    <add key="IGCSE" value="28" />
+    <add key="IBDiploma" value="30" />
+    <add key="GCSE" value="49" />
+    <add key="AMERDiploma" value="29" />
+    <add key="defaultPhoneType" value="MOBILE" />
+    <add key="defaultCountry" value="50" />
+    <add key="MaximumSizeErrorLogMB" value="50" />
+    <add key="ErrorLogs" value="__ERROR_LOG_PATH__" />
+    <add key="NumberOfTestType" value="5" />
+    <add key="PaymentGatewayURL" value="__PAYMENT_GATEWAY_URL__" />
+    <add key="East" value="1" />
+    <add key="West" value="731" />
+    <add key="TransferCurrId" value="59" />
+    <add key="merchantID" value="__MERCHANT_ID__"/>
+    <!-- Payment gateway callback — must match API base URL -->
+    <add key="APIBaseURLcallback" value="__API_BASE_URL__"/>
+    <!-- Post-verification redirect — must match frontend URL -->
+    <add key="ApplicationLink" value="__FRONTEND_URL__" />
+  </appSettings>
+  <!--
+    Remaining sections (system.web, runtime, system.codedom, entityFramework, system.webServer)
+    are identical across environments — copy from an existing Web.config.
+
+    POST-PUBLISH STEP — System.Net.Http.dll
+    ========================================
+    Visual Studio publish does NOT include System.Net.Http.dll in the bin/ folder.
+    You must copy it manually after every publish:
+
+      Source:  packages\System.Net.Http.4.3.4\lib\net46\System.Net.Http.dll
+      Target:  <publish_folder>\bin\System.Net.Http.dll
+
+    If the NuGet package isn't in the packages folder, download it:
+      nuget install System.Net.Http -Version 4.3.4 -OutputDirectory packages
+
+    The binding redirect in the <runtime> section must match the DLL's actual version.
+    NuGet package 4.3.4 ships DLL version 4.1.1.3 (NOT 4.2.0.0).
+    If you get "manifest definition does not match" on startup, check the DLL version:
+      PowerShell: [System.Reflection.AssemblyName]::GetAssemblyName("bin\System.Net.Http.dll").Version
+    Then update the newVersion in the binding redirect to match.
+  -->
+</configuration>
