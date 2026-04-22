@@ -81,7 +81,7 @@ namespace SelfServiceAPI.Classes
                 null, null,null, applicationInfo.Email, applicationInfo.Demographic.BirthDate.HasValue ? applicationInfo.Demographic.BirthDate.Value < new DateTime(1900, 1, 1) || applicationInfo.Demographic.BirthDate.Value > new DateTime(2079, 6, 6) ? new DateTime(1900, 1, 1) : applicationInfo.Demographic.BirthDate.Value : (DateTime?)null, gender, null,
                 null, null, null, null, applicationInfo.Demographic.PrimaryCitizenship, null, applicationInfo.Demographic.CountryOfBirth, null,
                 null, null, applicationInfo.GovernmentId, null, null, null, null, applicationInfo.PassportNumber, applicationInfo.PassportCountryIssued == 0 ? null : applicationInfo.PassportCountryIssued,
-                applicationInfo.PassportExpirationDate.HasValue ? applicationInfo.PassportExpirationDate.Value < new DateTime(1900, 1, 1) || applicationInfo.PassportExpirationDate.Value > new DateTime(2079, 6, 6) ? new DateTime(1900, 1, 1) : applicationInfo.PassportExpirationDate.Value : (DateTime?)null, applicationInfo.AcademicInterest.SessionPeriodId, applicationInfo.AcademicInterest.Level.HasValue ? applicationInfo.AcademicInterest.Level : default(Int32), null, null, null, sourceid, 1, false, isDorm, null, null, applicationProgamSettingsId, null,
+                applicationInfo.PassportExpirationDate.HasValue ? applicationInfo.PassportExpirationDate.Value < new DateTime(1900, 1, 1) || applicationInfo.PassportExpirationDate.Value > new DateTime(2079, 6, 6) ? new DateTime(1900, 1, 1) : applicationInfo.PassportExpirationDate.Value : (DateTime?)null, applicationInfo.AcademicInterest.SessionPeriodId, applicationInfo.AcademicInterest.Level.HasValue && applicationInfo.AcademicInterest.Level > 0 ? applicationInfo.AcademicInterest.Level : (int?)null, null, null, null, sourceid, 1, false, isDorm, null, null, applicationProgamSettingsId, null,
                 applicationInfo.OtherSource, null,4,applicationInfo.AcademicInterest.UniversityId.HasValue ? applicationInfo.AcademicInterest.UniversityId.Value: (int?)null, null, null,applicationInfo.AcademicInterest.SecondUniversityId.HasValue ? applicationInfo.AcademicInterest.SecondUniversityId.Value :(int?)null, null, null, null);
 
                 insertedApplicationId = entities.Applications.Max(p => p.ApplicationId);
@@ -112,9 +112,13 @@ namespace SelfServiceAPI.Classes
             ObjectParameter applicationProgram = new ObjectParameter("ApplicationProgramId", typeof(int));
             using (ApplicationFormEntities entities = new ApplicationFormEntities())
             {
-               levelDesc = entities.CODE_COLLEGEATTEND.FirstOrDefault(item => item.CollegeAttendId == academicInterest.Level.Value).LONG_DESC;
+               if (academicInterest.Level.HasValue && academicInterest.Level.Value > 0)
+               {
+                   var colAttendLevel = entities.CODE_COLLEGEATTEND.FirstOrDefault(item => item.CollegeAttendId == academicInterest.Level.Value);
+                   if (colAttendLevel != null) levelDesc = colAttendLevel.LONG_DESC;
+               }
 
-                entities.spInsApplicationProgram(applicationProgram, applicationId, academicInterest.ProgramOfStudy == 0 ? null : academicInterest.ProgramOfStudy, academicInterest.FullPartTime, true, academicInterest.ProgramDegreeCurriculumDescription, academicInterest.Level.Value > 0 ? academicInterest.Level : null, levelDesc);
+                entities.spInsApplicationProgram(applicationProgram, applicationId, academicInterest.ProgramOfStudy == 0 ? null : academicInterest.ProgramOfStudy, academicInterest.FullPartTime, true, academicInterest.ProgramDegreeCurriculumDescription, academicInterest.Level.HasValue && academicInterest.Level.Value > 0 ? academicInterest.Level : null, levelDesc);
 
                 CODE_COLLEGEATTEND colAttend = entities.CODE_COLLEGEATTEND.FirstOrDefault(itemSec => itemSec.CollegeAttendId == academicInterest.SecondLevel);
 
