@@ -237,38 +237,43 @@ namespace SelfServiceAPI.Classes
 
                 mediaType = entities.CODE_MEDIATYPE.FirstOrDefault(extension => extension.EXTENSION.Contains(fileExtension)) as CODE_MEDIATYPE;
 
-
                 if (mediaType == null)
                 {
                     fileExtension = attachment.FileExtension;
-
                     mediaType = entities.CODE_MEDIATYPE.FirstOrDefault(extension => extension.EXTENSION.Contains(fileExtension)) as CODE_MEDIATYPE;
                 }
 
-                if (mediaType != null)
+                if (mediaType == null)
                 {
-
-                    fileType = mediaType.MediaTypeId;
-
-                    if (fileType > 0)
-                    {
-                        int index = attachment.FileContent.IndexOf(',');
-
-                        if (index > 0)
-                        {
-                            fileContent = attachment.FileContent.Substring(index + 1);
-                            byte[] contentByte = Convert.FromBase64String(fileContent);
-                            entities.spInsApplicationAttachment(applicationAttchmentId, applicationId, attachment.FileName, fileType, attachment.FileExtension, contentByte, attachment.FileName);
-                        }
-                        else
-                        {
-                            fileContent = attachment.FileContent;
-                            byte[] contentByte = Convert.FromBase64String(fileContent);
-                            entities.spInsApplicationAttachment(applicationAttchmentId, applicationId, attachment.FileName, fileType, attachment.FileExtension, contentByte, attachment.FileName);
-                        }
-                    }
-
+                    LoggingManager.LogException(
+                        "Unsupported file type: extension '" + attachment.FileExtension + "' for file '" + attachment.FileName + "' not found in CODE_MEDIATYPE table.",
+                        "InsertApplicationAttachment", DateTime.Now, "ApplicationId: " + applicationId, "Submit");
+                    throw new Exception("The file '" + attachment.FileName + "' has an unsupported file type. Please upload a supported file format and try again.");
                 }
+
+                fileType = mediaType.MediaTypeId;
+
+                if (fileType <= 0)
+                {
+                    LoggingManager.LogException(
+                        "Invalid MediaTypeId (" + fileType + ") for extension '" + attachment.FileExtension + "' file '" + attachment.FileName + "'. Check CODE_MEDIATYPE table.",
+                        "InsertApplicationAttachment", DateTime.Now, "ApplicationId: " + applicationId, "Submit");
+                    throw new Exception("The file '" + attachment.FileName + "' could not be processed. Please contact support.");
+                }
+
+                int index = attachment.FileContent.IndexOf(',');
+
+                if (index > 0)
+                {
+                    fileContent = attachment.FileContent.Substring(index + 1);
+                }
+                else
+                {
+                    fileContent = attachment.FileContent;
+                }
+
+                byte[] contentByte = Convert.FromBase64String(fileContent);
+                entities.spInsApplicationAttachment(applicationAttchmentId, applicationId, attachment.FileName, fileType, attachment.FileExtension, contentByte, attachment.FileName);
             }
         }
 
