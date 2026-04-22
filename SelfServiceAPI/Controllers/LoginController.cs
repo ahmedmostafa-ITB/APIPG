@@ -120,8 +120,23 @@ namespace SelfServiceAPI.Controllers
                         //Generate passwod
                         string generatedPassword = PasswordGenerator.GeneratePassword(3, 3, 1, 1);
 
-                        //Sent the password to the candidate
-                        SendEmail.ProcessSendEmail(request.Email, generatedPassword);
+                        //Sent the password to the candidate — look up applicant name from IncompleteApplication
+                        string firstName = "";
+                        string lastName = "";
+                        using (ApplicationFormEntities appEntities = new ApplicationFormEntities())
+                        {
+                            var incApp = appEntities.IncompleteApplications.FirstOrDefault(app => app.Email == request.Email);
+                            if (incApp != null && !string.IsNullOrEmpty(incApp.ApplicationData))
+                            {
+                                var appInfo = ApplicationInfo.DeserializeApplicationInfo(incApp.ApplicationData);
+                                if (appInfo != null && appInfo.PersonalInfo != null)
+                                {
+                                    firstName = appInfo.PersonalInfo.FirstName ?? "";
+                                    lastName = appInfo.PersonalInfo.LastName ?? "";
+                                }
+                            }
+                        }
+                        SendEmail.ProcessSendEmail(request.Email, generatedPassword, firstName, lastName);
 
                         //Update the password on the database
                         pcEntities.spUpdUserById(result[0].IdentityUserId, result[0].UserName, result[0].Email, EncryptDecryptText.Encryptword(generatedPassword));
