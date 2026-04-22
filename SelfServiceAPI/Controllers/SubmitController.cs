@@ -631,7 +631,7 @@ namespace SelfServiceAPI.Controllers
                             {
                                 tranScope.Rollback();
                                 LoggingManager.LogException(exception.Message, exception.StackTrace, DateTime.Now, string.Empty, string.Empty);
-
+                                throw;
                             }
                         }
                     }
