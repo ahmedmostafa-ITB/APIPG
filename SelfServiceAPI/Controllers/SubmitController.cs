@@ -330,11 +330,14 @@ namespace SelfServiceAPI.Controllers
                                             {
                                                 LoggingManager.LogException(ex.Message, ex.StackTrace, System.DateTime.Now, ex.ToString(), ex.Source);
 
+                                                // Application was submitted successfully but payment gateway failed.
+                                                // Return 200 with a flag so the frontend knows the data is saved
+                                                // but payment needs to be retried.
                                                 ErrorResponse reponse = new ErrorResponse()
                                                 {
-                                                    StatusCode = (int)HttpStatusCode.Conflict,
-                                                    Status = "error",
-                                                    Msg = "Error"
+                                                    StatusCode = (int)HttpStatusCode.OK,
+                                                    Status = "warning",
+                                                    Msg = "Your application has been submitted successfully. However, the payment step could not be completed. Please contact the admissions office for payment instructions."
                                                 };
 
                                                 return Request.CreateResponse(reponse);
@@ -490,66 +493,66 @@ namespace SelfServiceAPI.Controllers
                         {
                             try
                             {
-                                insertedApplicationId = Submit.InsertApplication(applicationInfo, Convert.ToInt32(ConfigurationManager.AppSettings["ApplicationProgramSettings"]));
+                                insertedApplicationId = Submit.InsertApplication(entities, applicationInfo, Convert.ToInt32(ConfigurationManager.AppSettings["ApplicationProgramSettings"]));
 
                                 if (insertedApplicationId > 0)
                                 {
                                     //Insert application phone data
                                     if (applicationInfo.PhoneNumber != null && applicationInfo.PhoneNumber.Count > 0)
-                                        Submit.InsertApplicationPhone(applicationInfo.PhoneNumber, insertedApplicationId);
+                                        Submit.InsertApplicationPhone(entities, applicationInfo.PhoneNumber, insertedApplicationId);
 
                                     //Insert application address data
                                     if (applicationInfo.Address != null && applicationInfo.Address.Count > 0)
-                                        Submit.InsertApplicationAddress(applicationInfo.Address, insertedApplicationId);
+                                        Submit.InsertApplicationAddress(entities, applicationInfo.Address, insertedApplicationId);
 
                                     //Insert application source data
                                     if (applicationInfo.SourceInfo != null && applicationInfo.SourceInfo.Count > 0)
-                                        Submit.InsertApplicationSource(applicationInfo.SourceInfo, insertedApplicationId);
+                                        Submit.InsertApplicationSource(entities, applicationInfo.SourceInfo, insertedApplicationId);
 
                                     //Insert application test score
                                     if (applicationInfo.TestScores != null && applicationInfo.TestScores.Count > 0)
-                                        Submit.InsertApplicationTestScore(applicationInfo.TestScores, insertedApplicationId);
+                                        Submit.InsertApplicationTestScore(entities, applicationInfo.TestScores, insertedApplicationId);
 
                                     //Insert application tests
                                     if (applicationInfo.Tests != null && applicationInfo.Tests.Count > 0)
-                                        Submit.InsertApplicationTests(applicationInfo.Tests, insertedApplicationId);
+                                        Submit.InsertApplicationTests(entities, applicationInfo.Tests, insertedApplicationId);
 
                                     //Insert application program
                                     if (applicationInfo.AcademicInterest != null)
-                                        Submit.InsertApplicationProgram(applicationInfo.AcademicInterest, insertedApplicationId);
+                                        Submit.InsertApplicationProgram(entities, applicationInfo.AcademicInterest, insertedApplicationId);
 
 
-                                    //Added By Mohammad Farfour 
+                                    //Added By Mohammad Farfour
                                     //Insert application campus
                                     if (applicationInfo.AcademicInterest != null) {
                                         if (applicationInfo.AcademicInterest.PreferredCampus != "")
-                                            Submit.InsertApplicationCampus(applicationInfo.AcademicInterest, insertedApplicationId);
+                                            Submit.InsertApplicationCampus(entities, applicationInfo.AcademicInterest, insertedApplicationId);
                                     }
                                     //Insert application relationship and emergency contact
                                     if (applicationInfo.ApplicationRelations != null && applicationInfo.ApplicationRelations.Count > 0)
-                                        Submit.InsertApplicationRelationShip(applicationInfo.ApplicationRelations, insertedApplicationId);
+                                        Submit.InsertApplicationRelationShip(entities, applicationInfo.ApplicationRelations, insertedApplicationId);
 
                                     //Insert application relationship sibling
                                     if (!string.IsNullOrEmpty(applicationInfo.PersonalInfo.SiblingFName) && !string.IsNullOrEmpty(applicationInfo.PersonalInfo.SiblingLName))
                                     {
                                         int siblingPrefixId = Convert.ToInt32(ConfigurationManager.AppSettings["SiblingCodeId"]);
-                                        Submit.InsertApplicationSiblingRelationShip(applicationInfo.PersonalInfo, insertedApplicationId, siblingPrefixId);
+                                        Submit.InsertApplicationSiblingRelationShip(entities, applicationInfo.PersonalInfo, insertedApplicationId, siblingPrefixId);
                                     }
 
                                     //Insert application education
                                     if (applicationInfo.PriorEducation != null && applicationInfo.PriorEducation.Count > 0)
-                                        Submit.InsertApplicationEducation(applicationInfo.PriorEducation, insertedApplicationId);
+                                        Submit.InsertApplicationEducation(entities, applicationInfo.PriorEducation, insertedApplicationId);
 
                                     //Insert application employment
                                     if (applicationInfo.Employment != null && applicationInfo.Employment.Count > 0)
-                                        Submit.InsertApplicationEmployment(applicationInfo.Employment, insertedApplicationId);
+                                        Submit.InsertApplicationEmployment(entities, applicationInfo.Employment, insertedApplicationId);
 
 
                                     //Insert application attachments
                                     foreach (Submit attachment in lstRequest)
                                     {
                                         if (attachment != null && attachment.FileContent !=null && !string.IsNullOrEmpty(attachment.FileName) && !string.IsNullOrEmpty(attachment.FileExtension))
-                                            Submit.InsertApplicationAttachment(attachment, insertedApplicationId);
+                                            Submit.InsertApplicationAttachment(entities, attachment, insertedApplicationId);
                                     }
 
                                     //Insert Application User Defined
@@ -609,7 +612,7 @@ namespace SelfServiceAPI.Controllers
                                     // ──────────────────────────────────────────────────────────────
 
                                     if (lstUserDefined.Count > 0)
-                                        Submit.InsertApplicationUserDefined(lstUserDefined, insertedApplicationId);
+                                        Submit.InsertApplicationUserDefined(entities, lstUserDefined, insertedApplicationId);
 
                                     // Delete from the identity database
                                     using (PowerCampusIdentityEntities pcIdentity = new PowerCampusIdentityEntities())
