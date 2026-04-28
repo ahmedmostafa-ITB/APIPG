@@ -647,11 +647,9 @@ namespace SelfServiceAPI.Controllers
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "AcademicAwards", ColumnValue = pg.AcademicAwards ?? "", ColumnType = 1, ColumnLabel = "AcademicAwards", IsUploading = true, Description = "PostgraduateData" });
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgAcademicAwards", ColumnValue = pg.PgAcademicAwards ?? "", ColumnType = 1, ColumnLabel = "PgAcademicAwards", IsUploading = true, Description = "PostgraduateData" });
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgProfExamsData", ColumnValue = pg.PgProfExamsData ?? "", ColumnType = 1, ColumnLabel = "PgProfExamsData", IsUploading = true, Description = "PostgraduateData" });
-<<<<<<< HEAD
-=======
+                                        // -- PG: Academic Support --
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "AcademicSupport", ColumnValue = pg.AcademicSupport ?? "", ColumnType = 1, ColumnLabel = "AcademicSupport", IsUploading = true, Description = "PostgraduateData" });
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "AcademicSupportDetails", ColumnValue = pg.AcademicSupportDetails ?? "", ColumnType = 1, ColumnLabel = "AcademicSupportDetails", IsUploading = true, Description = "PostgraduateData" });
->>>>>>> origin/APIPG-Ahmed
                                     }
                                     // ──────────────────────────────────────────────────────────────
 
