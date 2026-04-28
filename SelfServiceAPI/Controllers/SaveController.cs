@@ -185,6 +185,8 @@ namespace SelfServiceAPI.Controllers
             pg.PgHasAcademicAward = request.PgHasAcademicAward;
             pg.PgAcademicAwards = request.PgAcademicAwards;
             pg.PgProfExamsData = request.PgProfExamsData;
+            pg.AcademicSupport = request.AcademicSupport;
+            pg.AcademicSupportDetails = request.AcademicSupportDetails;
         }
 
         private void InsertTestScore(ApplicationInfoRequest request, ApplicationInfo deserializedApplicationInfo, List<ApplicationTestScoreInfo> lstTestScoreInfo)

@@ -197,6 +197,8 @@ namespace SelfServiceAPI.Classes
         public string PgAcademicAwards { get; set; }
         /// <summary>JSON array of professional exam entries: [{examName,score,dateTaken,notes}].</summary>
         public string PgProfExamsData { get; set; }
+        public string AcademicSupport { get; set; }
+        public string AcademicSupportDetails { get; set; }
         #endregion
     }
 }
