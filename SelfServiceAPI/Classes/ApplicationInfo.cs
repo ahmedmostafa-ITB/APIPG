@@ -313,5 +313,7 @@ namespace SelfServiceAPI.Classes
         public string PgHasAcademicAward { get; set; }
         public string PgAcademicAwards { get; set; }
         public string PgProfExamsData { get; set; }
+        public string AcademicSupport { get; set; }
+        public string AcademicSupportDetails { get; set; }
     }
 }

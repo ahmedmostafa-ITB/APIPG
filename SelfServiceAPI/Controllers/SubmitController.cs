@@ -300,18 +300,19 @@ namespace SelfServiceAPI.Controllers
                                                 //callback = "https://webhook.site/7e4785b5-7188-4126-a261-9acb7a988bfe",
                                                 //@return = "https://pcss.tkh.edu.eg/ApplicationFormTest/login"
                                             };
+
+                                            // ─── PayTabs Payment Gateway (ACTIVE) ───────────────────────
                                             tranScope.Commit();
                                             try
                                             {
                                                 System.Net.ServicePointManager.SecurityProtocol =
-                                    SecurityProtocolType.Tls12 |
-            SecurityProtocolType.Tls11 |
-            SecurityProtocolType.Tls;
+                                                    SecurityProtocolType.Tls12 |
+                                                    SecurityProtocolType.Tls11 |
+                                                    SecurityProtocolType.Tls;
                                                 HttpResponseMessage response = await client.PostAsJsonAsync(
                                                     "https://secure-egypt.paytabs.com/payment/request", request1);
                                                 string responseBody = await response.Content.ReadAsStringAsync();
                                                 response.EnsureSuccessStatusCode();
-
 
                                                 Root payTabsResponse = new Root();
                                                 payTabsResponse = JsonConvert.DeserializeObject<Root>(responseBody);
@@ -323,7 +324,6 @@ namespace SelfServiceAPI.Controllers
                                                     Data = payTabsResponse
                                                 };
 
-
                                                 return Request.CreateResponse(userFound);
                                             }
                                             catch (System.Exception ex)
@@ -331,8 +331,6 @@ namespace SelfServiceAPI.Controllers
                                                 LoggingManager.LogException(ex.Message, ex.StackTrace, System.DateTime.Now, ex.ToString(), ex.Source);
 
                                                 // Application was submitted successfully but payment gateway failed.
-                                                // Return 200 with a flag so the frontend knows the data is saved
-                                                // but payment needs to be retried.
                                                 ErrorResponse reponse = new ErrorResponse()
                                                 {
                                                     StatusCode = (int)HttpStatusCode.OK,
@@ -341,24 +339,65 @@ namespace SelfServiceAPI.Controllers
                                                 };
 
                                                 return Request.CreateResponse(reponse);
-
                                             }
+                                            // ─── END PayTabs ────────────────────────────────────────────
 
-                                            ///////////////////////////
-                                            //entities.SaveChanges();
+                                            /* ─── SIMULATION: Bypass PayTabs (uncomment to simulate payment locally) ───
+                                            //ITB - Ahmed Mostafa 2026/04/22
                                             tranScope.Commit();
-
-                                            SuccessReponse successResponse = new SuccessReponse()
+                                            try
                                             {
-                                                StatusCode = (int)HttpStatusCode.OK,
-                                                Status = "success",
-                                                Amount = EncryptDecrypt.Encrypt(amount.ToString()),
-                                                PaymentTransactionId = paymentTransactionId.Value != null ? Convert.ToInt32(paymentTransactionId.Value) : 0,
-                                                PaymentGatewayURL = ConfigurationManager.AppSettings["PaymentGatewayURL"]
+                                                using (ApplicationFormEntities entities2 = new ApplicationFormEntities())
+                                                {
+                                                    using (var tranScope2 = entities2.Database.BeginTransaction())
+                                                    {
+                                                        entities2.spUpdPaymentTransaction(
+                                                            Convert.ToInt32(paymentTransactionId.Value),
+                                                            amount.Value,
+                                                            "EGP",
+                                                            true,
+                                                            null,
+                                                            "TEST",
+                                                            Guid.NewGuid().ToString(),
+                                                            payment.MerchantID,
+                                                            orderId
+                                                        );
 
-                                            };
+                                                        entities2.ITB_UpdatePGLOG(Convert.ToInt32(paymentTransactionId.Value), "Success");
 
-                                            return Request.CreateResponse(successResponse);
+                                                        entities2.spUpdApplicationStatus(
+                                                            insertedApplicationId,
+                                                            1, // submitted/paid
+                                                            Convert.ToInt32(paymentTransactionId.Value)
+                                                        );
+
+                                                        tranScope2.Commit();
+                                                    }
+                                                }
+
+                                                ErrorResponse successResponse = new ErrorResponse()
+                                                {
+                                                    StatusCode = (int)HttpStatusCode.OK,
+                                                    Status = "warning",
+                                                    Msg = "Your application has been submitted successfully! Please proceed to the login page."
+                                                };
+
+                                                return Request.CreateResponse(successResponse);
+                                            }
+                                            catch (Exception ex)
+                                            {
+                                                LoggingManager.LogException(ex.Message, ex.StackTrace, DateTime.Now, ex.ToString(), ex.Source);
+
+                                                ErrorResponse response = new ErrorResponse()
+                                                {
+                                                    StatusCode = (int)HttpStatusCode.InternalServerError,
+                                                    Status = "error",
+                                                    Msg = "Application saved but payment failed"
+                                                };
+
+                                                return Request.CreateResponse(response);
+                                            }
+                                            ─── END SIMULATION ─────────────────────────────────────────── */
                                         }
                                         else
                                         {
@@ -608,6 +647,11 @@ namespace SelfServiceAPI.Controllers
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "AcademicAwards", ColumnValue = pg.AcademicAwards ?? "", ColumnType = 1, ColumnLabel = "AcademicAwards", IsUploading = true, Description = "PostgraduateData" });
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgAcademicAwards", ColumnValue = pg.PgAcademicAwards ?? "", ColumnType = 1, ColumnLabel = "PgAcademicAwards", IsUploading = true, Description = "PostgraduateData" });
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgProfExamsData", ColumnValue = pg.PgProfExamsData ?? "", ColumnType = 1, ColumnLabel = "PgProfExamsData", IsUploading = true, Description = "PostgraduateData" });
+<<<<<<< HEAD
+=======
+                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "AcademicSupport", ColumnValue = pg.AcademicSupport ?? "", ColumnType = 1, ColumnLabel = "AcademicSupport", IsUploading = true, Description = "PostgraduateData" });
+                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "AcademicSupportDetails", ColumnValue = pg.AcademicSupportDetails ?? "", ColumnType = 1, ColumnLabel = "AcademicSupportDetails", IsUploading = true, Description = "PostgraduateData" });
+>>>>>>> origin/APIPG-Ahmed
                                     }
                                     // ──────────────────────────────────────────────────────────────
 

@@ -439,6 +439,8 @@ namespace SelfServiceAPI.Controllers
                                         data.PgHasAcademicAward = pg.PgHasAcademicAward;
                                         data.PgAcademicAwards = pg.PgAcademicAwards;
                                         data.PgProfExamsData = pg.PgProfExamsData;
+                                        data.AcademicSupport = pg.AcademicSupport;
+                                        data.AcademicSupportDetails = pg.AcademicSupportDetails;
                                     }
                                 }
 
