@@ -596,6 +596,100 @@ namespace SelfServiceAPI.Controllers
                                     }
                                     // ── END PG Employment ────────────────────────────────────────
 
+                                    // ── PG Professional Exams → ApplicationTestScore ─────────────
+                                    // GRE (TestId=16) and GMAT (TestId=17) mapped to ApplicationTestScore.
+                                    // "Other" exams stay in UserDefined as PgProfExamsData JSON.
+                                    // TestTypeId=1013 (Overall) for both GRE and GMAT.
+                                    if (applicationInfo.PostgraduateInfo != null && "true".Equals(applicationInfo.PostgraduateInfo.HasProfExam, StringComparison.OrdinalIgnoreCase)
+                                        && !string.IsNullOrEmpty(applicationInfo.PostgraduateInfo.PgProfExamsData))
+                                    {
+                                        try
+                                        {
+                                            var profExams = Newtonsoft.Json.JsonConvert.DeserializeObject<List<dynamic>>(applicationInfo.PostgraduateInfo.PgProfExamsData);
+                                            ObjectParameter profTestScoreId = new ObjectParameter("ApplicationTestScoreId", typeof(int));
+                                            foreach (var exam in profExams)
+                                            {
+                                                string examType = (string)(exam.examType ?? "");
+                                                int testId = 0;
+                                                // Frontend sends TestId (int) from the dropdown
+                                                int.TryParse(examType, out testId);
+                                                // Legacy support: text-based exam types — look up by CODE_VALUE
+                                                if (testId == 0 && !string.IsNullOrEmpty(examType))
+                                                {
+                                                    var testCode = entities.CODE_TEST.FirstOrDefault(t => t.CODE_VALUE == examType && t.STATUS == "A");
+                                                    if (testCode != null) testId = testCode.TestId;
+                                                }
+
+                                                if (testId > 0)
+                                                {
+                                                    decimal score = 0;
+                                                    decimal.TryParse((string)(exam.score ?? "0"), out score);
+                                                    DateTime? dateTaken = null;
+                                                    string dateStr = (string)(exam.dateTaken ?? "");
+                                                    if (!string.IsNullOrEmpty(dateStr))
+                                                    {
+                                                        DateTime parsed;
+                                                        if (DateTime.TryParse(dateStr, out parsed)) dateTaken = parsed;
+                                                    }
+                                                    // Look up the default TestTypeId (e.g. "Overall") for this test
+                                                    var testTypes = entities.Database.SqlQuery<int>(
+                                                        "SELECT TOP 1 tt.TestTypeId FROM CODE_TESTTYPE tt " +
+                                                        "JOIN Code_TestLink tl ON tt.CODE_VALUE = tl.Type " +
+                                                        "WHERE tl.Test = (SELECT CODE_VALUE FROM CODE_TEST WHERE TestId = @p0)",
+                                                        testId).ToList();
+                                                    int testTypeId = testTypes.Count > 0 ? testTypes[0] : 0;
+
+                                                    entities.spInsApplicationTestScore(profTestScoreId, insertedApplicationId,
+                                                        testId, testTypeId > 0 ? testTypeId : (int?)null, dateTaken, score, string.Empty, null, null, null);
+                                                }
+                                                // "Other" exams: no TestId — kept in UserDefined PgProfExamsData
+                                            }
+                                        }
+                                        catch { /* JSON parse failure — data stays in UserDefined */ }
+                                    }
+                                    // ── END PG Professional Exams ─────────────────────────────────
+
+                                    // ── PG Bachelor Education → ApplicationEducation + Enrollment ─
+                                    // PgBachelorUniversity (ID), PgBachelorDegree (DegreeId),
+                                    // PgBachelorFieldOfStudy (free text), PgBachelorYearOfGrad (date)
+                                    // Moved from UserDefined.
+                                    if (applicationInfo.PostgraduateInfo != null && !string.IsNullOrEmpty(applicationInfo.PostgraduateInfo.PgBachelorUniversity))
+                                    {
+                                        var pgBach = applicationInfo.PostgraduateInfo;
+                                        ObjectParameter pgEduId = new ObjectParameter("ApplicationEducationId", typeof(int));
+                                        ObjectParameter pgEduEnrollId = new ObjectParameter("ApplicationEducationEnrollmentId", typeof(int));
+
+                                        // Insert education record (institution = university name or ID)
+                                        entities.spInsApplicationEducation(pgEduId, insertedApplicationId,
+                                            pgBach.PgBachelorUniversityName ?? "", // InstitutionName
+                                            null, null, null, null, null,
+                                            string.Empty, // GPA
+                                            pgBach.PgBachelorFieldOfStudy ?? "", // OtherInstitutionName (field of study)
+                                            null, null, null, "1", string.Empty); // isTransfer=1 to distinguish from high school
+
+                                        int pgEducationId = entities.ApplicationEducations.Max(p => p.ApplicationEducationId);
+                                        if (pgEducationId > 0)
+                                        {
+                                            // Insert enrollment with degree and graduation date
+                                            int? degreeId = null;
+                                            int parsedDegree;
+                                            if (int.TryParse(pgBach.PgBachelorDegree, out parsedDegree) && parsedDegree > 0)
+                                                degreeId = parsedDegree;
+
+                                            DateTime? gradDate = null;
+                                            if (!string.IsNullOrEmpty(pgBach.PgBachelorYearOfGrad))
+                                            {
+                                                DateTime parsed;
+                                                if (DateTime.TryParse(pgBach.PgBachelorYearOfGrad, out parsed))
+                                                    gradDate = parsed;
+                                            }
+
+                                            entities.spInsApplicationEducationEnrollment(pgEduEnrollId, pgEducationId,
+                                                null, null, gradDate, degreeId, null, null);
+                                        }
+                                    }
+                                    // ── END PG Bachelor Education ─────────────────────────────────
+
                                     //Insert application attachments
                                     foreach (Submit attachment in lstRequest)
                                     {
@@ -669,15 +763,13 @@ namespace SelfServiceAPI.Controllers
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "BachelorTaughtInEnglish", ColumnValue = pg.BachelorTaughtInEnglish ?? "", ColumnType = 1, ColumnLabel = "BachelorTaughtInEnglish", IsUploading = true, Description = "PostgraduateData" });
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "HasProfExam", ColumnValue = pg.HasProfExam ?? "", ColumnType = 1, ColumnLabel = "HasProfExam", IsUploading = true, Description = "PostgraduateData" });
 
-                                        // -- PG: Bachelor Education Details --
+                                        // -- PG: Bachelor Education (moved to ApplicationEducation + Enrollment above) --
+                                        // PgSchoolName stays in UserDefined (no education table column for it)
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgSchoolName", ColumnValue = pg.PgSchoolName ?? "", ColumnType = 1, ColumnLabel = "PgSchoolName", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgBachelorUniversity", ColumnValue = pg.PgBachelorUniversity ?? "", ColumnType = 1, ColumnLabel = "PgBachelorUniversity", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgBachelorUniversityName", ColumnValue = pg.PgBachelorUniversityName ?? "", ColumnType = 1, ColumnLabel = "PgBachelorUniversityName", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgBachelorDegree", ColumnValue = pg.PgBachelorDegree ?? "", ColumnType = 1, ColumnLabel = "PgBachelorDegree", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgBachelorFieldOfStudy", ColumnValue = pg.PgBachelorFieldOfStudy ?? "", ColumnType = 1, ColumnLabel = "PgBachelorFieldOfStudy", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgBachelorYearOfGrad", ColumnValue = pg.PgBachelorYearOfGrad ?? "", ColumnType = 1, ColumnLabel = "PgBachelorYearOfGrad", IsUploading = true, Description = "PostgraduateData" });
 
-                                        // -- PG: Academic Awards & Professional Exams (JSON strings) --
+                                        // -- PG: Academic Awards & Professional Exams --
+                                        // GRE/GMAT scores moved to ApplicationTestScore above.
+                                        // PgProfExamsData kept for "Other" exams (no CODE_TEST entry).
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgHasAcademicAward", ColumnValue = pg.PgHasAcademicAward ?? "", ColumnType = 1, ColumnLabel = "PgHasAcademicAward", IsUploading = true, Description = "PostgraduateData" });
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "AcademicAwards", ColumnValue = pg.AcademicAwards ?? "", ColumnType = 1, ColumnLabel = "AcademicAwards", IsUploading = true, Description = "PostgraduateData" });
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgAcademicAwards", ColumnValue = pg.PgAcademicAwards ?? "", ColumnType = 1, ColumnLabel = "PgAcademicAwards", IsUploading = true, Description = "PostgraduateData" });
