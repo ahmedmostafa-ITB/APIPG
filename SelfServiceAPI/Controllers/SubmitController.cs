@@ -494,19 +494,8 @@ namespace SelfServiceAPI.Controllers
 
         private bool AttachmentCheck(List<Submit> lstRequest, string attachmentName)
         {
-            bool attachmentFound = false;
-
-            if (lstRequest[0].label != null)
-            {
-                Submit submit = lstRequest.Find(item => item.label.Equals(attachmentName));
-
-                if (submit != null)
-                {
-                    attachmentFound = true;
-                }
-            }
-
-            return attachmentFound;
+            Submit submit = lstRequest.Find(item => item.label != null && item.label.Equals(attachmentName));
+            return submit != null;
         }
 
         private static int InsertApplication(List<Submit> lstRequest, ApplicationInfo applicationInfo)
