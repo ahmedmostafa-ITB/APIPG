@@ -77,9 +77,9 @@
   5. PAYMENT GATEWAY (PayTabs)
      - PaymentGatewayURL : PayTabs payment page URL
      - merchantID : PayTabs merchant profile ID
-     NOTE: PayTabs returns 401 Unauthorized if the merchant ID is not
-     registered for the callback domain. Local testing with localhost
-     will fail unless you have sandbox credentials.
+     - PayTabsServerKey : Server-to-server authentication key from PayTabs dashboard
+     NOTE: PayTabs returns 401 Unauthorized if the server key or merchant ID
+     is incorrect, or the callback domain is not registered.
 
   ==============================================================
 -->
