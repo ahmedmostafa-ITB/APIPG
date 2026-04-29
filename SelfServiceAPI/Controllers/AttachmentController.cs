@@ -51,11 +51,10 @@ namespace SelfServiceAPI.Controllers
         {
             using (ApplicationFormEntities entities = new ApplicationFormEntities())
             {
-                int applicationFormSettingId =  Convert.ToInt32(ConfigurationManager.AppSettings["ApplicationFormSettings"]);
-                return entities.ApplicationFormSettings.FirstOrDefault(appFormSettingId => appFormSettingId.ApplicationFormSettingId == applicationFormSettingId).NumberOfAttachments;
-                
+                // Calls ITB_GetPGMaxAttachmentCount procedure — update the SP to change the limit
+                var result = entities.Database.SqlQuery<int>("EXEC ITB_GetPGMaxAttachmentCount").FirstOrDefault();
+                return result > 0 ? result : 15;
             }
-               
         }
 
         [HttpGet]
