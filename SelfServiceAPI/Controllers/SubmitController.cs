@@ -575,6 +575,26 @@ namespace SelfServiceAPI.Controllers
                                     if (applicationInfo.Employment != null && applicationInfo.Employment.Count > 0)
                                         Submit.InsertApplicationEmployment(entities, applicationInfo.Employment, insertedApplicationId);
 
+                                    // ── PG Employment → ApplicationEmployment table ──────────────
+                                    // Moved from UserDefined: EmployerCompanyName, EmployerPosition, EmployerStartDate
+                                    // Kept in UserDefined: EmploymentStatus, EmployerDuties, EmployerIdNumber
+                                    // TODO: When full PG tables are designed, consolidate with above
+                                    if (applicationInfo.PostgraduateInfo != null && !string.IsNullOrEmpty(applicationInfo.PostgraduateInfo.EmployerCompanyName))
+                                    {
+                                        var pgEmp = applicationInfo.PostgraduateInfo;
+                                        ObjectParameter pgEmploymentId = new ObjectParameter("ApplicationEmploymentId", typeof(int));
+                                        DateTime? pgStartDate = null;
+                                        if (!string.IsNullOrEmpty(pgEmp.EmployerStartDate))
+                                        {
+                                            DateTime parsed;
+                                            if (DateTime.TryParse(pgEmp.EmployerStartDate, out parsed))
+                                                pgStartDate = parsed < new DateTime(1900, 1, 1) ? new DateTime(1900, 1, 1) : parsed;
+                                        }
+                                        entities.spInsApplicationEmployment(pgEmploymentId, insertedApplicationId,
+                                            pgEmp.EmployerCompanyName, pgEmp.EmployerPosition ?? "",
+                                            pgStartDate, (DateTime?)null);
+                                    }
+                                    // ── END PG Employment ────────────────────────────────────────
 
                                     //Insert application attachments
                                     foreach (Submit attachment in lstRequest)
@@ -587,25 +607,59 @@ namespace SelfServiceAPI.Controllers
                                     List<ApplicationUserDefinedInfo> lstUserDefined = applicationInfo.UserDefined ?? new List<ApplicationUserDefinedInfo>();
 
                                     // ──────────────────────────────────────────────────────────────
-                                    // PG Postgraduate Data → ApplicationUserDefined
-                                    // These fields are stored in USERDEFINEDIND columns added for PG.
-                                    // Column names must match USERDEFINEDIND column names exactly.
-                                    // TODO: When dedicated PG tables are designed, move these inserts
-                                    //       to their own methods and remove from UserDefined.
+                                    // PG Postgraduate Data
+                                    // Fields are mapped to dedicated tables where possible.
+                                    // Remaining fields stay in ApplicationUserDefined.
                                     // ──────────────────────────────────────────────────────────────
                                     if (applicationInfo.PostgraduateInfo != null)
                                     {
                                         var pg = applicationInfo.PostgraduateInfo;
 
-                                        // -- PG: Military & Marital Status --
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "MilitaryStatus", ColumnValue = pg.MilitaryStatus ?? "", ColumnType = 1, ColumnLabel = "MilitaryStatus", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "MaritalStatus", ColumnValue = pg.MaritalStatus ?? "", ColumnType = 1, ColumnLabel = "MaritalStatus", IsUploading = true, Description = "PostgraduateData" });
+                                        // ── PG: Marital Status → Application.MaritalStatus (FK ID from frontend dropdown) ──
+                                        // Moved from UserDefined. Frontend sends CODE_MARITALSTATUS.MaritalStatusId.
+                                        if (!string.IsNullOrEmpty(pg.MaritalStatus))
+                                        {
+                                            int maritalId;
+                                            if (int.TryParse(pg.MaritalStatus, out maritalId) && maritalId > 0)
+                                            {
+                                                entities.Database.ExecuteSqlCommand(
+                                                    "UPDATE Application SET MaritalStatus = @p0 WHERE ApplicationId = @p1",
+                                                    maritalId, insertedApplicationId);
+                                            }
+                                        }
 
-                                        // -- PG: Employment --
+                                        // ── PG: Emergency Contact → ApplicationEmergencyContact table ──
+                                        // Moved from UserDefined. Frontend sends CODE_RELATIONSHIP.RelationTypeId.
+                                        if (!string.IsNullOrEmpty(pg.PgEmergencyContactGivenName))
+                                        {
+                                            ObjectParameter pgEmergencyId = new ObjectParameter("ApplicationEmergencyContactId", typeof(int));
+                                            int? relationTypeId = null;
+                                            if (!string.IsNullOrEmpty(pg.PgEmergencyContactRelationship))
+                                            {
+                                                int relId;
+                                                if (int.TryParse(pg.PgEmergencyContactRelationship, out relId))
+                                                    relationTypeId = relId;
+                                            }
+                                            entities.spInsApplicationEmergencyContact(pgEmergencyId, insertedApplicationId,
+                                                null, // prefix
+                                                pg.PgEmergencyContactGivenName,
+                                                pg.PgEmergencyContactMiddleName,
+                                                null, // lastNamePrefix
+                                                pg.PgEmergencyContactFamilyName,
+                                                null, // suffix
+                                                relationTypeId,
+                                                pg.PgEmergencyContactMobile,
+                                                pg.PgEmergencyContactEmail,
+                                                null, // address
+                                                null  // profession
+                                            );
+                                        }
+
+                                        // -- PG: Military Status (stays in UserDefined — no dedicated table) --
+                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "MilitaryStatus", ColumnValue = pg.MilitaryStatus ?? "", ColumnType = 1, ColumnLabel = "MilitaryStatus", IsUploading = true, Description = "PostgraduateData" });
+
+                                        // -- PG: Employment (EmployerCompanyName, EmployerPosition, EmployerStartDate moved to ApplicationEmployment table above) --
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "EmploymentStatus", ColumnValue = pg.EmploymentStatus ?? "", ColumnType = 1, ColumnLabel = "EmploymentStatus", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "EmployerCompanyName", ColumnValue = pg.EmployerCompanyName ?? "", ColumnType = 1, ColumnLabel = "EmployerCompanyName", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "EmployerPosition", ColumnValue = pg.EmployerPosition ?? "", ColumnType = 1, ColumnLabel = "EmployerPosition", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "EmployerStartDate", ColumnValue = pg.EmployerStartDate ?? "", ColumnType = 1, ColumnLabel = "EmployerStartDate", IsUploading = true, Description = "PostgraduateData" });
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "EmployerDuties", ColumnValue = pg.EmployerDuties ?? "", ColumnType = 1, ColumnLabel = "EmployerDuties", IsUploading = true, Description = "PostgraduateData" });
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "EmployerIdNumber", ColumnValue = pg.EmployerIdNumber ?? "", ColumnType = 1, ColumnLabel = "EmployerIdNumber", IsUploading = true, Description = "PostgraduateData" });
 
@@ -614,14 +668,6 @@ namespace SelfServiceAPI.Controllers
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "CoventryId", ColumnValue = pg.CoventryId ?? "", ColumnType = 1, ColumnLabel = "CoventryId", IsUploading = true, Description = "PostgraduateData" });
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "BachelorTaughtInEnglish", ColumnValue = pg.BachelorTaughtInEnglish ?? "", ColumnType = 1, ColumnLabel = "BachelorTaughtInEnglish", IsUploading = true, Description = "PostgraduateData" });
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "HasProfExam", ColumnValue = pg.HasProfExam ?? "", ColumnType = 1, ColumnLabel = "HasProfExam", IsUploading = true, Description = "PostgraduateData" });
-
-                                        // -- PG: Emergency Contact --
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgEmergencyContactRelationship", ColumnValue = pg.PgEmergencyContactRelationship ?? "", ColumnType = 1, ColumnLabel = "PgEmergencyContactRelationship", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgEmergencyContactGivenName", ColumnValue = pg.PgEmergencyContactGivenName ?? "", ColumnType = 1, ColumnLabel = "PgEmergencyContactGivenName", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgEmergencyContactMiddleName", ColumnValue = pg.PgEmergencyContactMiddleName ?? "", ColumnType = 1, ColumnLabel = "PgEmergencyContactMiddleName", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgEmergencyContactFamilyName", ColumnValue = pg.PgEmergencyContactFamilyName ?? "", ColumnType = 1, ColumnLabel = "PgEmergencyContactFamilyName", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgEmergencyContactMobile", ColumnValue = pg.PgEmergencyContactMobile ?? "", ColumnType = 1, ColumnLabel = "PgEmergencyContactMobile", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgEmergencyContactEmail", ColumnValue = pg.PgEmergencyContactEmail ?? "", ColumnType = 1, ColumnLabel = "PgEmergencyContactEmail", IsUploading = true, Description = "PostgraduateData" });
 
                                         // -- PG: Bachelor Education Details --
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgSchoolName", ColumnValue = pg.PgSchoolName ?? "", ColumnType = 1, ColumnLabel = "PgSchoolName", IsUploading = true, Description = "PostgraduateData" });
