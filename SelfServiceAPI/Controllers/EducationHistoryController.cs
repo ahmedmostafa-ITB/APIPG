@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -12,6 +13,43 @@ namespace SelfServiceAPI.Controllers
     [System.Web.Http.Cors.EnableCors(origins: "*", headers: "*", methods: "*")]
     public class EducationHistoryController : ApiController
     {
+        #region PG Bachelor Degrees
+
+        // Retrieve active degree types from CODE_DEGREE for PG bachelor dropdown
+        [HttpGet]
+        public HttpResponseMessage GetDegrees()
+        {
+            using (ApplicationFormEntities entities = new ApplicationFormEntities())
+            {
+                var degrees = entities.CODE_DEGREE
+                    .Where(d => d.STATUS == "A")
+                    .OrderBy(d => d.LONG_DESC)
+                    .Select(d => new { Id = d.DegreeId, value = d.LONG_DESC })
+                    .ToList();
+                return Request.CreateResponse(HttpStatusCode.OK, degrees);
+            }
+        }
+
+        #endregion
+
+        #region PG Professional Exam Tests
+
+        // Retrieve professional exam test codes (GRE/GMAT) linked to PG ApplicationFormSetting
+        [HttpGet]
+        public HttpResponseMessage GetProfessionalExamTests()
+        {
+            using (ApplicationFormEntities entities = new ApplicationFormEntities())
+            {
+                int pgTestSettingId = Convert.ToInt32(ConfigurationManager.AppSettings["ApplicationFormSettings"]);
+                var tests = entities.Database.SqlQuery<IdValueResult>(
+                    "EXEC ITB_GetPGProfessionalExamTests @p0",
+                    pgTestSettingId).ToList();
+                return Request.CreateResponse(HttpStatusCode.OK, tests);
+            }
+        }
+
+        #endregion
+
         #region School
 
         //Retrieve School Certificate

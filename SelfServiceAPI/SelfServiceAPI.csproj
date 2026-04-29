@@ -243,6 +243,7 @@
     <Compile Include="Classes\EducationHistoryRequest.cs" />
     <Compile Include="Classes\EncryptDecryptText.cs" />
     <Compile Include="Classes\ApplicationInfo.cs" />
+    <Compile Include="Classes\IdValueResult.cs" />
     <Compile Include="Classes\ErrorResponse.cs" />
     <Compile Include="Classes\GovernmentInformationRequest.cs" />
     <Compile Include="Classes\GuardianInformationRequest.cs" />
