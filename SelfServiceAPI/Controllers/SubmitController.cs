@@ -79,8 +79,10 @@ namespace SelfServiceAPI.Controllers
             ApplicationInfo applicationInfo;
             int insertedApplicationId = 0;
             HttpClient client = new HttpClient();
+            client.Timeout = TimeSpan.FromSeconds(30);
+            string payTabsServerKey = ConfigurationManager.AppSettings["PayTabsServerKey"];
             client.DefaultRequestHeaders.Authorization =
-        new AuthenticationHeaderValue("S9JNH6BMRZ-JGM9BLLLGJ-LN22TTZDKT");
+        new AuthenticationHeaderValue(payTabsServerKey);
 
             using (ApplicationFormEntities entities = new ApplicationFormEntities())
             {
@@ -296,9 +298,8 @@ namespace SelfServiceAPI.Controllers
                                                 cart_amount = Convert.ToDouble(amount.Value),
                                                 cart_currency = "EGP",
                                                 callback = callbackURL + "/api/Submit/payTabsResponse",
+                                                @return = ConfigurationManager.AppSettings["ApplicationLink"] + "/payment-success",
                                                 hide_shipping = true
-                                                //callback = "https://webhook.site/7e4785b5-7188-4126-a261-9acb7a988bfe",
-                                                //@return = "https://pcss.tkh.edu.eg/ApplicationFormTest/login"
                                             };
 
                                             // ─── PayTabs Payment Gateway (ACTIVE) ───────────────────────
