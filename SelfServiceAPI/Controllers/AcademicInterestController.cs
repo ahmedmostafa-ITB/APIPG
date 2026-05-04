@@ -213,18 +213,22 @@ namespace SelfServiceAPI.Controllers
             {
                 using (ApplicationFormEntities entities = new ApplicationFormEntities())
                 {
+                    int applicationFormSettingId = Convert.ToInt32(ConfigurationManager.AppSettings["ApplicationFormSettings"]);
                     var sql = @"
                         SELECT DISTINCT c.CollegeId AS Id, ('School of ' + c.LONG_DESC) AS value
                         FROM PROGRAMOFSTUDY pos
                         INNER JOIN CODE_COLLEGE c ON c.CollegeId = pos.CollegeId
+                        INNER JOIN ApplicationProgramSetting aps ON pos.ProgramOfStudyId = aps.ProgramOfStudyId
                         WHERE pos.Program = 2
                           AND pos.PopulationId = @populationId
                           AND pos.CollegeId IS NOT NULL
+                          AND aps.ApplicationFormSettingId = @settingId
                         ORDER BY value";
 
                     var results = entities.Database.SqlQuery<PGSchoolResult>(
                         sql,
-                        new System.Data.SqlClient.SqlParameter("@populationId", populationId)
+                        new System.Data.SqlClient.SqlParameter("@populationId", populationId),
+                        new System.Data.SqlClient.SqlParameter("@settingId", applicationFormSettingId)
                     ).ToList();
 
                     return Ok(results);
