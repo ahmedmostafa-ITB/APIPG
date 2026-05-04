@@ -14,11 +14,22 @@ namespace SelfServiceAPI.Controllers
     public class AcademicInterestController : ApiController
     {
         //Retrieve Entry Terms
-        public List<spSelPopulationAdvanced_Result> GetPopulation()
+        public HttpResponseMessage GetPopulation()
         {
             using (ApplicationFormEntities entities = new ApplicationFormEntities())
             {
-                return entities.spSelPopulationAdvanced().ToList();
+                int applicationFormSettingId = Convert.ToInt32(ConfigurationManager.AppSettings["ApplicationFormSettings"]);
+                var populations = entities.Database.SqlQuery<IdValueResult>(
+                    @"SELECT DISTINCT cp.PopulationId AS Id, cp.LONG_DESC AS value
+                      FROM CODE_POPULATION cp
+                      INNER JOIN PROGRAMOFSTUDY pos ON cp.PopulationId = pos.PopulationId
+                      INNER JOIN ApplicationProgramSetting aps ON pos.ProgramOfStudyId = aps.ProgramOfStudyId
+                      WHERE aps.ApplicationFormSettingId = @p0
+                        AND cp.STATUS = 'A'
+                        AND cp.isActive = 1
+                      ORDER BY cp.LONG_DESC",
+                    applicationFormSettingId).ToList();
+                return Request.CreateResponse(System.Net.HttpStatusCode.OK, populations);
             }
         }
 
