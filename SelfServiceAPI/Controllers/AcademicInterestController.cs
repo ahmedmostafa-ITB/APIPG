@@ -206,7 +206,7 @@ namespace SelfServiceAPI.Controllers
                         SELECT DISTINCT c.CollegeId AS Id, ('School of ' + c.LONG_DESC) AS value
                         FROM PROGRAMOFSTUDY pos
                         INNER JOIN CODE_COLLEGE c ON c.CollegeId = pos.CollegeId
-                        WHERE pos.Program = 3
+                        WHERE pos.Program = 2
                           AND pos.PopulationId = @populationId
                           AND pos.CollegeId IS NOT NULL
                         ORDER BY value";
@@ -239,7 +239,7 @@ namespace SelfServiceAPI.Controllers
                     int campusId = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["East"]);
 
                     // Use getMajorList but filter further by CollegeId
-                    var allMajors = entities.getMajorList(3, populationId, applicationFormSettingId, campusId).ToList();
+                    var allMajors = entities.getMajorList(2, populationId, applicationFormSettingId, campusId).ToList();
 
                     // Filter by CollegeId via a direct SQL query on PROGRAM_OF_STUDY
                     var posIds = entities.Database.SqlQuery<int>(
