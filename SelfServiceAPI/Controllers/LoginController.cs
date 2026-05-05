@@ -546,5 +546,11 @@ namespace SelfServiceAPI.Controllers
             }
             return IsActive;
         }
+
+        [HttpGet]
+        public int GetSessionTimeoutMinutes()
+        {
+            return Convert.ToInt32(ConfigurationManager.AppSettings["SessionTimeoutMinutes"] ?? "20");
+        }
     }
 }
