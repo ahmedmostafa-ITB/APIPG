@@ -580,20 +580,34 @@ namespace SelfServiceAPI.Controllers
                                     // Moved from UserDefined: EmployerCompanyName, EmployerPosition, EmployerStartDate
                                     // Kept in UserDefined: EmploymentStatus, EmployerDuties, EmployerIdNumber
                                     // TODO: When full PG tables are designed, consolidate with above
-                                    if (applicationInfo.PostgraduateInfo != null && !string.IsNullOrEmpty(applicationInfo.PostgraduateInfo.EmployerCompanyName))
+                                    if (applicationInfo.PostgraduateInfo != null)
                                     {
                                         var pgEmp = applicationInfo.PostgraduateInfo;
-                                        ObjectParameter pgEmploymentId = new ObjectParameter("ApplicationEmploymentId", typeof(int));
-                                        DateTime? pgStartDate = null;
-                                        if (!string.IsNullOrEmpty(pgEmp.EmployerStartDate))
+                                        string empStatus = pgEmp.EmploymentStatus ?? "";
+
+                                        if (empStatus == "Employed" && !string.IsNullOrEmpty(pgEmp.EmployerCompanyName))
                                         {
-                                            DateTime parsed;
-                                            if (DateTime.TryParse(pgEmp.EmployerStartDate, out parsed))
-                                                pgStartDate = parsed < new DateTime(1900, 1, 1) ? new DateTime(1900, 1, 1) : parsed;
+                                            ObjectParameter pgEmploymentId = new ObjectParameter("ApplicationEmploymentId", typeof(int));
+                                            DateTime? pgStartDate = null;
+                                            if (!string.IsNullOrEmpty(pgEmp.EmployerStartDate))
+                                            {
+                                                DateTime parsed;
+                                                if (DateTime.TryParse(pgEmp.EmployerStartDate, out parsed))
+                                                    pgStartDate = parsed < new DateTime(1900, 1, 1) ? new DateTime(1900, 1, 1) : parsed;
+                                            }
+                                            // Brief of Duties → Remarks
+                                            entities.spInsApplicationEmployment(pgEmploymentId, insertedApplicationId,
+                                                pgEmp.EmployerCompanyName, pgEmp.EmployerPosition ?? "",
+                                                pgStartDate, (DateTime?)null, pgEmp.EmployerDuties ?? "");
                                         }
-                                        entities.spInsApplicationEmployment(pgEmploymentId, insertedApplicationId,
-                                            pgEmp.EmployerCompanyName, pgEmp.EmployerPosition ?? "",
-                                            pgStartDate, (DateTime?)null);
+                                        else if (empStatus == "TKHStaff")
+                                        {
+                                            // Default employer/position for TKH Staff, Employer ID → Remarks
+                                            ObjectParameter pgEmploymentId = new ObjectParameter("ApplicationEmploymentId", typeof(int));
+                                            entities.spInsApplicationEmployment(pgEmploymentId, insertedApplicationId,
+                                                "The Knowledge Hub", "TKH Staff",
+                                                (DateTime?)null, (DateTime?)null, pgEmp.EmployerIdNumber ?? "");
+                                        }
                                     }
                                     // ── END PG Employment ────────────────────────────────────────
 
@@ -789,8 +803,14 @@ namespace SelfServiceAPI.Controllers
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgAcademicAwards", ColumnValue = pg.PgAcademicAwards ?? "", ColumnType = 1, ColumnLabel = "PgAcademicAwards", IsUploading = true, Description = "PostgraduateData" });
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgProfExamsData", ColumnValue = pg.PgProfExamsData ?? "", ColumnType = 1, ColumnLabel = "PgProfExamsData", IsUploading = true, Description = "PostgraduateData" });
                                         // -- PG: Academic Support --
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "AcademicSupport", ColumnValue = pg.AcademicSupport ?? "", ColumnType = 1, ColumnLabel = "AcademicSupport", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "AcademicSupportDetails", ColumnValue = pg.AcademicSupportDetails ?? "", ColumnType = 1, ColumnLabel = "AcademicSupportDetails", IsUploading = true, Description = "PostgraduateData" });
+                                        // Map AcademicSupport → DISABILITIES, AcademicSupportDetails → DISABILITIES_DESC
+                                        // Override the existing DISABILITIES entry (sent as "False" from frontend XML)
+                                        var disabilitiesEntry = lstUserDefined.FirstOrDefault(u => u.ColumnName == "DISABILITIES");
+                                        if (disabilitiesEntry != null)
+                                        {
+                                            disabilitiesEntry.ColumnValue = pg.AcademicSupport ?? "No";
+                                        }
+                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "DISABILITIES_DESC", ColumnValue = pg.AcademicSupportDetails ?? "", ColumnType = 1, ColumnLabel = "DISABILITIES_DESC", IsUploading = true, Description = "DISABILITIES" });
                                     }
                                     // ──────────────────────────────────────────────────────────────
 

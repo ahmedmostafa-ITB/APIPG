@@ -49843,29 +49843,33 @@ namespace DataAccess
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spInsApplicationEmergencyContact", applicationEmergencyContactId, applicationIdParameter, prefixParameter, firstNameParameter, middleNameParameter, lastNamePrefixParameter, lastNameParameter, suffixParameter, relationTypeParameter, phoneParameter, emailParameter, mailingAddressParameter, professionParameter);
         }
     
-        public virtual int spInsApplicationEmployment(ObjectParameter applicationEmploymentId, Nullable<int> applicationId, string employerName, string position, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate)
+        public virtual int spInsApplicationEmployment(ObjectParameter applicationEmploymentId, Nullable<int> applicationId, string employerName, string position, Nullable<System.DateTime> startDate, Nullable<System.DateTime> endDate, string remarks = null)
         {
             var applicationIdParameter = applicationId.HasValue ?
                 new ObjectParameter("ApplicationId", applicationId) :
                 new ObjectParameter("ApplicationId", typeof(int));
-    
+
             var employerNameParameter = employerName != null ?
                 new ObjectParameter("EmployerName", employerName) :
                 new ObjectParameter("EmployerName", typeof(string));
-    
+
             var positionParameter = position != null ?
                 new ObjectParameter("Position", position) :
                 new ObjectParameter("Position", typeof(string));
-    
+
             var startDateParameter = startDate.HasValue ?
                 new ObjectParameter("StartDate", startDate) :
                 new ObjectParameter("StartDate", typeof(System.DateTime));
-    
+
             var endDateParameter = endDate.HasValue ?
                 new ObjectParameter("EndDate", endDate) :
                 new ObjectParameter("EndDate", typeof(System.DateTime));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spInsApplicationEmployment", applicationEmploymentId, applicationIdParameter, employerNameParameter, positionParameter, startDateParameter, endDateParameter);
+
+            var remarksParameter = remarks != null ?
+                new ObjectParameter("Remarks", remarks) :
+                new ObjectParameter("Remarks", typeof(string));
+
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spInsApplicationEmployment", applicationEmploymentId, applicationIdParameter, employerNameParameter, positionParameter, startDateParameter, endDateParameter, remarksParameter);
         }
     
         public virtual int spInsApplicationEthnicity(ObjectParameter applicationEthnicityId, Nullable<int> applicationId, Nullable<int> ipedsEthnicityId, Nullable<int> ipedsFederalCategoryId)
