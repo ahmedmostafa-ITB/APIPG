@@ -142,6 +142,18 @@ namespace SelfServiceAPI.Classes
                 string educationGrade = string.Empty;
                 string city = string.Empty;
                 string transferCity = string.Empty;
+
+                // Resolve institution name from OrganizationId if InstitutionName is empty
+                if (string.IsNullOrEmpty(education.InstitutionName) && !string.IsNullOrEmpty(education.InstitutionId) && education.InstitutionId != "8")
+                {
+                    int orgId;
+                    if (int.TryParse(education.InstitutionId, out orgId))
+                    {
+                        var name = entities.Database.SqlQuery<string>(
+                            "SELECT ORG_NAME_1 FROM ORGANIZATION WHERE OrganizationId = @p0", orgId).FirstOrDefault();
+                        if (!string.IsNullOrEmpty(name)) education.InstitutionName = name;
+                    }
+                }
                 if (!string.IsNullOrEmpty(education.EducationGrade))
                 {
                     int educationGradeId = Convert.ToInt32(education.EducationGrade);

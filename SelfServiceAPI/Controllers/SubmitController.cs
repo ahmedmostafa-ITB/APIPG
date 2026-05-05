@@ -660,9 +660,22 @@ namespace SelfServiceAPI.Controllers
                                         ObjectParameter pgEduId = new ObjectParameter("ApplicationEducationId", typeof(int));
                                         ObjectParameter pgEduEnrollId = new ObjectParameter("ApplicationEducationEnrollmentId", typeof(int));
 
-                                        // Insert education record (institution = university name or ID)
+                                        // Resolve bachelor university name from OrganizationId
+                                        string bachelorUniName = pgBach.PgBachelorUniversityName ?? "";
+                                        if (string.IsNullOrEmpty(bachelorUniName) && !string.IsNullOrEmpty(pgBach.PgBachelorUniversity))
+                                        {
+                                            int uniOrgId;
+                                            if (int.TryParse(pgBach.PgBachelorUniversity, out uniOrgId))
+                                            {
+                                                var name = entities.Database.SqlQuery<string>(
+                                                    "SELECT ORG_NAME_1 FROM ORGANIZATION WHERE OrganizationId = @p0", uniOrgId).FirstOrDefault();
+                                                if (!string.IsNullOrEmpty(name)) bachelorUniName = name;
+                                            }
+                                        }
+
+                                        // Insert education record
                                         entities.spInsApplicationEducation(pgEduId, insertedApplicationId,
-                                            pgBach.PgBachelorUniversityName ?? "", // InstitutionName
+                                            bachelorUniName, // InstitutionName (resolved from ORGANIZATION)
                                             null, null, null, null, null,
                                             string.Empty, // GPA
                                             pgBach.PgBachelorFieldOfStudy ?? "", // OtherInstitutionName (field of study)
