@@ -733,6 +733,57 @@ namespace SelfServiceAPI.Controllers
                                     }
                                     // ── END PG Bachelor Education ─────────────────────────────────
 
+                                    // ── PG Academic Awards → ITB_ApplicationNotes ────────────────
+                                    // Each award with content gets a note row (Office=ADMSS, NoteType=AWDEC)
+                                    // Removed from UserDefined — now stored in dedicated notes table.
+                                    if (applicationInfo.PostgraduateInfo != null
+                                        && "Yes".Equals(applicationInfo.PostgraduateInfo.PgHasAcademicAward, StringComparison.OrdinalIgnoreCase)
+                                        && !string.IsNullOrEmpty(applicationInfo.PostgraduateInfo.PgAcademicAwards))
+                                    {
+                                        try
+                                        {
+                                            var awards = Newtonsoft.Json.JsonConvert.DeserializeObject<List<dynamic>>(applicationInfo.PostgraduateInfo.PgAcademicAwards);
+                                            int awardIndex = 0;
+                                            foreach (var award in awards)
+                                            {
+                                                awardIndex++;
+                                                string awardType = (string)(award.type ?? "");
+                                                string institution = (string)(award.institution ?? "");
+                                                string year = (string)(award.year ?? "");
+                                                string description = (string)(award.description ?? "");
+
+                                                if (!string.IsNullOrEmpty(description) || !string.IsNullOrEmpty(institution))
+                                                {
+                                                    string noteText = "Award " + awardIndex;
+                                                    if (!string.IsNullOrEmpty(awardType)) noteText += " | Type: " + awardType;
+                                                    if (!string.IsNullOrEmpty(institution)) noteText += " | Institution: " + institution;
+                                                    if (!string.IsNullOrEmpty(year)) noteText += " | Year: " + year;
+                                                    if (!string.IsNullOrEmpty(description)) noteText += " | Description: " + description;
+
+                                                    entities.Database.ExecuteSqlCommand(
+                                                        @"INSERT INTO ITB_ApplicationNotes (ApplicationId, Office, NoteType, Notes)
+                                                          VALUES (@p0, @p1, @p2, @p3)",
+                                                        insertedApplicationId, "ADMSS", "AWDEC", noteText);
+
+                                                    // TODO: Re-enable ApplicationEducation insert once a unique DegreeId/CurriculumId
+                                                    // is defined for awards (currently causes EDUCATION PK violation on accept
+                                                    // because multiple "Other" rows share the same empty Degree/Curriculum key).
+                                                    // ObjectParameter awardEduId = new ObjectParameter("ApplicationEducationId", typeof(int));
+                                                    // entities.spInsApplicationEducation(awardEduId, insertedApplicationId,
+                                                    //     "Other", null, null, null, null, null,
+                                                    //     string.Empty, institution, null, null, null, "0", string.Empty);
+                                                }
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            LoggingManager.LogException(
+                                                "Failed to parse/insert PG Academic Awards: " + ex.Message,
+                                                ex.StackTrace, DateTime.Now, "ApplicationId: " + insertedApplicationId, "SubmitController");
+                                        }
+                                    }
+                                    // ── END PG Academic Awards ────────────────────────────────────
+
                                     //Insert application attachments
                                     foreach (Submit attachment in lstRequest)
                                     {
@@ -813,9 +864,9 @@ namespace SelfServiceAPI.Controllers
                                         // -- PG: Academic Awards & Professional Exams --
                                         // GRE/GMAT scores moved to ApplicationTestScore above.
                                         // PgProfExamsData kept for "Other" exams (no CODE_TEST entry).
+                                        // PgHasAcademicAward stays in UserDefined as a flag
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgHasAcademicAward", ColumnValue = pg.PgHasAcademicAward ?? "", ColumnType = 1, ColumnLabel = "PgHasAcademicAward", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "AcademicAwards", ColumnValue = pg.AcademicAwards ?? "", ColumnType = 1, ColumnLabel = "AcademicAwards", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgAcademicAwards", ColumnValue = pg.PgAcademicAwards ?? "", ColumnType = 1, ColumnLabel = "PgAcademicAwards", IsUploading = true, Description = "PostgraduateData" });
+                                        // AcademicAwards and PgAcademicAwards moved to ITB_ApplicationNotes (above)
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgProfExamsData", ColumnValue = pg.PgProfExamsData ?? "", ColumnType = 1, ColumnLabel = "PgProfExamsData", IsUploading = true, Description = "PostgraduateData" });
                                         // -- PG: Academic Support --
                                         // Map AcademicSupport → DISABILITIES, AcademicSupportDetails → DISABILITIES_DESC
