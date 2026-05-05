@@ -551,11 +551,26 @@ namespace SelfServiceAPI.Controllers
                                         Submit.InsertApplicationProgram(entities, applicationInfo.AcademicInterest, insertedApplicationId);
 
 
-                                    //Added By Mohammad Farfour
                                     //Insert application campus
-                                    if (applicationInfo.AcademicInterest != null) {
-                                        if (applicationInfo.AcademicInterest.PreferredCampus != "")
+                                    if (applicationInfo.AcademicInterest != null)
+                                    {
+                                        if (!string.IsNullOrEmpty(applicationInfo.AcademicInterest.PreferredCampus))
+                                        {
+                                            // UG flow: campus from user selection
                                             Submit.InsertApplicationCampus(entities, applicationInfo.AcademicInterest, insertedApplicationId);
+                                        }
+                                        else if (applicationInfo.AcademicInterest.ProgramOfStudy > 0)
+                                        {
+                                            // PG flow: campus from PROGRAMOFSTUDY.CampusId based on selected major
+                                            var campusId = entities.Database.SqlQuery<int?>(
+                                                "SELECT CampusId FROM PROGRAMOFSTUDY WHERE ProgramOfStudyId = @p0",
+                                                applicationInfo.AcademicInterest.ProgramOfStudy).FirstOrDefault();
+                                            if (campusId.HasValue && campusId.Value > 0)
+                                            {
+                                                ObjectParameter appCampusId = new ObjectParameter("ApplicationCampusId", typeof(int));
+                                                entities.spInsApplicationCampus(appCampusId, insertedApplicationId, campusId.Value);
+                                            }
+                                        }
                                     }
                                     //Insert application relationship and emergency contact
                                     if (applicationInfo.ApplicationRelations != null && applicationInfo.ApplicationRelations.Count > 0)
