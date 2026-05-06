@@ -69,6 +69,121 @@ namespace SelfServiceAPI.Controllers
 
         }
 
+        /// <summary>
+        /// Verifies a PayTabs transaction reference. Called by payment-success page.
+        /// Returns: status = "success" | "failed" | "invalid"
+        /// If callback was missed but PayTabs confirms success, runs acceptance procedures.
+        /// </summary>
+        [HttpGet]
+        public HttpResponseMessage VerifyPayment(string tranRef = null, int? ptId = null)
+        {
+            // No identifier at all = direct URL access
+            if (string.IsNullOrEmpty(tranRef) && (!ptId.HasValue || ptId.Value <= 0))
+                return Request.CreateResponse(HttpStatusCode.OK, new { status = "invalid" });
+
+            using (ApplicationFormEntities entities = new ApplicationFormEntities())
+            {
+                // Detect test mode from connection string (PCDB_TESTING)
+                string connString = entities.Database.Connection.ConnectionString;
+                bool isTestMode = connString.IndexOf("PCDB_TESTING", StringComparison.OrdinalIgnoreCase) >= 0;
+
+                // Resolve tranRef from ptId if tranRef not provided (test mode: PayTabs doesn't append tranRef)
+                if (string.IsNullOrEmpty(tranRef) && ptId.HasValue && ptId.Value > 0)
+                {
+                    var ptRecord = entities.PaymentTransactions.FirstOrDefault(pt => pt.PaymentTransactionId == ptId.Value);
+                    if (ptRecord == null)
+                        return Request.CreateResponse(HttpStatusCode.OK, new { status = "invalid" });
+                    if (ptRecord.IsSuccessful)
+                        return Request.CreateResponse(HttpStatusCode.OK, new { status = "success" });
+                    // Get tranRef from the record to query PayTabs
+                    tranRef = ptRecord.AuthorizationNumber;
+                    if (string.IsNullOrEmpty(tranRef))
+                    {
+                        // No tranRef stored yet (callback hasn't fired) — query PayTabs by cart_id
+                        return Request.CreateResponse(HttpStatusCode.OK, new { status = "failed" });
+                    }
+                }
+
+                if (string.IsNullOrEmpty(tranRef))
+                    return Request.CreateResponse(HttpStatusCode.OK, new { status = "invalid" });
+
+                // Check if already marked successful in our DB
+                var transaction = entities.PaymentTransactions
+                    .FirstOrDefault(pt => pt.AuthorizationNumber == tranRef);
+
+                if (transaction != null && transaction.IsSuccessful)
+                    return Request.CreateResponse(HttpStatusCode.OK, new { status = "success" });
+
+                // Not in DB or not successful — verify with PayTabs directly
+                try
+                {
+                    string payTabsServerKey = ConfigurationManager.AppSettings["PayTabsServerKey"];
+                    using (HttpClient client = new HttpClient())
+                    {
+                        client.Timeout = TimeSpan.FromSeconds(15);
+                        client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(payTabsServerKey);
+                        System.Net.ServicePointManager.SecurityProtocol =
+                            SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+
+                        int profileId = Convert.ToInt32(ConfigurationManager.AppSettings["merchantID"]);
+                        var payload = new { profile_id = profileId, tran_ref = tranRef };
+                        HttpResponseMessage response = client.PostAsJsonAsync(
+                            "https://secure-egypt.paytabs.com/payment/query", payload).Result;
+                        string responseBody = response.Content.ReadAsStringAsync().Result;
+
+                        // Log full PayTabs response for debugging
+                        LoggingManager.LogException(
+                            "VerifyPayment PayTabs query response: " + responseBody,
+                            null, DateTime.Now, "tranRef: " + tranRef + " | isTestMode: " + isTestMode, "SubmitController");
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            dynamic result = JsonConvert.DeserializeObject<dynamic>(responseBody);
+                            string paymentStatus = (string)(result.payment_result?.response_status ?? "");
+
+                            if (paymentStatus == "A") // Approved
+                            {
+                                // Callback was missed — run acceptance procedures
+                                if (transaction != null && !transaction.IsSuccessful)
+                                {
+                                    string cartDesc = (string)(result.cart_description ?? "");
+                                    var split = cartDesc.Split(' ');
+                                    if (split.Length >= 2)
+                                    {
+                                        int paymentId = Convert.ToInt32(split[0]);
+                                        int applicationId = Convert.ToInt32(split[1]);
+                                        string amount = (string)(result.cart_amount ?? "0");
+                                        string cardScheme = (string)(result.payment_info?.card_scheme ?? "");
+                                        string merchantId = Convert.ToString(ConfigurationManager.AppSettings["merchantID"]);
+                                        string orderId = (string)(result.cart_id ?? "");
+
+                                        entities.spUpdPaymentTransaction(paymentId, Convert.ToDecimal(amount), "EGP", true, null, cardScheme, tranRef, merchantId, orderId);
+                                        entities.ITB_UpdatePGLOG(paymentId, "Success");
+                                        entities.spUpdApplicationStatus(applicationId, 1, paymentId);
+                                    }
+                                }
+                                return Request.CreateResponse(HttpStatusCode.OK, new { status = "success" });
+                            }
+                            else
+                            {
+                                return Request.CreateResponse(HttpStatusCode.OK, new { status = "failed" });
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LoggingManager.LogException("VerifyPayment error: " + ex.Message, ex.StackTrace, DateTime.Now, "tranRef: " + tranRef + " | isTestMode: " + isTestMode, "SubmitController");
+                }
+
+                // PayTabs query failed — in test mode, check DB callback result; in prod, fail safe
+                if (isTestMode && transaction != null)
+                    return Request.CreateResponse(HttpStatusCode.OK, new { status = transaction.IsSuccessful ? "success" : "failed" });
+
+                return Request.CreateResponse(HttpStatusCode.OK, new { status = "failed" });
+            }
+        }
+
         /////////////////////////
         [HttpPost]
         //[ResponseType(typeof(Submit))]
@@ -126,9 +241,10 @@ namespace SelfServiceAPI.Controllers
                                         if (!lorFound) uploadMsg += "Letters of Recommendation are required, ";
                                         if (!personalPicFound) uploadMsg += "Personal Picture is required, ";
 
-                                        // English Assessment (if taught in english No)
+                                        // English Assessment (required if NOT taught in English AND NOT Coventry alumni)
                                         bool englishAssessmentFound = AttachmentCheck(lstRequest, "EnglishAssessment");
-                                        if ("false".Equals(applicationInfo.PostgraduateInfo.BachelorTaughtInEnglish, StringComparison.OrdinalIgnoreCase) && !englishAssessmentFound)
+                                        bool isCovAlumni = "Yes".Equals(applicationInfo.PostgraduateInfo.CovAlumni, StringComparison.OrdinalIgnoreCase);
+                                        if ("false".Equals(applicationInfo.PostgraduateInfo.BachelorTaughtInEnglish, StringComparison.OrdinalIgnoreCase) && !isCovAlumni && !englishAssessmentFound)
                                         {
                                             uploadMsg += "English Language Proficiency Certificate is required, ";
                                         }
@@ -298,7 +414,7 @@ namespace SelfServiceAPI.Controllers
                                                 cart_amount = Convert.ToDouble(amount.Value),
                                                 cart_currency = "EGP",
                                                 callback = callbackURL + "/api/Submit/payTabsResponse",
-                                                @return = ConfigurationManager.AppSettings["ApplicationLink"] + "/payment-success",
+                                                @return = ConfigurationManager.AppSettings["ApplicationLink"] + "/payment-success?ptId=" + paymentTransactionId.Value,
                                                 hide_shipping = true
                                             };
 
