@@ -114,7 +114,21 @@ namespace SelfServiceAPI.Controllers
                 if (transaction != null && transaction.IsSuccessful)
                     return Request.CreateResponse(HttpStatusCode.OK, new { status = "success" });
 
-                // Not in DB or not successful — verify with PayTabs directly
+                // Give the PayTabs callback time to complete before we query PayTabs ourselves.
+                // The callback (payTabsResponse) and this endpoint race — without this delay,
+                // both would run acceptance procedures, creating duplicate student IDs.
+                // See known-issues.md #8.
+                System.Threading.Thread.Sleep(3000);
+
+                // Re-check DB after delay — callback may have completed by now
+                // Use AsNoTracking to bypass EF cache and get fresh DB value
+                var updatedTransaction = entities.PaymentTransactions
+                    .AsNoTracking()
+                    .FirstOrDefault(pt => pt.AuthorizationNumber == tranRef);
+                if (updatedTransaction != null && updatedTransaction.IsSuccessful)
+                    return Request.CreateResponse(HttpStatusCode.OK, new { status = "success" });
+
+                // Still not successful — verify with PayTabs directly
                 try
                 {
                     string payTabsServerKey = ConfigurationManager.AppSettings["PayTabsServerKey"];
@@ -143,8 +157,12 @@ namespace SelfServiceAPI.Controllers
 
                             if (paymentStatus == "A") // Approved
                             {
-                                // Callback was missed — run acceptance procedures
-                                if (transaction != null && !transaction.IsSuccessful)
+                                // PayTabs confirms success. Only run recovery if the callback
+                                // genuinely hasn't processed this yet (re-read from DB to be sure).
+                                var freshCheck = entities.PaymentTransactions
+                                    .AsNoTracking()
+                                    .FirstOrDefault(pt => pt.AuthorizationNumber == tranRef);
+                                if (freshCheck != null && !freshCheck.IsSuccessful)
                                 {
                                     string cartDesc = (string)(result.cart_description ?? "");
                                     var split = cartDesc.Split(' ');
@@ -788,12 +806,110 @@ namespace SelfServiceAPI.Controllers
                                                     entities.spInsApplicationTestScore(profTestScoreId, insertedApplicationId,
                                                         testId, testTypeId > 0 ? testTypeId : (int?)null, dateTaken, score, string.Empty, null, null, null);
                                                 }
-                                                // "Other" exams: no TestId — kept in UserDefined PgProfExamsData
+                                                // "Other" exams: insert score/date into ApplicationTestScore using "OTHER" test code
+                                                if (testId == 0)
+                                                {
+                                                    var otherTest = entities.CODE_TEST.FirstOrDefault(t => t.CODE_VALUE_KEY == "OTHER" && t.STATUS == "A");
+                                                    if (otherTest != null)
+                                                    {
+                                                        decimal otherScore = 0;
+                                                        decimal.TryParse((string)(exam.score ?? "0"), out otherScore);
+                                                        DateTime? otherDate = null;
+                                                        string otherDateStr = (string)(exam.dateTaken ?? "");
+                                                        if (!string.IsNullOrEmpty(otherDateStr))
+                                                        {
+                                                            DateTime parsed;
+                                                            if (DateTime.TryParse(otherDateStr, out parsed)) otherDate = parsed;
+                                                        }
+                                                        var otherTestTypes = entities.Database.SqlQuery<int>(
+                                                            "SELECT TOP 1 tt.TestTypeId FROM CODE_TESTTYPE tt " +
+                                                            "JOIN Code_TestLink tl ON tt.CODE_VALUE = tl.Type " +
+                                                            "WHERE tl.Test = (SELECT CODE_VALUE FROM CODE_TEST WHERE TestId = @p0)",
+                                                            otherTest.TestId).ToList();
+                                                        int otherTestTypeId = otherTestTypes.Count > 0 ? otherTestTypes[0] : 0;
+
+                                                        entities.spInsApplicationTestScore(profTestScoreId, insertedApplicationId,
+                                                            otherTest.TestId, otherTestTypeId > 0 ? otherTestTypeId : (int?)null, otherDate, otherScore, string.Empty, null, null, null);
+                                                    }
+                                                }
                                             }
                                         }
                                         catch { /* JSON parse failure — data stays in UserDefined */ }
                                     }
                                     // ── END PG Professional Exams ─────────────────────────────────
+
+                                    // ── PG Professional Exam Notes → ITB_ApplicationNotes ─────────
+                                    // Each exam's "Additional Notes" field gets a note row (Office=ADMSS, NoteType=EXMNOT)
+                                    if (applicationInfo.PostgraduateInfo != null
+                                        && "true".Equals(applicationInfo.PostgraduateInfo.HasProfExam, StringComparison.OrdinalIgnoreCase)
+                                        && !string.IsNullOrEmpty(applicationInfo.PostgraduateInfo.PgProfExamsData))
+                                    {
+                                        try
+                                        {
+                                            var profExamsForNotes = Newtonsoft.Json.JsonConvert.DeserializeObject<List<dynamic>>(applicationInfo.PostgraduateInfo.PgProfExamsData);
+                                            int examNoteIndex = 0;
+                                            foreach (var exam in profExamsForNotes)
+                                            {
+                                                examNoteIndex++;
+                                                string examType = (string)(exam.examType ?? "");
+                                                string examOtherName = (string)(exam.examOtherName ?? "");
+                                                string examScore = (string)(exam.score ?? "");
+                                                string examDate = (string)(exam.dateTaken ?? "");
+                                                string examNotes = (string)(exam.notes ?? "");
+
+                                                // Resolve display name
+                                                int testIdCheck = 0;
+                                                int.TryParse(examType, out testIdCheck);
+                                                string displayName = examOtherName;
+                                                if (string.IsNullOrEmpty(displayName) && testIdCheck > 0)
+                                                {
+                                                    var testRecord = entities.CODE_TEST.FirstOrDefault(t => t.TestId == testIdCheck);
+                                                    displayName = testRecord != null ? testRecord.LONG_DESC : examType;
+                                                }
+                                                else if (string.IsNullOrEmpty(displayName))
+                                                {
+                                                    displayName = examType;
+                                                }
+
+                                                bool isOtherExam = testIdCheck == 0;
+
+                                                // "Other" exams: full details (name, score, date, notes) since score/date
+                                                // go to ApplicationTestScore under generic "OTHER" code
+                                                // Standard exams (GRE/GMAT): only additional notes (score/date already in ApplicationTestScore)
+                                                if (isOtherExam && (!string.IsNullOrEmpty(displayName) || !string.IsNullOrEmpty(examScore)))
+                                                {
+                                                    string noteText = "Exam " + examNoteIndex;
+                                                    if (!string.IsNullOrEmpty(displayName)) noteText += " | Type: " + displayName;
+                                                    if (!string.IsNullOrEmpty(examScore)) noteText += " | Score: " + examScore;
+                                                    if (!string.IsNullOrEmpty(examDate)) noteText += " | Date: " + examDate;
+                                                    if (!string.IsNullOrEmpty(examNotes)) noteText += " | Notes: " + examNotes;
+
+                                                    entities.Database.ExecuteSqlCommand(
+                                                        @"INSERT INTO ITB_ApplicationNotes (ApplicationId, Office, NoteType, Notes)
+                                                          VALUES (@p0, @p1, @p2, @p3)",
+                                                        insertedApplicationId, "ADMSS", "EXMNOT", noteText);
+                                                }
+                                                else if (!isOtherExam && !string.IsNullOrEmpty(examNotes))
+                                                {
+                                                    string noteText = "Exam " + examNoteIndex;
+                                                    if (!string.IsNullOrEmpty(displayName)) noteText += " | Type: " + displayName;
+                                                    noteText += " | Notes: " + examNotes;
+
+                                                    entities.Database.ExecuteSqlCommand(
+                                                        @"INSERT INTO ITB_ApplicationNotes (ApplicationId, Office, NoteType, Notes)
+                                                          VALUES (@p0, @p1, @p2, @p3)",
+                                                        insertedApplicationId, "ADMSS", "EXMNOT", noteText);
+                                                }
+                                            }
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            LoggingManager.LogException(
+                                                "Failed to insert PG Professional Exam Notes: " + ex.Message,
+                                                ex.StackTrace, DateTime.Now, "ApplicationId: " + insertedApplicationId, "SubmitController");
+                                        }
+                                    }
+                                    // ── END PG Professional Exam Notes ────────────────────────────
 
                                     // ── PG Bachelor Education → ApplicationEducation + Enrollment ─
                                     // PgBachelorUniversity (ID), PgBachelorDegree (DegreeId),
@@ -964,8 +1080,8 @@ namespace SelfServiceAPI.Controllers
 
                                         // -- PG: Employment (EmployerCompanyName, EmployerPosition, EmployerStartDate moved to ApplicationEmployment table above) --
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "EmploymentStatus", ColumnValue = pg.EmploymentStatus ?? "", ColumnType = 1, ColumnLabel = "EmploymentStatus", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "EmployerDuties", ColumnValue = pg.EmployerDuties ?? "", ColumnType = 1, ColumnLabel = "EmployerDuties", IsUploading = true, Description = "PostgraduateData" });
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "EmployerIdNumber", ColumnValue = pg.EmployerIdNumber ?? "", ColumnType = 1, ColumnLabel = "EmployerIdNumber", IsUploading = true, Description = "PostgraduateData" });
+                                        // EmployerDuties removed — stored in ApplicationEmployment.Remarks
+                                        // EmployerIdNumber removed — stored in ApplicationEmployment.Remarks (TKH Staff)
 
                                         // -- PG: Coventry Alumni & English Proficiency --
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "CovAlumni", ColumnValue = pg.CovAlumni ?? "", ColumnType = 1, ColumnLabel = "CovAlumni", IsUploading = true, Description = "PostgraduateData" });
@@ -983,7 +1099,7 @@ namespace SelfServiceAPI.Controllers
                                         // PgHasAcademicAward stays in UserDefined as a flag
                                         lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgHasAcademicAward", ColumnValue = pg.PgHasAcademicAward ?? "", ColumnType = 1, ColumnLabel = "PgHasAcademicAward", IsUploading = true, Description = "PostgraduateData" });
                                         // AcademicAwards and PgAcademicAwards moved to ITB_ApplicationNotes (above)
-                                        lstUserDefined.Add(new ApplicationUserDefinedInfo { ColumnName = "PgProfExamsData", ColumnValue = pg.PgProfExamsData ?? "", ColumnType = 1, ColumnLabel = "PgProfExamsData", IsUploading = true, Description = "PostgraduateData" });
+                                        // PgProfExamsData removed — GRE/GMAT in ApplicationTestScore, "Other" in ApplicationTestScore (OTHER code) + ITB_ApplicationNotes (EXMNOT)
                                         // -- PG: Academic Support --
                                         // Map AcademicSupport → DISABILITIES, AcademicSupportDetails → DISABILITIES_DESC
                                         // Override the existing DISABILITIES entry (sent as "False" from frontend XML)
