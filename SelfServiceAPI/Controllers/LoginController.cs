@@ -552,5 +552,11 @@ namespace SelfServiceAPI.Controllers
         {
             return Convert.ToInt32(ConfigurationManager.AppSettings["SessionTimeoutMinutes"] ?? "20");
         }
+
+        [HttpGet]
+        public int GetPGProgramId()
+        {
+            return Convert.ToInt32(ConfigurationManager.AppSettings["GraduateProgram"] ?? "6");
+        }
     }
 }

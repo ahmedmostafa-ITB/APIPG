@@ -214,12 +214,13 @@ namespace SelfServiceAPI.Controllers
                 using (ApplicationFormEntities entities = new ApplicationFormEntities())
                 {
                     int applicationFormSettingId = Convert.ToInt32(ConfigurationManager.AppSettings["ApplicationFormSettings"]);
+                    int pgProgramId = Convert.ToInt32(ConfigurationManager.AppSettings["GraduateProgram"]);
                     var sql = @"
                         SELECT DISTINCT c.CollegeId AS Id, ('School of ' + c.LONG_DESC) AS value
                         FROM PROGRAMOFSTUDY pos
                         INNER JOIN CODE_COLLEGE c ON c.CollegeId = pos.CollegeId
                         INNER JOIN ApplicationProgramSetting aps ON pos.ProgramOfStudyId = aps.ProgramOfStudyId
-                        WHERE pos.Program = 2
+                        WHERE pos.Program = @programId
                           AND pos.PopulationId = @populationId
                           AND pos.CollegeId IS NOT NULL
                           AND aps.ApplicationFormSettingId = @settingId
@@ -227,6 +228,7 @@ namespace SelfServiceAPI.Controllers
 
                     var results = entities.Database.SqlQuery<PGSchoolResult>(
                         sql,
+                        new System.Data.SqlClient.SqlParameter("@programId", pgProgramId),
                         new System.Data.SqlClient.SqlParameter("@populationId", populationId),
                         new System.Data.SqlClient.SqlParameter("@settingId", applicationFormSettingId)
                     ).ToList();
@@ -252,9 +254,10 @@ namespace SelfServiceAPI.Controllers
                 {
                     int applicationFormSettingId = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["ApplicationFormSettings"]);
                     int campusId = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["East"]);
+                    int pgProgramId = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["GraduateProgram"]);
 
                     // Use getMajorList but filter further by CollegeId
-                    var allMajors = entities.getMajorList(2, populationId, applicationFormSettingId, campusId).ToList();
+                    var allMajors = entities.getMajorList(pgProgramId, populationId, applicationFormSettingId, campusId).ToList();
 
                     // Filter by CollegeId via a direct SQL query on PROGRAM_OF_STUDY
                     var posIds = entities.Database.SqlQuery<int>(
